@@ -1,0 +1,1973 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Hide scrollbar for webkit browsers */
+::-webkit-scrollbar {
+    width: 0;  
+    height: 0; 
+}
+
+.loading-overlay {
+    position: fixed; /* Make sure it covers the entire screen */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+    display: flex; /* Center content inside the overlay */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears above other elements */
+    color: #98b39a;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 1.5rem;
+
+    display:none;
+}
+
+#myProgress {
+    width: 500px; /* Adjust width as needed */
+    background-color: #ddd; /* Background color for the progress bar container */
+    border-radius: 8px;
+    overflow: hidden; /* To contain the progress bar within rounded corners */
+}
+
+#myBar {
+    width: 1px; /* Example starting width, change dynamically as needed */
+    height: 20px;
+    background-color: #4caf50; /* Green progress bar */
+    border-radius: 8px; /* Optional rounded corners */
+    transition: width 0.3s ease; /* Smooth progress animation */
+}
+
+.incoming-container{
+    width:90%;
+    height: 85%;
+    display:flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    align-items: center;
+    background: transparent;
+    padding: 20px;
+    border: none;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.incoming-container .search-main-div{
+    width: 100%;
+    height: 10%;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    /* margin-top: 2rem; */
+}
+      
+.incoming-container .search-main-div .refer-no-div,
+.incoming-container .search-main-div .lname-search-div,
+.incoming-container .search-main-div .fname-search-div,
+.incoming-container .search-main-div .mname-search-div,
+.incoming-container .search-main-div .caseType-search-div,
+.incoming-container .search-main-div .agency-search-div,
+.incoming-container .search-main-div .status-search-div{
+    width:10%;
+    height: 100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+}
+
+.incoming-container .search-main-div .search-clear-btns-div{
+    width:15%;
+    height: 100%;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-weight: bold;
+    color:white;
+    margin-top: 15px;
+}
+
+.incoming-container .search-main-div .refer-no-div label,
+.incoming-container .search-main-div .lname-search-div label,
+.incoming-container .search-main-div .fname-search-div label,
+.incoming-container .search-main-div .mname-search-div label,
+.incoming-container .search-main-div .caseType-search-div label,
+.incoming-container .search-main-div .agency-search-div label,
+.incoming-container .search-main-div .status-search-div label{
+    margin-left: 0.25rem;
+    font-weight: bold;
+}
+
+.incoming-container .search-main-div .refer-no-div input,
+.incoming-container .search-main-div .lname-search-div input,
+.incoming-container .search-main-div .fname-search-div input,
+.incoming-container .search-main-div .mname-search-div input{
+    width: 100%;
+    border:2px solid #bfbfbf; 
+    border-radius: 0.375rem;
+    outline:none;
+}
+
+.incoming-container .search-main-div .caseType-search-div select,
+.incoming-container .search-main-div .agency-search-div select,
+.incoming-container .search-main-div .status-search-div select{
+    width:100%;
+    border: 2px solid #bfbfbf;
+    border-radius: 0.375rem;
+}
+
+.incoming-container .search-main-div .search-clear-btns-div #incoming-clear-search-btn{
+    width:100px;
+    height: 50%;
+    border-radius: 0.25rem;
+    background: #2f3e46;
+    opacity: 0.6;
+    pointer-events: none;
+    border:none;
+    color:white;
+}
+
+.incoming-container .search-main-div .search-clear-btns-div #incoming-search-btn{
+    width:100px;
+    height: 50%;
+    border-radius: 0.25rem;
+    background: #2f3e46;
+    border:none;
+    color:white;
+}
+
+/* ******************************************* */
+.incoming-container .incoming-table{
+    width: 100%;
+    height: 88%;
+    margin-top: 0.5rem;
+    overflow-y: scroll;
+}
+
+.dataTables_filter {
+    display: none; /* Hide the search input box */
+}
+
+/* background-color: #b0bec5 !important; */
+.incoming-container .incoming-table .text-center th{
+    background-color: #b0bec5 !important;
+
+}
+
+.incoming-container .incoming-table .text-center th:nth-child(1){
+    width:20%;
+    background: #e6e6e6;
+}
+
+.incoming-container .incoming-table .text-center th:nth-child(2){
+    width:17%;
+    background: #e6e6e6;
+}
+
+.incoming-container .incoming-table .text-center th:nth-child(3){
+    width:7%;
+    background: #e6e6e6;
+}
+
+.incoming-container .incoming-table .text-center th:nth-child(4){
+    width:15%;
+    background: #e6e6e6;
+}
+
+.incoming-container .incoming-table .text-center th:nth-child(5){
+    width:18%;
+    background: #e6e6e6;
+}
+
+.incoming-container .incoming-table .text-center th:nth-child(6){
+    width:10%;
+    background: #e6e6e6;
+}
+
+.incoming-container .incoming-table .text-center th:nth-child(7){
+    width:7%;
+    background: #e6e6e6;
+}
+
+#incoming-tbody{
+    overflow-y: scroll;
+}
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming{
+    /* height: 51px; */
+    height: 80px !important;
+    width: 100%;
+}
+
+/* .incoming-container .incoming-table #incoming-tbody .tr-incoming p{
+    margin:0;
+} */
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-refer-no,
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-patname{
+    font-size: 11pt;
+}
+
+#dt-patname{
+    position: relative;
+
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items:  flex-start;
+
+    font-weight: bold;
+}
+
+#dt-patname #pat-address-span,
+#dt-patname #pat-age-span{
+    font-size: 0.75rem;
+    font-weight: normal;
+}
+
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-refer-no{
+    border-left: 1px solid #b2b3b3;
+    font-size: 11pt;
+}
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-type{
+    height: 100%;
+    font-weight: bold;
+    text-align: center;
+    font-size: 11pt;
+    overflow-y: auto;
+
+}
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-phone-no{
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-phone-no div{
+    width: 100%;
+    height: 100% !important;
+    overflow-y: scroll;
+}
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-phone-no div::-webkit-scrollbar {
+    width: 5px !important; 
+    height: 5px !important; 
+}
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-phone-no div::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.5) !important; 
+    border-radius: 4px !important; 
+}
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-phone-no div::-webkit-scrollbar-track {
+    background-color: #f1f1f1 !important; 
+}
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-phone-no div p{
+    font-size: 10pt;
+    margin-left: 0.25rem;
+    padding:0;
+    margin:0;
+}
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-phone-no div p:nth-child(1){
+    margin-top:10px;
+}
+
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-turnaround{
+    /* display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: left; */
+    position:relative;
+    overflow: scroll;
+    transition-property: all;
+    transition-timing-function: ease !important;
+    /* height: 100% !important; */
+
+}
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-turnaround i{
+    position:absolute;
+    bottom:0;
+    right:0;
+    border:2px solid #a4b7c1;
+    padding:5px;
+    font-size: 0.75rem; 
+    line-height: 1rem; 
+    border-radius: 0.25rem;
+    background: #d1dbe0;
+    cursor: pointer;
+    color:gray;
+}
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-turnaround i:hover{
+    opacity: 1;
+}
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-turnaround .breakdown-div{
+    display:none;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    width:100%;
+    height: 60px;
+}
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-turnaround p,
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-turnaround p .breakdown-div p{
+    font-size: 0.85rem; 
+    /* line-height: 1rem;  */
+    width: 95%;
+    border-bottom: 1px solid #bfbfbf; 
+    /* margin-top: 0.25rem; */
+    margin:0;
+    padding:0;
+}
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-turnaround p{
+}
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-turnaround p:nth-child(1){
+    margin-top: 0;
+}
+
+.referred-time-lbl, .reception-time-lbl, .sdn-proc-time-lbl{
+    margin-top:5px;
+}
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-stopwatch #stopwatch-sub-div{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 11pt;
+}
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-status{
+    font-weight: bold;
+    text-align: center;
+    background: #6b727f;    
+    border-right: 1px solid #b2b3b3;
+    /* color:#cc9900; */
+    font-size: 11pt;
+}
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-status p{
+    color:#b0bec5;
+}
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-status div{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-status div .pencil-btn{
+    cursor: pointer;
+}
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-status div .pencil-btn:hover{
+    color:white;
+}
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-cancel{
+
+}
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-cancel button{
+    border:none;
+    color:black;
+    padding: 5px;
+    border-radius: 5px;
+    background: #ffcc33;
+    opacity: 0.7;
+    border:2px solid #cc9900;
+}
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-cancel button:hover{
+    background: #ffc107;
+    opacity: 1;
+}
+
+/* .custom-modal {
+    max-width: 800px
+} */
+
+
+.pendingModalSize{
+    min-width: 1400px !important;
+}
+
+#pendingModal .modal-content {
+    background: white;
+    /* border-radius: 0.25rem; */
+    /* z-index: 20; */
+    /* width:100%; */
+    /* height: 100%; */
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* justify-content: start; */
+    /* align-items: start; */
+    /* overflow-y: auto;  */
+}
+
+#pendingModal .modal-content .modal-header,
+#pendingModal .modal-content .modal-footer{
+    height: 70px;
+    width:100%;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background: #b0bec5;
+    font-weight: bold;
+}
+
+#pendingModal .modal-content .modal-footer{
+    height: 60px;
+    justify-content: flex-end;
+    margin:0;
+    padding:0;
+}
+
+#pendingModal .modal-content .modal-header{
+    justify-content: space-between;
+}
+
+#pendingModal .modal-content .modal-header button{
+    background: #198754;
+    width:300px;
+    color:white;
+    border-radius: 5px;
+    /* text-align: center; */
+    border:none;
+    /* margin-left:3%; */
+    font-size: 1.1rem;
+    padding:0;
+}
+
+
+#pendingModal .modal-content .sub-header{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding:5px;
+    border-bottom: 3px solid #1f292e;
+}
+
+#pendingModal .modal-content .sub-header label{ 
+    background: #0587ca;
+    width:10%;
+    justify-items: center;
+    color:white;
+    border-radius: 0.125rem;
+    text-align: center;
+}
+
+#pendingModal .modal-content .sub-header div{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width:25%;
+}
+
+#pendingModal .modal-content .sub-header div button{
+    background: #0587ca;
+    width:45%;
+    justify-content: center;
+    color:white;
+    border-radius: 0.125rem;
+    text-align: center;
+    border:none;
+}
+
+
+#pendingModal .modal-content .modal-body-incoming{
+    width:100%;
+    height: 700px;
+    margin-top:2%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    /* background: #c2cfd6; */
+    background: white;
+    padding:10px;
+    
+    /* 
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center; 
+    */
+}
+
+#pendingModal .modal-content .modal-body-incoming .container{
+    width: 100%;
+    height: 100%;
+
+    overflow-y: auto;
+
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Specific scrollbar styling for the container */
+#pendingModal .modal-content .modal-body-incoming .container::-webkit-scrollbar {
+    width: 8px; /* Set the width of the scrollbar */
+}
+
+#pendingModal .modal-content .modal-body-incoming .container::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.5); /* Set scrollbar color */
+    border-radius: 4px; /* Make the scrollbar rounded */
+}
+
+#pendingModal .modal-content .modal-body-incoming .container::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Set scrollbar track color */
+}
+
+
+#pendingModal .modal-content .modal-body-incoming .container .left-div{
+    width: 40%;
+    height: 100%;
+
+    display: block;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div{
+    width: 60%;
+    height: 100%;
+
+    display: block;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .left-div .left-sub-div,
+#pendingModal .modal-content .modal-body-incoming .container .right-div .right-sub-div,
+#pendingModal .modal-content .modal-body-incoming .container .right-div .right-sub-div-2{
+    width: 100%;
+    height: 50px;
+    border: 1px solid #c4cfd4;
+    display: flex; 
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box; /* Ensure padding and border are included in the width and height */
+}
+#pendingModal .modal-content .modal-body-incoming .container .right-div #case-no-main-div,
+#pendingModal .modal-content .modal-body-incoming .container .right-div #pat-age-main-div{
+    height:75px;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .left-div .left-sub-div h4{
+    width: 100%;
+    height: 100%;
+    background: #4c5e67;
+
+    margin:0;
+    padding:0;
+
+    display: flex; 
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color:white;
+}
+
+
+#pendingModal .modal-content .modal-body-incoming .container .left-div .left-sub-div label,
+#pendingModal .modal-content .modal-body-incoming .container .right-div .right-sub-div label{
+    width: 40%;
+    background: #b0bec5;
+    height: 100%;
+    font-size: 10pt;
+    font-weight: bold;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px;
+}
+
+/* #pendingModal .modal-content .modal-body-incoming .container .right-div .right-sub-div label{
+    background: #a5d6a7;
+} */
+
+#pendingModal .modal-content .modal-body-incoming .container .left-div .left-sub-div span,
+#pendingModal .modal-content .modal-body-incoming .container .right-div .right-sub-div span{
+    margin-left: 10px;
+    font-size: 10pt;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div .right-sub-div select{
+    width: 55%;
+    margin-left:10px;
+    height: 80%;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+}
+
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div .right-sub-div textarea {
+    height: 70%;
+    width: 95%;
+    resize: none;
+    border-radius: 5px;
+
+    pointer-events: auto;       /* Allow interactions like selecting text */
+    background-color: #f9f9f9;  /* Optional: light background to indicate readonly */
+    overflow: auto;             /* Show scrollbars when content is long */
+    white-space: pre-wrap;      /* Keep line breaks and wrap text */
+}
+
+/* Optional: make it visually consistent with readonly state */
+#pendingModal .modal-content .modal-body-incoming .container .right-div .right-sub-div textarea:read-only {
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-a,
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-b{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-a #right-sub-div-a-2{
+    border:1px solid #c5cfd5;
+}
+
+#right-sub-div-b-outgoing{
+    height: 150px;
+}
+
+#right-sub-div-b-outgoing .right-sub-div-outgoing{
+    width: 100%;
+    height: 50%;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#right-sub-div-b-outgoing .right-sub-div-outgoing:nth-child(1){
+    border-bottom: 2px solid #c5cfd5;
+}
+
+#right-sub-div-b-outgoing .right-sub-div-outgoing label{
+    background: #b1bfc5;
+    height: 100%;
+    width: 40%;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding:5px;
+}
+
+#right-sub-div-b-outgoing .right-sub-div-outgoing span{
+    height: 100%;
+    width: 55%;
+    font-size: 0.8rem;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-c{
+    width: 100%;
+    height: auto;
+    margin-top:1.5%;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: top;
+    background: #c2cfd6;
+    border-radius: 5px;
+
+    display: none;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-c .interdept-div .status-form-div,
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e .interdept-div-v2 .status-form-div{
+    width:100%;
+    height: 50px;
+    border-radius: 0.125rem;
+    background: #5c7a8a;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14pt;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-c .interdept-div .status-form-div label,
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e .interdept-div-v2 .status-form-div label{
+    margin-left:10px;
+    color:white;
+    font-weight: bold;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-c .interdept-div #inter-dept-lbl{
+    margin-top:1%;
+    margin-left:1%;
+    font-size: 1rem;
+    color:black;
+    font-weight: 600;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-c .interdept-div select{
+    margin-top:0.5%;
+    margin-left:1%;
+    width:40%;
+    outline:none;
+    border:2px solid #bfbfbf;
+    border-radius: 5px;
+    height: 30px;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-c .interdept-div .int-dept-btn-div{
+    width:100%;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top:25px;
+    padding:10px;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-c .interdept-div .int-dept-btn-div button{
+    width:150px;
+    height: 30px;
+    border:none;
+    background: #0587ca;
+    border-radius: 3px;
+    color:white;
+    font-weight: 600;
+    margin-right:1%;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-c .interdept-div .int-dept-btn-div button{
+    opacity:0.3;
+    pointer-events: none;
+}
+
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-a #right-sub-div-a-1{
+    width: 50%;
+    height: 100%;
+}
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-a #right-sub-div-a-2{
+    width: 50%;
+    height: 100%;
+
+  
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-a #right-sub-div-a-2 .right-sub-div-2{
+    width: 100%;
+    height: 100px;
+    border: 1px solid #c4cfd4;
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    box-sizing: border-box; 
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div .right-sub-div-2{
+    height: 150px;
+    border: 1px solid #c4cfd4;
+    display: flex; 
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box; 
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div .right-sub-div-2 span{
+    width: 100%;
+    text-align: left;
+    font-weight: bold;
+    margin-left:10px;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div .right-sub-div-2 h1{
+    font-size: 1.2rem;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div .right-sub-div-2 h1 #icd-span-code{
+    color:#cc5200;
+    font-size: 1.2rem;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div .right-sub-div-2 h1 #icd-span-title{
+    color:blue;
+    font-size: 1.2rem;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div .right-sub-div-2 .icd-input-main-div{
+    width: 100%;
+    height: auto;
+    display: flex; 
+    flex-wrap: wrap;
+    /* gap:5px; */
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div .right-sub-div-2 .icd-input-main-div div{
+    width: 45%;
+    height: 30px;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div .right-sub-div-2 .icd-input-main-div div label{
+    height: 100%;
+    width: 20%;
+    background: #b0bec5;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div .right-sub-div-2 .icd-input-main-div div label i {
+    font-size: 1.5rem;
+    color:white;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div .right-sub-div-2 .icd-input-main-div div input{
+    outline: none;
+    border: 1px solid #c4cfd4;
+    width: 80%;
+    height: 100%;
+    text-align: center;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div .right-sub-div-2 .icd-input-main-div .icd-11{
+    display:none;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div .right-sub-div-2 select{
+    width: 95%;
+    height: 80px;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #c4cfd4;
+    cursor: pointer;
+    display:none;
+    margin-top:5px;
+}
+
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #subjective-id,
+#pendingModal .modal-content .modal-body-incoming .container .right-div #objective-id,
+#pendingModal .modal-content .modal-body-incoming .container .right-div #assessment-id,
+#pendingModal .modal-content .modal-body-incoming .container .right-div #plan-id,
+#pendingModal .modal-content .modal-body-incoming .container .right-div #remarks-id{
+    height: 150px;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box; /* Ensure padding and border are included in the width and height */
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #subjective-id label,
+#pendingModal .modal-content .modal-body-incoming .container .right-div #objective-id label,
+#pendingModal .modal-content .modal-body-incoming .container .right-div #assessment-id label,
+#pendingModal .modal-content .modal-body-incoming .container .right-div #plan-id label,
+#pendingModal .modal-content .modal-body-incoming .container .right-div #remarks-id label{
+    width: 100%;
+    height: auto;
+    font-size: 10pt;
+    font-weight: bold;
+    display: block;
+    padding: 0;
+    background: transparent;
+    margin-left: 10px;
+
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #subjective-id textarea,
+#pendingModal .modal-content .modal-body-incoming .container .right-div #objective-id textarea,
+#pendingModal .modal-content .modal-body-incoming .container .right-div #assessment-id textarea,
+#pendingModal .modal-content .modal-body-incoming .container .right-div #plan-id textarea,
+#pendingModal .modal-content .modal-body-incoming .container .right-div #remarks-id textarea{
+    font-size: 0.8rem;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .left-div .left-sub-div #pat-id,
+#pendingModal .modal-content .modal-body-incoming .container .right-div .right-sub-div #case-no{
+    width:55%;
+    height: 90%;
+    background: #a5d6a7;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    font-size: 14pt;
+}
+
+
+#pendingModal .modal-content .modal-body-incoming #approval-form{
+    background: #c2cfd6;
+    width:100%;
+    height: 650px;
+    border-radius: 0.25rem;
+    display:flex;
+    flex-direction: column;
+    display:none;
+}
+
+#pendingModal .modal-content #approval-form #approval-title-div{
+    width:100%;
+    background: #0587ca;
+    color:white;
+    font-weight: bold;
+    text-align: left;
+    line-height: 30px;
+    padding-left: 10px; 
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    padding:5px;
+    padding-left: 15px;
+}
+
+#pendingModal .modal-content #approval-details{
+    display:none;    
+}
+
+#pendingModal .modal-content #approval-form .approval-main-content,
+#pendingModal .modal-content #approval-details .approval-main-content{
+    display:flex;
+    flex-direction: column;
+    height: 85%;
+
+}
+
+#pendingModal .modal-content #approval-form .approval-main-content #case-cate-title,
+#pendingModal .modal-content #approval-form .approval-main-content #admin-action-title,
+#pendingModal .modal-content #approval-details .approval-main-content #case-cate-title,
+#pendingModal .modal-content #approval-details .approval-main-content #admin-action-title{
+    margin-left: 2%;
+    font-weight: 600;
+    margin-top:1%
+}
+
+#pendingModal .modal-content #approval-form .approval-main-content #approve-classification-select,
+#pendingModal .modal-content #approval-details .approval-main-content #approve-classification-select-details{
+    width:95%;
+    margin-left: 2%;
+    border-radius: 0.125rem;
+    outline:none;
+}
+
+#pendingModal .modal-content #approval-form .approval-main-content #eraa,
+#pendingModal .modal-content #approval-details .approval-main-content #eraa-details{
+    border:2px solid #bfbfbf;
+    width: 95%;
+    height: 250px;
+    margin-left: 1rem;
+    resize: none;
+    outline:none;
+    margin-bottom:1%;
+}
+
+#pendingModal .modal-content #approval-form .approval-main-content #pre-text{
+    /* width:95%; */
+    height: 40%;
+    margin-left: 1rem;
+    font-weight: bold;
+    display:flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: left;
+
+}
+
+#pendingModal .modal-content #approval-form .approval-main-content #pre-text .pre-emp-text{
+    cursor: pointer;
+    width:auto;
+}
+
+#pendingModal .modal-content #approval-form #approval-form-btns{
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    margin-top: 0.5rem;
+    /* border-top: 3px solid #bfbfbf; */
+}
+
+#pendingModal .modal-content #approval-form #approval-form-btns button{
+    margin:1%;
+    background: #0587ca;
+    font-weight: 600;
+    border-radius: 0.125rem;
+    color:white;
+    padding:7px;
+    border:none;
+    pointer-events:none;
+    opacity: 0.3;
+}
+
+#pendingModal .modal-content #approval-form #approval-form-btns button:hover{
+    background: #046595;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-d,
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e{
+    width: 100%;
+    height: 200px;
+    border: 2px solid #4c5e67;
+    display:none;
+    /* margin-top:2%; */
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e{
+    height: 220px;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-d .appr-det-sub-div{
+    width: 100%;
+    height: 50px;
+    border: 1px solid #c4cfd4;
+    display: flex; 
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box; 
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-d .appr-det-sub-container{
+    width: 100%;
+    height:auto;
+
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap:wrap;
+    margin-top:-1%;
+
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-d .appr-det-sub-div label{
+    width: 40%;
+    background: #b0bec5;
+    height: 100%;
+    font-size: 10pt;
+    font-weight: bold;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-d .appr-det-sub-div span{
+    margin-left: 10px;
+    font-size: 10pt;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-d #approval-details-div{
+    width: 100%;
+    padding:5px;
+    background: #4c5e67;
+    color:white;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-d .appr-det-sub-div{
+    width: 50%;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-d .appr-det-sub-div:nth-child(1){
+    border-right:3px solid #4c5e67;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-d .appr-det-sub-div:nth-child(3){
+    width: 100%;
+    height: 112px;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-d .appr-det-sub-div:nth-child(3) label{
+    width: 20%;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-d .appr-det-sub-div:nth-child(2) select{
+    width:150px;
+    height: 40px;
+    padding:5px;
+    text-align: center;
+    background: #2f3e46;
+    border-radius: 5px; 
+    font-size: 11pt;
+    color:white;
+    margin-left: 10px;
+    border:none;
+    background: #ffc107;
+    /* color: black; */
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    margin-right:5px;
+    /* display:none; */
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-d .appr-det-sub-div:nth-child(2) i{
+    color: #198754;
+    border:none;
+    border-radius: 5px;
+    padding:5px;
+    font-size: 20pt;
+    opacity: 0.3;
+    cursor: pointer;
+    pointer-events: none;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-d .appr-det-sub-div:nth-child(2) i:hover{
+    opacity: 1;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e .interdept-div-v2 #inter-dept-stat-form-div{
+    margin-top:0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e .interdept-div-v2 .seen-div{
+    width:100%;
+    height: 40px;
+    margin-top:10px;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e .interdept-div-v2 .seen-div label{
+    color:black;
+    font-weight: bold;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e .interdept-div-v2 .seen-div #seen-by-lbl{
+    margin-left: 30px;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e .interdept-div-v2 .seen-div #seen-date-lbl{
+    margin-right: 30px;
+}
+
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e .interdept-div-v2 .seen-div label span{
+    font-weight: normal;
+    font-style: italic;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e .interdept-div-v2 .int-dept-btn-div-v2{
+    width:100%;
+    /* height: 50px; */
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top:25px;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e .interdept-div-v2 .int-dept-btn-div-v2{
+    margin-top:0;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e .interdept-div-v2 .int-dept-btn-div-v2 button{
+    width:170px;
+    height: 30px;
+    border:none;
+    background: #0587ca;
+    border-radius: 3px;
+    color:white;
+    font-weight: 600;
+    margin-right:1%;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e .interdept-div-v2 .int-dept-btn-div-v2 #final-approve-btn{
+    width:200px;
+    display:none;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e .interdept-div-v2 .int-dept-btn-div-v2 button{
+    width: 100px;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e .interdept-div-v2 .int-dept-btn-div-v2 #reject-details-btn{
+    width: 150px;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e .interdept-div-v2 #v2-stat,
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e .interdept-div-v2 #v2-update-stat{
+    margin-top:20px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+
+    width:100%;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e .interdept-div-v2 #v2-stat #span-time{
+    color:black;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e .interdept-div-v2 #v2-stat #span-dept{
+    /* background: #171f23; */
+    padding: 5px;
+    border-radius: 5px;
+    /* color:#ffffff; */
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e .interdept-div-v2 #v2-stat #span-update{
+    font-size: 0.7rem;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e .interdept-div-v2 #v2-update-stat{
+    margin-top:0;
+
+    color:black;
+    font-weight: 500;
+    opacity: 0.3;
+    font-size: 0.9rem;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e .interdept-div-v2 #rejection-details-text{
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    display: none;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e .interdept-div-v2 #rejection-details-text p{
+    width: 90%;
+    height: 90%;
+    border:3px solid #c4cfd4;
+    text-align: center;
+    padding:10px;
+    border-radius: 10px;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-d-outgoing{
+    width: 100%;
+    height: 300px;
+
+    border:2px solid #B1BEC4 !important;
+    margin-top:20px;
+    border-radius: 5px;
+
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-d-outgoing #approval-details-div{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background: #B1BEC4;
+    font-weight: 600;
+
+    color:white;
+}
+
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-d-outgoing .appr-det-sub-form-outgoing{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-d-outgoing .appr-det-sub-form-outgoing div{
+    width: 50%;
+    height: 100%;
+    border:1px solid #666666;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-d-outgoing .appr-det-sub-form-outgoing div label,
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-d-outgoing .appr-det-sub-form-outgoing div span{
+    background: #B1BEC4;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-weight: 600;
+    color:black;
+    padding-left:20px;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-d-outgoing .appr-det-sub-form-outgoing div span{
+    background: none;
+    color:black;
+    padding-left:20px;
+}
+
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-d-outgoing .appr-det-sub-div-details{
+    width: 100%;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    border-radius: 10px;
+    padding:10px;
+    margin-top:20px;
+}
+
+#pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-d-outgoing .appr-det-sub-div-details label{
+    font-weight: 600;
+}
+
+#pendingModal .modal-content .modal-footer{
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+
+    padding:0 !important;
+    margin:0 !important;
+}
+
+#pendingModal .modal-content .modal-footer #print-modal-btn-incoming{
+    margin:0 !important;
+}
+
+#pendingModal .modal-content .modal-footer #close-modal-btn-incoming{
+    margin:0 !important;
+    margin-right:20px !important;
+}
+
+/* #pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-e .interdept-div-v2{
+    width: 100%;
+    height: 180px;
+    margin-top:1.5%;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: top;
+    background: #c2cfd6;
+    border-radius: 5px;
+    display:none;
+} */
+
+/* #pendingModal .modal-content .modal-body-incoming .right-div{
+    width: 60%;
+    height: 100%;
+    border:1px solid red;l
+
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+#pendingModal .modal-content .modal-body-incoming .right-div .right-sub-div:nth-child(1){
+    margin-top:50px;
+}
+
+#pendingModal .modal-content .modal-body-incoming .right-div .right-sub-div{
+    width: 85%;
+    height: 50px;
+    border:1px solid #c4cfd4;
+
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+} */
+
+/* #pendingModal .modal-content .modal-body-incoming .right-div .right-sub-div label{
+    width: 40%;
+    background: #b0bec5;
+    height: 100%;
+    font-size: 10pt;
+    font-weight: bold;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px;
+}
+
+#pendingModal .modal-content .modal-body-incoming .right-div .right-sub-div span{
+    margin-left: 5px;
+    font-size: 10pt;
+} */
+
+
+#myModal-incoming .modal-content{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    /* width: 100%;
+    height: 100%; */
+}
+
+#myModal-incoming .modal-header, #myModal-incoming .modal-title-div{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+#myModal-incoming .modal-header{
+    height: 40px;
+    width: 100%;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background: #1f292e;
+}
+
+#myModal-incoming .modal-header .modal-title-div{
+    color:white;
+}
+
+
+#myModal-incoming .modal-header .modal-title-div h5{
+    margin:0;
+    padding:0;
+    margin-left:10px;   
+}
+
+
+#myModal-incoming .modal-header .modal-title-div #modal-icon{
+    color:yellow;
+}
+
+
+#myModal-incoming .modal-header button{
+    font-size: 1.875rem; 
+    line-height: 2.25rem;
+    border:none;
+    background: transparent;
+}
+
+
+#myModal-incoming .modal-body-main{
+    margin-left: 1.75rem;
+}
+
+
+#myModal-incoming .modal-content #modal-body-incoming{
+    width: 100%;
+    height: 50px;
+    margin-left: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+}
+
+#myModal-incoming .modal-footer{
+    width: 90%;
+    height: 50px;
+    display:flex;
+    flex-direction:row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+
+#myModal-incoming .modal-footer button{
+    background: #3a82f6;
+    color:white;
+    font-weight: bold;
+
+    border: none;
+    padding-top: 5px; /* 8px */
+    padding-bottom: 5px; /* 8px */
+    padding-left: 1rem; /* 16px */
+    padding-right: 1rem; /* 16px */
+    border-radius: 0.25rem;
+
+    margin-right:-10px;
+    margin-top:-5px;
+}
+
+#myModal-incoming .modal-footer button:nth-child(1){
+    margin-right:20px;
+}
+
+
+/* .pat-full-name-div{
+    border:1px solid red;
+} */
+
+.sensitive-case-btn{
+    width: 95%;
+    border-radius: 5px;
+    background: #2f3e46;
+    color:white;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    outline: none;
+    border:none;
+    padding: 5px;
+
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    position:absolute;
+    left: 50%; /* Move the button to the center horizontally */
+    top: 50%; /* Move the button to the center vertically */
+    transform: translate(-50%, -50%); /* Center the button precisely */
+    z-index: 1;
+}
+
+.sensitive-case-btn i{
+    margin-right:10px;
+}
+
+#sensitive-pw{
+    width:95%;
+    height: 90%;
+    outline:none;
+    font-size: 1.3rem;
+    background: #e6e6e6;
+    padding: 5px;
+    border:none;
+    border-radius: 5px;
+    border:2px solid #bfbfbf;
+}
+
+@media only screen and (max-height: 800px){
+    .incoming-container{
+
+    }
+
+    .incoming-container .search-main-div{
+        width: 95%;
+    }
+
+    .incoming-container .search-main-div .refer-no-div label,
+    .incoming-container .search-main-div .lname-search-div label,
+    .incoming-container .search-main-div .fname-search-div label,
+    .incoming-container .search-main-div .mname-search-div label,
+    .incoming-container .search-main-div .caseType-search-div label,
+    .incoming-container .search-main-div .agency-search-div label,
+    .incoming-container .search-main-div .status-search-div label{
+        font-size: 10pt;
+    }
+
+    .incoming-container .search-main-div .refer-no-div input,
+    .incoming-container .search-main-div .lname-search-div input,
+    .incoming-container .search-main-div .fname-search-div input,
+    .incoming-container .search-main-div .mname-search-div input{
+        font-size: 10pt;
+    }
+
+    .incoming-container .search-main-div .caseType-search-div select,
+    .incoming-container .search-main-div .agency-search-div select,
+    .incoming-container .search-main-div .status-search-div select{
+        font-size: 10pt;
+    }
+
+    .incoming-container .search-main-div .search-clear-btns-div #incoming-clear-search-btn{
+        width:60px;
+    }
+
+    .incoming-container .search-main-div .search-clear-btns-div #incoming-search-btn{
+        width:60px;
+    }
+
+    /* #b0bec5 */
+    .incoming-container .incoming-table .text-center th{
+        background-color: #b0bec5 !important;
+        font-size: 10pt;
+    }
+
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming{
+        height: 50px !important;
+    }
+
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-refer-no,
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-patname{
+        font-size: 8pt;
+    }
+
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-type{
+        font-size: 8pt;
+    }
+
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-phone-no div label{
+        font-size: 8pt;
+    }
+
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-turnaround label{
+        font-size: 8pt;
+    }
+
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-stopwatch{
+        font-size: 8pt;
+    }
+
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-status{
+        font-size: 8pt;
+    }
+
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-turnaround{
+        padding:0;
+        margin:0;
+        height: 100%;
+        display:flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: left;
+    }
+
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-turnaround .breakdown-div{
+        display:none;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: left;
+        padding:0;
+        margin:0;
+    }
+
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-turnaround label{
+    }
+
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-turnaround .breakdown-div label{
+        margin:0;
+    }
+
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-phone-no div{
+        height: 50px;
+    }
+
+
+    .pendingModalSize{
+        min-width: 1000px !important;
+    }
+
+    #pendingModal .modal-content .modal-body-incoming{
+        height: 500px;
+    }
+
+     #pendingModal .modal-content #approval-form .approval-main-content #eraa,
+    #pendingModal .modal-content #approval-details .approval-main-content #eraa-details{
+        height: 150px;
+    }
+/*
+    #pendingModal .modal-content #approval-form .approval-main-content #pre-text{
+        height: 150px;
+        border:2px solid blue;
+    } */
+
+    #pendingModal .modal-content #approval-form .approval-main-content #pre-text .pre-emp-text{
+        font-size: 10pt;
+    }
+
+    /* #pendingModal .modal-content #approval-form .approval-main-content,
+    #pendingModal .modal-content #approval-details .approval-main-content{
+        height: 400px;
+        border:1px solid red;
+    } */
+
+    #pendingModal .modal-content .modal-body-incoming #approval-form{
+        height: 500px;
+    }
+
+    #pendingModal .modal-content .modal-body-incoming .container .left-div .left-sub-div,
+    #pendingModal .modal-content .modal-body-incoming .container .right-div .right-sub-div{
+        width: 100%;
+        height: 50px;
+    }
+
+
+    
+
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-phone-no div p{
+        font-size: 0.6rem;
+    }
+
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-turnaround p,
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-turnaround p .breakdown-div p{
+        font-size: 0.7rem;
+    }
+
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-stopwatch #stopwatch-sub-div{
+        font-size: 0.75rem;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    /* Styles for mobile phones, usually in portrait orientation */
+    
+    .incoming-container{
+        height: 90%;
+    }
+
+    .incoming-container h1{
+        font-size: 1.4rem;
+    }
+    .incoming-container .search-main-div{
+        height: 25%;
+        flex-wrap: wrap;
+        margin-bottom:40px;
+    }
+          
+    .incoming-container .search-main-div .refer-no-div,
+    .incoming-container .search-main-div .lname-search-div,
+    .incoming-container .search-main-div .fname-search-div,
+    .incoming-container .search-main-div .mname-search-div,
+    .incoming-container .search-main-div .caseType-search-div,
+    .incoming-container .search-main-div .agency-search-div,
+    .incoming-container .search-main-div .status-search-div{
+        width:30%;
+        height: 30%;
+    }
+
+    .incoming-container .search-main-div .refer-no-div label,
+    .incoming-container .search-main-div .lname-search-div label,
+    .incoming-container .search-main-div .fname-search-div label,
+    .incoming-container .search-main-div .mname-search-div label,
+    .incoming-container .search-main-div .caseType-search-div label,
+    .incoming-container .search-main-div .agency-search-div label,
+    .incoming-container .search-main-div .status-search-div label{
+        font-size: 0.7rem;
+    }
+
+    .incoming-container .search-main-div .refer-no-div input,
+    .incoming-container .search-main-div .lname-search-div input,
+    .incoming-container .search-main-div .fname-search-div input,
+    .incoming-container .search-main-div .mname-search-div input{
+        height: 30px;
+        font-size: 0.7rem;
+    }
+
+    .incoming-container .search-main-div .caseType-search-div select,
+    .incoming-container .search-main-div .agency-search-div select,
+    .incoming-container .search-main-div .status-search-div select{
+        height: 30px;
+        font-size: 0.7rem;
+    }
+
+    .incoming-container .search-main-div .search-clear-btns-div{
+        width: 200px;
+        height: 35px;
+    }
+
+    .incoming-container .search-main-div .search-clear-btns-div #incoming-clear-search-btn{
+        width:90px;
+        height: 80%;
+        font-size: 0.8rem;
+    }
+    
+    .incoming-container .search-main-div .search-clear-btns-div #incoming-search-btn{
+        width:90px;
+        height: 80%;
+        font-size: 0.8rem;
+    }
+
+    .incoming-container .incoming-table .text-center th{
+        font-size: 0.7rem;
+        margin:0;
+        padding:5px;
+        text-align: center;
+        line-height: 10px;
+    }
+
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming{
+        height: 30px !important;
+    }
+
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-refer-no,
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-patname{
+        font-size: 0.65rem;
+        text-wrap: nowrap;
+    }
+
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-phone-no{
+        text-wrap: nowrap;
+    }
+
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-phone-no div p{
+        font-size: 0.65rem;
+    }
+    
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-turnaround p,
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-turnaround p .breakdown-div p{
+        font-size: 0.65rem; 
+        text-wrap: nowrap;
+    }
+    .incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-stopwatch{
+        font-size: 0.60rem;
+    }
+
+    .pendingModalSize{
+        min-width: 200px !important;
+    }
+
+    #pendingModal .modal-content .modal-body-incoming{
+        height: 600px;
+    }
+
+    #pendingModal .modal-content .modal-header,
+    #pendingModal .modal-content .modal-footer{
+        height: 40px;
+        font-size: 0.65rem;
+    }
+
+    #pendingModal .modal-content .modal-footer{
+        padding:0;
+        margin:0;
+    }
+
+    
+    #pendingModal .modal-content .modal-footer button{
+        margin:0;
+        margin-right:20px;
+        width: 80px;
+        height: 30px;
+        padding:5px;
+    }
+
+    #pendingModal .modal-content .modal-header button{
+        width:150px;
+        font-size: 0.65rem;
+        height: 30px;
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #pendingModal .modal-content .modal-body-incoming .container{
+        width: 100%;
+        height: 100%;
+
+        overflow-y: auto;
+
+        display:flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    #pendingModal .modal-content .modal-body-incoming .container .left-div{
+        width: 100%;
+        /* display:none; */
+    }
+    
+    #pendingModal .modal-content .modal-body-incoming .container .right-div{
+        width: 100%;
+        margin-top:350px;
+    }
+
+    #pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-a{
+        display:flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    #pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-a #right-sub-div-a-1{
+        width: 100%;
+    }
+    #pendingModal .modal-content .modal-body-incoming .container .right-div #right-sub-div-a #right-sub-div-a-2{
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+    /* Styles for mobile phones, landscape mode */
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    /* Styles for tablets in portrait orientation */
+}
+
+@media only screen and (min-width: 1025px) and (max-width: 1280px) {
+    /* Styles for tablets in landscape orientation and small laptops */
+}
+
+@media only screen and (min-width: 1281px) and (max-width: 1440px) {
+    /* Styles for laptops and desktops */
+}
+
+@media only screen and (min-width: 1441px) {
+    /* Styles for larger screens */
+}
+
+.loader {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  

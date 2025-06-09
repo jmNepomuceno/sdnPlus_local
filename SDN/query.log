@@ -1,0 +1,84 @@
+UPDATE dbo.referral_data
+                    SET status = :sdnStatusInput,
+                    received_at = :sdnProcessDT,
+                    received_by = :sdnUserLog,
+                    defer_reason = :statusDefer
+                    WHERE JSON_VALUE(sdn_data, '$.PatientID') = :sdnPatientID
+                    AND JSON_VALUE(sdn_data, '$.caseNumber') = :sdnCaseNo
+UPDATE dbo.referral_data
+                    SET status = :sdnStatusInput,
+                    received_at = :sdnProcessDT,
+                    received_by = :sdnUserLog,
+                    defer_reason = :statusDefer
+                    WHERE JSON_VALUE(sdn_data, '$.PatientID') = :sdnPatientID
+                    AND JSON_VALUE(sdn_data, '$.caseNumber') = :sdnCaseNo
+UPDATE dbo.referral_data
+                    SET status = :sdnStatusInput,
+                    received_at = :sdnProcessDT,
+                    received_by = :sdnUserLog,
+                    defer_reason = :statusDefer
+                    WHERE JSON_VALUE(sdn_data, '$.PatientID') = :sdnPatientID
+                    AND JSON_VALUE(sdn_data, '$.caseNumber') = :sdnCaseNo
+UPDATE dbo.referral_data
+                    SET status = :sdnStatusInput,
+                    received_at = :sdnProcessDT,
+                    received_by = :sdnUserLog,
+                    defer_reason = :statusDefer
+                    WHERE JSON_VALUE(sdn_data, '$.PatientID') = :sdnPatientID
+                    AND JSON_VALUE(sdn_data, '$.caseNumber') = :sdnCaseNo
+UPDATE dbo.referral_data
+                    SET status = :sdnStatusInput,
+                    received_at = :sdnProcessDT,
+                    received_by = :sdnUserLog,
+                    defer_reason = :statusDefer
+                    WHERE JSON_VALUE(sdn_data, '$.PatientID') = :sdnPatientID
+                    AND JSON_VALUE(sdn_data, '$.caseNumber') = :sdnCaseNo
+UPDATE dbo.referral_data
+                    SET status = :sdnStatusInput,
+                    received_at = :sdnProcessDT,
+                    received_by = :sdnUserLog,
+                    defer_reason = :statusDefer
+                    WHERE JSON_VALUE(sdn_data, '$.PatientID') = :sdnPatientID
+                    AND JSON_VALUE(sdn_data, '$.caseNumber') = :sdnCaseNo
+UPDATE dbo.referral_data
+                    SET status = :sdnStatusInput,
+                    received_at = :sdnProcessDT,
+                    received_by = :sdnUserLog,
+                    defer_reason = :statusDefer
+                    WHERE JSON_VALUE(sdn_data, '$.PatientID') = :sdnPatientID
+                    AND JSON_VALUE(sdn_data, '$.caseNumber') = :sdnCaseNo
+UPDATE dbo.referral_data
+                    SET status = :sdnStatusInput,
+                    received_at = :sdnProcessDT,
+                    received_by = :sdnUserLog,
+                    defer_reason = :statusDefer
+                    WHERE JSON_VALUE(sdn_data, '$.PatientID') = :sdnPatientID
+                    AND JSON_VALUE(sdn_data, '$.caseNumber') = :sdnCaseNo
+UPDATE dbo.referral_data
+                    SET status = :sdnStatusInput,
+                    received_at = :sdnProcessDT,
+                    received_by = :sdnUserLog,
+                    defer_reason = :statusDefer
+                    WHERE JSON_VALUE(sdn_data, '$.PatientID') = :sdnPatientID
+                    AND JSON_VALUE(sdn_data, '$.caseNumber') = :sdnCaseNo
+UPDATE dbo.referral_data
+                    SET status = :sdnStatusInput,
+                    received_at = :sdnProcessDT,
+                    received_by = :sdnUserLog,
+                    defer_reason = :statusDefer
+                    WHERE JSON_VALUE(sdn_data, '$.PatientID') = :sdnPatientID
+                    AND JSON_VALUE(sdn_data, '$.caseNumber') = :sdnCaseNo
+UPDATE dbo.referral_data
+                    SET status = :sdnStatusInput,
+                    received_at = :sdnProcessDT,
+                    received_by = :sdnUserLog,
+                    defer_reason = :statusDefer
+                    WHERE JSON_VALUE(sdn_data, '$.PatientID') = :sdnPatientID
+                    AND JSON_VALUE(sdn_data, '$.caseNumber') = :sdnCaseNo
+UPDATE dbo.referral_data
+                    SET status = :sdnStatusInput,
+                    received_at = :sdnProcessDT,
+                    received_by = :sdnUserLog,
+                    defer_reason = :statusDefer
+                    WHERE JSON_VALUE(sdn_data, '$.PatientID') = :sdnPatientID
+                    AND JSON_VALUE(sdn_data, '$.caseNumber') = :sdnCaseNo

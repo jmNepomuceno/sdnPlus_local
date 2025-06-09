@@ -1,0 +1,118 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.container{
+    width:100%;
+    height: 100%;
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    overflow: hidden;
+
+}
+
+.container #sdn-main-bg{
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    opacity: 0.1;
+    transition-duration: 0s;
+}
+
+.container h1{
+    position:absolute;
+    font-weight: bold;
+    font-size: 3rem;
+    top: 45%;
+}
+
+.container h2{
+    position:absolute;
+    font-weight: bold;
+    font-size: 2.5rem;
+    top: 53%;
+}
+
+.container h3{
+    position:absolute;
+    font-size: 1.875rem;
+    top: 55%;
+}
+
+.container #license-div{
+    position:absolute;
+    /* top: 70%; */
+    bottom:0;
+    /* width:100%; */
+    height: 70px;
+    font-size: 8pt;
+    text-align: center;
+    opacity: 0.8;
+}
+
+.container #license-div p{
+    margin:0;
+}
+
+.container #license-div #copy-right{
+    font-weight: bold;
+    margin-top:10px;
+}
+
+@media only screen and (max-width: 480px) {
+    /* Styles for mobile phones, usually in portrait orientation */
+    .container #sdn-main-bg{
+        width: 370px;
+        height: 370px;
+    }
+    
+    .container h1{
+        font-size: 1rem;
+        
+    }
+    
+    .container h3{
+        font-size: 0.7rem;
+        top:54%;
+    }
+    
+    .container #license-div{
+        width: 100%;
+        height: 75px;
+        font-size: 0.45rem;
+    }
+    
+    .container #license-div p{
+        margin:0;
+    }
+    
+    .container #license-div #copy-right{
+        font-weight: bold;
+        margin-top:10px;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+    /* Styles for mobile phones, landscape mode */
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    /* Styles for tablets in portrait orientation */
+}
+
+@media only screen and (min-width: 1025px) and (max-width: 1280px) {
+    /* Styles for tablets in landscape orientation and small laptops */
+}
+
+@media only screen and (min-width: 1281px) and (max-width: 1440px) {
+    /* Styles for laptops and desktops */
+}
+
+@media only screen and (min-width: 1441px) {
+    /* Styles for larger screens */
+}

@@ -1,0 +1,48 @@
+#license-div{
+    position:absolute;
+    /* top: 70%; */
+    bottom:0;
+    left:20%;
+    width:70%;
+    height: 70px;
+    font-size: 8pt;
+    text-align: center;
+    opacity: 0.8;
+
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;    
+}
+
+#license-div p{
+    margin:0;
+}
+
+#license-div #copy-right{
+    font-weight: bold;
+    margin-top:10px;
+}
+/* 
+@media only screen and (max-height: 750px){
+    #main-div .aside-main-div #side-bar-div{
+        width:200px;
+    }
+
+    #main-div .aside-main-div #side-bar-div #side-bar-title-bgh p{
+        font-size: 7pt;
+    }
+
+    #main-div .aside-main-div #side-bar-div #main-side-bar-1 #main-side-bar-1-subdiv h3,
+    #main-div .aside-main-div #side-bar-div #main-side-bar-2 #main-side-bar-2-subdiv h3{
+        font-size: 8pt;
+    }
+
+    #main-div .aside-main-div #side-bar-div #main-side-bar-1 #sub-side-bar-1 #patient-reg-form-sub-side-bar h3,
+    #main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #outgoing-sub-div-id h3,
+    #main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #incoming-sub-div-id h3,
+    #main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #bucasPending-sub-div-id h3,
+    #main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #bucasHistory-sub-div-id h3{
+         font-size: 7pt;
+    }
+} */

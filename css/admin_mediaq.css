@@ -1,0 +1,24 @@
+
+#myModal-hospitalAndUsers .modal-content{
+
+    border: 1px solid red;
+    overflow-x: scroll;
+    height: 900px;
+    margin-bottom: 120px;
+
+}
+
+
+#myModal-add-classification .modal-content{
+
+    margin-bottom: 50%;
+
+}
+
+.main-div{
+
+    height: 85%;
+    margin-bottom: 50px;
+    border: 1px solid red;
+
+}

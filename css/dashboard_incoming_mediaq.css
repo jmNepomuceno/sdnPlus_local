@@ -1,0 +1,104 @@
+
+
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+    /* Styles for mobile phones, landscape mode */
+}
+
+@media only screen and (min-width: 800px) and (max-width: 1023px) {
+    /* Styles for tablets in portrait orientation */
+
+    /* *{
+
+        font-size: clamp(0.1rem, 1.4vw, 1.5rem)!important;
+        white-space: nowrap;
+        word-break: break-word;
+
+    }
+
+    label{
+
+        font-size: clamp(0.1rem, 1.4vw, 1.5rem)!important;
+        white-space: nowrap;
+        word-break: break-word;
+
+    } */
+
+    /* .main-div{
+
+
+        width: auto !important;
+
+    } */
+
+
+
+    .main-div .main-data-div{
+
+        margin-left: 2.5%;
+        width: 95% !important;
+        justify-content: flex-start !important;
+        overflow: auto;
+
+    }
+
+    body{
+
+        border: 1px solid blue;
+        overflow: hidden;
+
+    }
+
+
+   #fastest-id,#slowest-id,#average-approve-id,#average-interdept-approve-id,#average-sdn-approve-id,#average-reception-id,#total-processed-refer{
+
+        font-size: clamp(0.1rem, 1.4vw, 1.5rem)!important;
+        /* white-space: nowrap;
+        word-break: break-word; */
+
+   }
+    
+
+}
+
+@media only screen and (min-width: 1025px) and (max-width: 1280px) {
+    /* Styles for tablets in landscape orientation and small laptops */
+
+    /* *{
+
+        font-size: clamp(0.1rem, 1.1vw, 1.5rem)!important;
+        white-space: nowrap;
+        word-break: break-word;
+
+    }
+     */
+
+    /* .main-div{
+
+        width: auto !important;
+
+    } */
+
+    .main-div .main-data-div{
+
+        margin-left: 2.5%;
+        width: 95% !important;
+        justify-content: flex-start !important;
+        overflow-x: scroll;
+
+    }
+
+    body{
+
+        border: 1px solid red;
+
+    }
+
+}
+
+@media only screen and (min-width: 1281px) and (max-width: 1440px) {
+    /* Styles for laptops and desktops */
+}
+
+@media only screen and (min-width: 1441px) {
+    /* Styles for larger screens */
+}

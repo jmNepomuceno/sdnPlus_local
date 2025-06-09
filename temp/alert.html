@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+</head>
+<body>
+    
+
+    <div id="alert" class="hidden fixed top-0 right-0 p-4 m-4 bg-green-500 text-white rounded-lg shadow-lg">
+        <p id="para">New data added successfully!</p>
+    </div>
+    
+    <audio id="alertSound">
+        <source src="water_droplet.mp3" type="audio/mpeg">
+    </audio>
+    
+    <input id="text1" type="text" class="border border-slate-700">
+    
+    <button id="play" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none">
+        Add Data
+    </button>
+    
+
+    <script  src="../Scripts/alert.js"></script>
+</body>
+</html>

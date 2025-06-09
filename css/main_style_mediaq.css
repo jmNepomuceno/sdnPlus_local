@@ -1,0 +1,557 @@
+
+
+
+
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+    /* Styles for mobile phones, landscape mode */
+}
+
+@media only screen and (min-width: 800px) and (max-width: 1023px) {
+
+ 
+::-webkit-scrollbar {
+    width: 10px; /* Width of vertical scrollbar */
+    height: 1px; /* Height of horizontal scrollbar */
+}
+
+body {
+    overflow-y: hidden !important;
+    /* border: 1px solid blue; */
+}
+
+input[type="text"] {
+   font-size: 0.7rem;
+}
+
+
+.text-base{
+    font-size: clamp(0.7rem, 2vw, 1.5rem)!important;
+    white-space: nowrap;
+    word-break: break-word;
+}
+
+.main_div{
+   height: 100%;
+  
+}
+
+#check-if-registered-div{
+    height: 90% !important;
+    width: 65% !important;
+    right: -700px !important;
+    margin-top: 1%;
+    border: 1px solid red !important;
+}
+
+#form-title-div-6{
+    margin-top: 5% !important;
+    margin-bottom: 3% !important;
+}
+
+#form-title-div-6 h3{
+    font-size: 0.79rem !important;
+}
+
+
+#patient-reg-form-div-1,  #patient-reg-form-div-2,  #patient-reg-form-div-3{
+    margin-top: 0 !important;
+}
+
+#patient-form-sub-div-3,#patient-form-sub-div-5{
+    margin-top: 0 !important;
+}
+
+#patHistoryModal .modal-content{
+    overflow-y: auto;
+    height: 850px;
+    border: 1px solid green !important;
+}
+
+#classification-dropdown{
+    width: 200px !important;
+    height: 70% !important;
+}
+
+
+/* #pendingModal{
+
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+} */
+
+#pendingModal .modal-content{
+    width: 80% !important;
+    margin-left: 5% !important;
+}
+
+#pendingModal .modal-content .modal-body-incoming{
+
+    height: 600px !important;
+
+}
+
+label[for="incoming-middle-name-search"] {
+    width: 100%;
+}
+
+
+.incoming-container{
+    width: 95% !important;
+    height: 90% !important;
+}
+
+#hperson-hospital-no{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    height: 25px !important;
+    font-size: 0.7rem;
+}
+
+input::placeholder {
+    font-size: 0.7rem; /* Change to your desired font size */
+}
+
+input[type="date"] {
+    font-size: 0.7rem;
+}
+
+#patient-form-sub-div-1{
+    height: 60% !important;
+    margin-top: 8px;
+}
+
+#form-body-div-1{
+    height: 100% !important;
+}
+
+#patient-form-sub-div-2{
+    margin-top: 15px;
+}
+
+#patient-form-sub-div-3{
+    height:45% !important;
+}
+
+label[for="hperson-house-no-pa"], label[for="hperson-house-no-cwa"],label[for="hperson-workplace-cwa"],label[for="hperson-house-no-ofw"],label[for="hperson-house-no-ca"],
+label[for="hperson-city-select-pa"], label[for="hperson-home-phone-no-pa"], label[for="hperson-city-select-ca"], label[for="hperson-city-select-ca"], label[for="hperson-home-phone-no-ca"]
+, label[for="hperson-mobile-no-ca"] , label[for="hperson-city-select-cwa"] , label[for="hperson-city-select-ofw"], label[for="hperson-email-pa"],[for="hperson-mobile-no-pa"]
+,[for="hperson-ll-mb-no-cwa"]  {
+
+    font-size: clamp(0.1rem, 1.4vw, 1.5rem)!important;
+    white-space: nowrap;
+    word-break: break-word;
+
+}
+
+label[for="hperson-ll-mb-no-cwa"]{
+
+    font-size: 0.75rem !important;
+
+}
+
+#form-body-div-3{
+    height: 90% !important;
+}
+
+#patient-form-sub-div-4{
+    height: 47% !important;
+    margin-top: 10px;
+}
+
+#form-body-div-4{
+    height: 95% !important;
+}
+
+#patient-form-sub-div-5{
+    height: 45% !important;
+}
+
+#patient-form-sub-div-6{
+    height: 49% !important;
+    margin-top: 5% !important;
+}
+
+#form-title-div-4 h3 {
+
+    width: 100%;
+
+}
+#same-as-perma-btn {
+
+    font-size: 0.85rem !important;
+
+}
+
+#form-title-div-4{
+    margin-bottom: 4%;
+}
+
+#form-body-div-5{
+    height: 92% !important;
+}
+
+#form-body-div-6{
+    height: 100% !important;
+}
+
+#form-body-div-6 .form-sub-divs-row{
+
+    width: 100% !important;
+
+}
+
+.form-sub-divs-row{
+
+    width: 95% !important;
+
+}
+
+select{
+
+    font-size:0.77rem !important;
+
+}
+
+
+#add-patform-btn-id,#clear-patform-btn-id{
+    height: 50% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#side-bar-title-bgh{
+    width: 85% !important;
+}
+
+#form-body-div-1 label{
+    font-size: 0.85rem !important;
+}
+
+/* .hospital-users-div,.add-classification-div{
+
+    width: 200px !important;
+    height: 150px !important;
+
+} */
+
+/* For additional input types like textarea */
+
+.container #license-div{
+
+    margin-bottom: 0.0435% !important;
+    width: 74% !important;
+    height: 75px !important;
+
+}
+
+.search-main-div label{
+    font-size: 0.8rem;
+}
+
+.search-main-div select{
+    height: 55%;
+}
+
+.search-clear-btns-div button{
+
+    width: 45% !important;
+
+}
+
+h1{
+    text-align: center;
+}
+
+
+ .main-div{
+
+    border: 1px solid red !important;
+
+}
+
+#side-bar-div{
+
+    position: absolute !important;
+    height: 95% !important;
+}
+
+#right-side-main-div-2{
+
+    margin-top: 5% !important;
+
+}
+
+   
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1280px) {
+    /* Styles for tablets in landscape orientation and small laptops */
+
+    /* .container #license-div{
+
+    bottom: 12% !important;
+ 
+} */
+
+::-webkit-scrollbar {
+    width: 10px; /* Width of vertical scrollbar */
+    height: 1px; /* Height of horizontal scrollbar */
+}
+
+body {
+    overflow-y: hidden !important;
+}
+
+input[type="text"] {
+   font-size: 0.7rem;
+}
+
+
+.text-base{
+    font-size: 0.7rem !important;
+}
+
+.main_div{
+   height: 100%;
+  
+}
+
+#check-if-registered-div{
+    height: 90% !important;
+    width: 45% !important;
+    right: -730px !important;
+    margin-top: 1%;
+    border: 1px solid red !important;
+}
+
+#form-title-div-6{
+    margin-top: 5% !important;
+    margin-bottom: 3% !important;
+}
+
+#form-title-div-6 h3{
+    font-size: 0.79rem !important;
+}
+
+
+#patient-reg-form-div-1,  #patient-reg-form-div-2,  #patient-reg-form-div-3{
+    margin-top: 0 !important;
+}
+
+#patient-form-sub-div-3,#patient-form-sub-div-5{
+    margin-top: 0 !important;
+}
+
+#patHistoryModal .modal-content{
+    overflow-y: auto;
+    height: 850px;
+    border: 1px solid green !important;
+}
+
+#classification-dropdown{
+    width: 200px !important;
+    height: 70% !important;
+}
+
+
+#pendingModal .modal-content{
+    width: 93% !important;
+    margin-left: 5% !important;
+}
+
+#pendingModal .modal-content .modal-body-incoming{
+
+    height: 600px !important;
+
+}
+
+label[for="incoming-middle-name-search"] {
+    width: 100%;
+}
+
+
+.incoming-container{
+    width: 95% !important;
+    height: 90% !important;
+}
+
+#hperson-hospital-no{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    height: 25px !important;
+    font-size: 0.7rem;
+}
+
+input::placeholder {
+    font-size: 0.7rem; /* Change to your desired font size */
+}
+
+input[type="date"] {
+    font-size: 0.7rem;
+}
+
+#patient-form-sub-div-1{
+    height: 60% !important;
+    margin-top: 8px;
+}
+
+#form-body-div-1{
+    height: 100% !important;
+}
+
+#patient-form-sub-div-2{
+    margin-top: 15px;
+}
+
+#patient-form-sub-div-3{
+    height:45% !important;
+}
+
+label[for="hperson-house-no-pa"], label[for="hperson-house-no-cwa"],label[for="hperson-workplace-cwa"],label[for="hperson-house-no-ofw"],label[for="hperson-house-no-ca"]{
+
+    font-size: 0.77rem !important;
+
+}
+
+label[for="hperson-ll-mb-no-cwa"]{
+
+    font-size: 0.75rem !important;
+
+}
+
+#form-body-div-3{
+    height: 90% !important;
+}
+
+#patient-form-sub-div-4{
+    height: 47% !important;
+    margin-top: 10px;
+}
+
+#form-body-div-4{
+    height: 95% !important;
+}
+
+#patient-form-sub-div-5{
+    height: 45% !important;
+}
+
+#patient-form-sub-div-6{
+    height: 49% !important;
+    margin-top: 5% !important;
+}
+
+#form-title-div-4 h3 {
+
+    width: 100%;
+
+}
+#same-as-perma-btn {
+
+    font-size: 0.85rem !important;
+
+}
+
+#form-title-div-4{
+    margin-bottom: 4%;
+}
+
+#form-body-div-5{
+    height: 92% !important;
+}
+
+#form-body-div-6{
+    height: 100% !important;
+}
+
+#form-body-div-6 .form-sub-divs-row{
+
+    width: 100% !important;
+
+}
+
+.form-sub-divs-row{
+
+    width: 95% !important;
+
+}
+
+select{
+
+    font-size:0.77rem !important;
+
+}
+
+
+#add-patform-btn-id,#clear-patform-btn-id{
+    height: 50% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#side-bar-title-bgh{
+    width: 85% !important;
+}
+
+#form-body-div-1 label{
+    font-size: 0.85rem !important;
+}
+
+/* .hospital-users-div,.add-classification-div{
+
+    width: 200px !important;
+    height: 150px !important;
+
+} */
+
+/* For additional input types like textarea */
+
+.container #license-div{
+
+    margin-bottom: 0.0435% !important;
+    width: 80.4% !important;
+    height: 75px !important;
+
+}
+
+.search-main-div label{
+    font-size: 0.8rem;
+}
+
+.search-main-div select{
+    height: 55%;
+}
+
+.search-clear-btns-div button{
+
+    width: 45% !important;
+
+}
+
+#side-bar-div{
+
+    position: absolute !important;
+    height: 95vh !important;
+}
+
+
+
+
+}
+
+
+@media only screen and (min-width: 1281px) and (max-width: 1440px) {
+    /* Styles for laptops and desktops */
+
+  
+
+}
+
+@media only screen and (min-width: 1441px) {
+    /* Styles for larger screens */
+}
