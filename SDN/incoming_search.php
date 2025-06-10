@@ -23,7 +23,17 @@
         $middle_name = $_POST['middle_name'];
         $case_type = $_POST['case_type'];
         $agency = $_POST['agency'];
+        $sensitive = $_POST['sensitive'];
+        $startDate = $_POST['startDate'];
+        $endDate = $_POST['endDate'];
+        $tat = $_POST['tat'];
         $status = $_POST['status'];
+
+        if (!empty($startDate) && !empty($endDate) && $startDate === $endDate) {
+            // Convert to DateTime, add 1 day to endDate
+            $endDate = date('Y-m-d', strtotime($endDate . ' +1 day'));
+        }
+
         // $status = 'Pending';
         if(isset($_POST['hpercode_arr'])){
             $_SESSION['fifo_hpercode'] = $_POST['hpercode_arr'];   
@@ -79,6 +89,31 @@
             $conditions[] = "ir.referred_by = '" . $agency . "'";
             $others = true;
         } 
+
+        if (!empty($sensitive)) {
+            if($sensitive === "true"){
+                $conditions[] = "ir.sensitive_case = 'true'";
+            }else{
+                $conditions[] = "ir.sensitive_case = 'false'";
+            }
+            $others = true;
+        }
+
+        if (!empty($startDate) && !empty($endDate)) {
+            $conditions[] = "ir.date_time BETWEEN '" . $startDate . "' AND '" . $endDate . "'";
+            $others = true;
+        }
+
+        // the possible value of my tat is either, ≥ 15 or < 15
+        if (!empty($tat)) {
+            if($tat === "tat-green"){
+                $conditions[] = "ir.final_progressed_timer >= '00:15:00'";
+            }else if($tat === "tat-red"){
+                $conditions[] = "ir.final_progressed_timer < '00:15:00'";
+            }
+            $others = true;
+        }
+
 
         if($status != "default" && $status!="All"){
             $conditions[] = "ir.status = '" . $status . "'";

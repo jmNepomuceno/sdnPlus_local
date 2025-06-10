@@ -64,13 +64,15 @@ $(document).ready(function(){
     const tutorialModal = new bootstrap.Modal(document.getElementById('tutorialModal'));
     const traverseModal = new bootstrap.Modal(document.getElementById('myModal-traverse'));
     const creditModal = new bootstrap.Modal(document.getElementById('creditModal'));
-    
+    const updateModal = new bootstrap.Modal(document.getElementById('updateModal'));
+    const mssSettingModal = new bootstrap.Modal(document.getElementById('mss-setting-modal'));
+
     const carousel = document.getElementById('tutorial-carousel');
 
     if(running_bool === "true" || running_bool === true){
         loadContent('../SDN/incoming_form2.php')
     }else{
-        loadContent('../SDN/default_view2.php')
+        loadContent('../SDN/incoming_form2.php')
     }
 
     // Function to parse query parameters from URL  
@@ -495,6 +497,14 @@ $(document).ready(function(){
         creditModal.show()
     })
 
+    $('#update-div').on('click' , function(event){
+        updateModal.show()
+    })
+
+     $('#setting-mss-btn').on('click' , function(event){
+        mssSettingModal.show()
+    })
+
     let notif_sub_div_open = true
     $('#notif-div').on('click' , function(event){
 
@@ -680,6 +690,11 @@ $(document).ready(function(){
             $('#ref-mod').css('opacity' , '0.3')
         }
     });
+
+    $('#feedback-btn').click(function(event) {
+        event.preventDefault();
+        
+    })
 })
 
 /*

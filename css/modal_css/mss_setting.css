@@ -1,0 +1,54 @@
+.toggle-password {
+    position: absolute;
+    top: 72%;
+    right: 5px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888;
+    font-size: 1rem;
+}
+
+.toggle-password:hover {
+    color: #000;
+}
+
+#mss-setting-modal .modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#mss-setting-modal .modal-content .modal-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#mss-setting-modal .modal-content .modal-header h5 {
+    color: white;
+    font-size: 0.85rem;
+}
+
+#mss-setting-modal .modal-content .modal-body {
+    width: auto;
+    height: auto;
+}
+
+#mss-setting-modal .modal-content .modal-body form {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #2e2e2e;
+    line-height: 1.6;
+}
+
+#mss-setting-modal .modal-content .modal-body form .text-end{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

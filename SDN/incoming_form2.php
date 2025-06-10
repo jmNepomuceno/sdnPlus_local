@@ -151,6 +151,18 @@
     // echo $_SESSION['running_index'] . "----";
     // echo $_SESSION['datatable_index'] . "----"; 
 
+    // $sql = "UPDATE incoming_referrals SET status='Pending' WHERE hpercode='PAT000043'";
+    // $stmt = $pdo->prepare($sql);
+    // $stmt->execute();
+
+    // $sql = "UPDATE incoming_referrals SET status='Pending' WHERE hpercode='PAT000044'";
+    // $stmt = $pdo->prepare($sql);
+    // $stmt->execute();
+
+    // $sql = "UPDATE incoming_referrals SET status='Pending' WHERE hpercode='PAT000045'";
+    // $stmt = $pdo->prepare($sql);
+    // $stmt->execute();
+
     $sql = "SELECT status_interdept FROM incoming_referrals WHERE (status='Pending' OR status='On-Process') AND refer_to=? ORDER BY date_time ASC";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$_SESSION["hospital_name"]]);
@@ -204,7 +216,7 @@
     ?>
 
     <div class="incoming-container">
-        <h1>Incoming Referral Patients</h1>
+        <h1 id="content-title">Incoming Referral Patients</h1>
         <div class="search-main-div">
             <div class="refer-no-div">
                 <label for="incoming-referral-no-search">Referral No.</label>
@@ -254,6 +266,38 @@
                         echo '<option value="' , $data['hospital_name'] , '">' , $data['hospital_name'] , '</option>';
                     } 
                    ?>
+                </select>
+            </div>
+
+            <div class="startDate-search-div">
+                <label for="incoming-startDate-search">Start Date</label>
+                <input id="incoming-startDate-search" type="date" value="">
+            </div>
+
+            <div class="endDate-search-div">
+                <label for="incoming-endDate-search">End Date</label>
+                <input id="incoming-endDate-search" type="date" value="">
+            </div>
+
+            <div class="tat-search-div">
+                <label for="incoming-tat-search">Turnaround Time Filter</label>
+                <select id="incoming-tat-select">
+                    <option value="">Select</option>
+
+                    <option value="tat-green">≥ 15 minutes (greater than or equal to 15)</option>
+                    <option value="tat-red">&lt;  15 minutes (less than 15)</option>
+                    
+                </select>
+            </div>
+
+             <div class="sensitive-search-div">
+                <label for="incoming-sensitive-select">Sensitive Case</label>
+                <select id="incoming-sensitive-select">
+                    <option value="">Select</option>
+                    <!-- <option value="sensitive-all">All</option> -->
+                    <option value="true">True</option>
+                    <option value="false">False</option>
+                    
                 </select>
             </div>
 

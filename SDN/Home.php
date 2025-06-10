@@ -97,11 +97,9 @@
                 </div>
             </div>
             <div class="account-header-div">
+                <i class="fas fa-rotate" id="update-div" title="Updates"></i>
                 <div class="notif-main-div">
-                    <!-- <div class="w-[33.3%] h-full   flex flex-row justify-end items-center -mr-1">
-                        <h1 class="text-center w-full rounded-full p-1 bg-yellow-500 font-bold">6</h1>
-                    </div> -->
-                                        
+
                         <div id="notif-div">
                             <?php 
                                 if($incoming_num['COUNT(*)'] > 0){
@@ -187,6 +185,12 @@
                 <div class="nav-drop-btns" id="help-btn">
                     <h2 class="nav-drop-btns-txt">Help</h2>
                 </div>
+
+                <?php if($_SESSION['user_name'] == 'mss' && $_SESSION['user_password'] == 'mss'){?>
+                    <div class="nav-drop-btns" id="setting-mss-btn">
+                        <h2 class="nav-drop-btns-txt">MSS Settings</h2>
+                    </div>
+                <?php } ?>
 
                 <div class="nav-drop-btns" id="credit-btn">
                     <h2 class="nav-drop-btns-txt">Acknowledgments</h2>
@@ -295,20 +299,20 @@
         <!-- <div class="modal-dialog" role="document"> -->
         <div class="modal-dialog">
             <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title-div">
-                    <i id="modal-icon" class="fa-solid fa-triangle-exclamation"></i>
-                    <h5 id="modal-title-main" class="modal-title-main" id="exampleModalLabel">Warning</h5>
+                <div class="modal-header">
+                    <div class="modal-title-div">
+                        <i id="modal-icon" class="fa-solid fa-triangle-exclamation"></i>
+                        <h5 id="modal-title-main" class="modal-title-main" id="exampleModalLabel">Warning</h5>
+                    </div>
                 </div>
-            </div>
-            <!-- <div id="modal-body-main" class="modal-body-main"> -->
-            <div id="modal-body" class="logout-modal">
-                    Are you sure you want to logout?
-            </div>
-            <div class="modal-footer">
-                <button id="ok-modal-btn-main" type="button" data-bs-dismiss="modal">OK</button>
-                <button id="yes-modal-btn-main" type="button" data-bs-dismiss="modal">Yes</button>
-            </div>
+                <!-- <div id="modal-body-main" class="modal-body-main"> -->
+                <div id="modal-body" class="logout-modal">
+                        Are you sure you want to logout?
+                </div>
+                <div class="modal-footer">
+                    <button id="ok-modal-btn-main" type="button" data-bs-dismiss="modal">OK</button>
+                    <button id="yes-modal-btn-main" type="button" data-bs-dismiss="modal">Yes</button>
+                </div>
             </div>
         </div>
     </div>
@@ -355,6 +359,11 @@
 
     <?php 
         require "../php/modals_php/credit_modal.php";
+    ?>
+
+    <?php 
+        require "../php/modals_php/update_modal.php";
+        require "../php/modals_php/mss_setting.php";
     ?>
 
     <div id="overlay"></div>

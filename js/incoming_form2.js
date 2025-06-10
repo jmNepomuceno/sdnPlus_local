@@ -891,15 +891,24 @@ $(document).ready(function(){
     $('#incoming-search-btn').off('click', '#incoming-search-btn').on('click' , function(event){        
         
         let valid_search = false;
-        let elements = [$('#incoming-referral-no-search').val(), $('#incoming-last-name-search').val(), $('#incoming-first-name-search').val(),
-        $('#incoming-middle-name-search').val(), $('#incoming-type-select').val(),  $('#incoming-agency-select').val(), $('#incoming-status-select').val()]
+        let elements = [
+            $('#incoming-referral-no-search').val(), 
+            $('#incoming-last-name-search').val(), 
+            $('#incoming-first-name-search').val(),
+            $('#incoming-middle-name-search').val(), 
+            $('#incoming-type-select').val(),  
+            $('#incoming-agency-select').val(),  
+            $('#incoming-status-select').val(), 
+            $('#incoming-startDate-search').val(), 
+            $('#incoming-endDate-search').val(),
+            $('#incoming-tat-select').val(), 
+            $('#incoming-sensitive-select').val()
+        ]
 
-        for(let i = 0; i < elements.length; i++){
-            if(elements[i] !== "" && i != elements.length - 1){
-                valid_search = true
-            }
-            if(elements[i] !== 'default' && i == elements.length - 1){
-                valid_search = true
+        for (let val of elements) {
+            if (val && val !== 'default') {
+                valid_search = true;
+                break; // No need to continue looping if any field is valid
             }
         }
 
@@ -939,11 +948,18 @@ $(document).ready(function(){
                 middle_name : $('#incoming-middle-name-search').val(),
                 case_type : $('#incoming-type-select').val(),
                 agency : $('#incoming-agency-select').val(),
+                sensitive : $('#incoming-sensitive-select').val(),
+                startDate : $('#incoming-startDate-search').val(),
+                endDate : $('#incoming-endDate-search').val(),
+                // startDate : "2025-05-15",
+                // endDate : "2025-05-16",
+                tat : $('#incoming-tat-select').val(),
                 status : $('#incoming-status-select').val(),
                 where : 'search',
                 where_type : 'incoming'
             }
-            // console.log(data)
+
+            console.log(data)
 
             $.ajax({
                 url: '../SDN/incoming_search.php',
@@ -979,11 +995,11 @@ $(document).ready(function(){
 
             }) 
         }else{
-            // $('#modal-body-incoming').text('Invalid Search')
-            // $('#ok-modal-btn-incoming').text('Close')
-            // $('#ok-modal-btn-incoming').css('margin-right' , '0')
-            // $('#yes-modal-btn-incoming').css('display' , 'none')
-            // defaultMyModal.show()
+            $('#modal-body-incoming').text('Invalid Search')
+            $('#ok-modal-btn-incoming').text('Close')
+            $('#ok-modal-btn-incoming').css('margin-right' , '0')
+            $('#yes-modal-btn-incoming').css('display' , 'none')
+            defaultMyModal.show()
         }
 
     })

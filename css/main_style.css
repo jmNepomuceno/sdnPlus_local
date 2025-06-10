@@ -83,6 +83,26 @@ body {
     margin-right: 0.5rem;
 }
 
+#main-div .header-div .account-header-div #update-div{
+    padding:0;
+    margin:0;
+    width: auto;
+    height: auto;
+    margin-right: 1rem;
+    color:white;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+#main-div .header-div .account-header-div #update-div i{
+    font-size: 1.5rem; 
+}
+
+#main-div .header-div .account-header-div #update-div:hover{
+    opacity: 1;
+    transition-duration: 150ms;
+}
+
 #main-div .header-div .account-header-div .notif-main-div{
     width: auto;
     height:  83.333333%;
