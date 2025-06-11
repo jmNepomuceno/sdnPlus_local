@@ -28,17 +28,14 @@
         $endDate = $_POST['endDate'];
         $tat = $_POST['tat'];
         $status = $_POST['status'];
+        $where_type = $_POST['where_type'];
+        $hospital_name = $_SESSION['hospital_name'];
 
         if (!empty($startDate) && !empty($endDate) && $startDate === $endDate) {
-            // Convert to DateTime, add 1 day to endDate
             $endDate = date('Y-m-d', strtotime($endDate . ' +1 day'));
         }
 
-        // $status = 'Pending';
-        if(isset($_POST['hpercode_arr'])){
-            $_SESSION['fifo_hpercode'] = $_POST['hpercode_arr'];   
-        }
-
+        // Begin SQL
         $sql = "SELECT 
             ir.hpercode, ir.status, ir.type, ir.reference_num, ir.date_time, 
             ir.reception_time, ir.sent_interdept_time, ir.approved_time, 
@@ -49,102 +46,80 @@
             hp.pat_age,
             prov.province_description,
             city.municipality_description,
-            brgy.barangay_description
+            brgy.barangay_description,
+
+            sh.hospital_director, 
+            sh.hospital_director_mobile, 
+            sh.hospital_point_person, 
+            sh.hospital_point_person_mobile
+
         FROM incoming_referrals AS ir
         LEFT JOIN hperson AS hp ON ir.hpercode = hp.hpercode
         LEFT JOIN provinces AS prov ON hp.pat_province = prov.province_code
         LEFT JOIN city AS city ON hp.pat_municipality = city.municipality_code
         LEFT JOIN barangay AS brgy ON hp.pat_barangay = brgy.barangay_code
+        LEFT JOIN sdn_hospital AS sh ON ir.referred_by = sh.hospital_name
         WHERE ";
 
-        $conditions = array();
-        $others = false;
+        // Dynamic filters
+        $conditions = [];
 
         if (!empty($ref_no)) {
-            $conditions[] = "ir.reference_num LIKE '%". $ref_no ."%'";
-            $others = true;
+            $conditions[] = "ir.reference_num LIKE '%" . $ref_no . "%'";
         }
-
         if (!empty($last_name)) {
-            $conditions[] = "ir.patlast LIKE '%". $last_name ."%' ";
-            $others = true;
+            $conditions[] = "ir.patlast LIKE '%" . $last_name . "%'";
         }
-
         if (!empty($first_name)) {
-            $conditions[] = "ir.patfirst LIKE '%". $first_name ."%' ";
-            $others = true;
+            $conditions[] = "ir.patfirst LIKE '%" . $first_name . "%'";
         }
-
         if (!empty($middle_name)) {
-            $conditions[] = "ir.patmiddle LIKE '%". $middle_name ."%' ";
-            $others = true;
+            $conditions[] = "ir.patmiddle LIKE '%" . $middle_name . "%'";
         }
-
         if (!empty($case_type)) {
-            $conditions[] = "ir.type = '" . $case_type . "'"; 
-            $others = true;
+            $conditions[] = "ir.type = '" . $case_type . "'";
         }
-
         if (!empty($agency)) {
             $conditions[] = "ir.referred_by = '" . $agency . "'";
-            $others = true;
-        } 
-
+        }
         if (!empty($sensitive)) {
-            if($sensitive === "true"){
-                $conditions[] = "ir.sensitive_case = 'true'";
-            }else{
-                $conditions[] = "ir.sensitive_case = 'false'";
-            }
-            $others = true;
+            $conditions[] = "ir.sensitive_case = '" . ($sensitive === "true" ? "true" : "false") . "'";
         }
-
         if (!empty($startDate) && !empty($endDate)) {
-            $conditions[] = "ir.date_time BETWEEN '" . $startDate . "' AND '" . $endDate . "'";
-            $others = true;
+            $conditions[] = "ir.date_time BETWEEN '$startDate' AND '$endDate'";
         }
-
-        // the possible value of my tat is either, ≥ 15 or < 15
         if (!empty($tat)) {
-            if($tat === "tat-green"){
+            if ($tat === "tat-green") {
                 $conditions[] = "ir.final_progressed_timer >= '00:15:00'";
-            }else if($tat === "tat-red"){
+            } elseif ($tat === "tat-red") {
                 $conditions[] = "ir.final_progressed_timer < '00:15:00'";
             }
-            $others = true;
+        }
+        if ($status !== "default" && $status !== "All") {
+            $conditions[] = "ir.status = '$status'";
         }
 
-
-        if($status != "default" && $status!="All"){
-            $conditions[] = "ir.status = '" . $status . "'";
-            $others = false;
-        }
-
-        if (count($conditions) > 0) {
-            $sql .= implode(" AND ", $conditions);
-        }
-        
-        $hospital_condition = '';
-        if ($_POST['where_type'] == 'incoming') {
-            $hospital_condition = "refer_to = '" . $_SESSION["hospital_name"] . "'";
+        // Add hospital context condition
+        if ($where_type === 'incoming') {
+            $conditions[] = "ir.refer_to = '$hospital_name'";
         } else {
-            $hospital_condition = "referred_by = '" . $_SESSION["hospital_name"] . "'";
+            $conditions[] = "ir.referred_by = '$hospital_name'";
         }
-        
-        // Append hospital condition properly
-        if (count($conditions) > 0) {
-            $sql .= " AND " . $hospital_condition;
-        } else {
-            $sql .= $hospital_condition;
-        }
-        
-        $sql .= " ORDER BY date_time DESC";
 
-        
-    
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // Build final SQL
+        $sql .= implode(" AND ", $conditions);
+        $sql .= " ORDER BY ir.date_time DESC";
+
+        // Execute
+        try {
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo "SQL Error: " . $e->getMessage();
+            exit;
+        }
+
         
         // echo $sql;
         // $jsonString = json_encode($data);
@@ -297,6 +272,11 @@
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute([$data_pat_municipality['pat_province']]);
                 $data_province = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                $sql = "SELECT hospital_director, hospital_director_mobile, hospital_point_person, hospital_point_person_mobile FROM sdn_hospital WHERE hospital_name=?";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute([$row['referred_by']]);
+                $contact_info = $stmt->fetch(PDO::FETCH_ASSOC);
     
                 echo '<tr class="tr-incoming" style="'.$style_tr.'">
                         <td id="dt-refer-no"> ' . $row['reference_num'] . ' - '.$index.' </td>
@@ -307,19 +287,25 @@
                         <td id="dt-type" style="background:' . $type_color . ' ">' . $row['type'] . '</td>
                         <td id="dt-phone-no">
                             <div class="">
-                                <p> Referred by: ' . $row['referred_by'] . '  </p>
-                                <p> Landline: ' . $row['landline_no'] . ' </p>
-                                <p> Mobile: ' . $row['mobile_no'] . ' </p>
+                                <p> <b>Referred by:</b> ' . $row['referred_by'] . '  </p>
+                                <p> <b>Landline:</b> ' . $row['landline_no'] . ' </p>
+                                <p> <b>Mobile:</b> ' . $row['mobile_no'] . ' </p>
+
+                                <div class="contact-extra" style="display:none;">
+                                    <p> <b>Director:</b> ' . $contact_info['hospital_director'] . '  </p>
+                                    <p> <b>Director No.:</b> ' . $contact_info['hospital_director_mobile'] . '  </p>
+                                    <p> <b>Point Person:</b> ' . $contact_info['hospital_point_person'] . ' </p>
+                                    <p> <b>Point Person No.:</b> ' . $contact_info['hospital_point_person_mobile'] . ' </p>
+                                </div>
+
                             </div>
                         </td>
                         <td id="dt-turnaround"> 
-                            <i class="accordion-btn fa-solid fa-plus"></i>
-    
                             <p class="referred-time-lbl"> Referred: ' . $row['date_time'] . ' </p>
                             <p class="reception-time-lbl"> Reception: '. $row['reception_time'] .'</p>
                             <p class="sdn-proc-time-lbl"> SDN Processed: '. $row['sent_interdept_time'] .'</p>
                             
-                            <div class="breakdown-div">
+                            <div class="contact-extra" style="display:none;">
                                 <p> Approval: '.$row['approved_time'] .'  </p>  
                                 <p> Deferral: 0000-00-00 00:00:00  </p>  
                                 <p> Cancelled: 0000-00-00 00:00:00  </p>  
@@ -343,6 +329,9 @@
                                 echo '<input class="hpercode" type="hidden" name="hpercode" value= ' . $row['hpercode'] . '>
     
                             </div>
+                        </td>
+                        <td colspan="8" id="dt-action">
+                            <button type="button" class="btn btn-secondary toggle-contact-btn">More Details</button>
                         </td>
                     </tr>';
     
@@ -496,23 +485,29 @@
                             <span id="pat-age-span"> Age: '.$row['pat_age'].' </span> 
                         </td>
                         <td id="dt-type" style="background:' . $type_color . ' ">' . $row['type'] . '</td>
-                        <td id="dt-phone-no">
-                            <div class="">
-                                <p> Referred by: ' . $row['referred_by'] . '  </p>
-                                <p> Landline: ' . $row['landline_no'] . ' </p>
-                                <p> Mobile: ' . $row['mobile_no'] . ' </p>
-                            </div>
-                        </td>
+                            <td id="dt-phone-no">
+                                <div class="">
+                                    <p> <b>Referred by:</b> ' . $row['referred_by'] . '  </p>
+                                    <p> <b>Landline:</b> ' . $row['landline_no'] . ' </p>
+                                    <p> <b>Mobile:</b> ' . $row['mobile_no'] . ' </p>
+
+                                    <div class="contact-extra" style="display:none;">
+                                        <p> <b>Director:</b> ' . $row['hospital_director'] . '  </p>
+                                        <p> <b>Director No.:</b> ' . $row['hospital_director_mobile'] . '  </p>
+                                        <p> <b>Point Person:</b> ' . $row['hospital_point_person'] . ' </p>
+                                        <p> <b>Point Person No.:</b> ' . $row['hospital_point_person_mobile'] . ' </p>
+                                    </div>
+
+                                </div>
+                            </td>
                             <td id="dt-turnaround"> 
-                                <i id="accordion-id- '.$accord_index.'" class="accordion-btn fa-solid fa-plus"></i>
-    
                                 <p class="referred-time-lbl"> Referred: ' . $row['date_time'] . ' </p>
-                                <p class="reception-time-lbl"> Reception: '. $row['reception_time'] .' <span style="color:'.$reception_addition_style.'; font-size:0.65rem;"> +'. $reception_addition.' </span></p>
+                                <p class="reception-time-lbl"> Reception: '. $row['reception_time'] .'</p>
                                 <p class="sdn-proc-time-lbl"> SDN Processed: <span style="'. $total_time_style.'">'. $total_time .' </span> </p>
                                 
-                                <div class="breakdown-div">
+                                <div class="contact-extra" style="display:none;">
                                     <p> Approval: '.$row['approved_time'] .'  </p>  
-                                    <p> Deferral: '.$row['deferred_time'] .'  </p>  
+                                    <p> Deferral: 0000-00-00 00:00:00  </p>  
                                     <p> Cancelled: 0000-00-00 00:00:00  </p>  
                                 </div>
                             </td>
@@ -535,6 +530,9 @@
                                     echo '<input class="hpercode" type="hidden" name="hpercode" value= ' . $row['hpercode'] . '>
     
                                 </div>
+                            </td>
+                            <td colspan="8" id="dt-action">
+                                <button type="button" class="btn btn-secondary toggle-contact-btn">More Details</button>
                             </td>
                         </tr>';
     
@@ -706,7 +704,13 @@
     }
     else{
         try{
-            $sql = "SELECT * FROM incoming_referrals WHERE (status='Pending' OR status='On-Process') AND refer_to=? ORDER BY date_time ASC";
+                $sql = "SELECT ir.*, sh.hospital_director, sh.hospital_director_mobile, sh.hospital_point_person, sh.hospital_point_person_mobile
+                    FROM incoming_referrals ir
+                    LEFT JOIN sdn_hospital sh ON ir.referred_by = sh.hospital_name
+                    WHERE (ir.status = 'Pending' OR ir.status = 'On-Process') 
+                    AND ir.refer_to = ?
+                    ORDER BY ir.date_time ASC";
+
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute([$_SESSION["hospital_name"]]);
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -889,51 +893,61 @@
                     $data_province = $stmt->fetch(PDO::FETCH_ASSOC);
 
                     echo '<tr class="tr-incoming" style="'.$style_tr.'">
-                            <td id="dt-refer-no"> ' . $row['reference_num'] . ' - '.$index.' </td>
-                            <td id="dt-patname">' . $pat_full_name . ' 
-                                <span id="pat-address-span"> Address: '.$data_province['province_description'] .', '. $data_city['municipality_description'].' , '. $data_brgy['barangay_description'].' </span> 
-                                <span id="pat-age-span"> Age: '.$data_pat_municipality['pat_age'].' </span> 
-                            </td>
-                            <td id="dt-type" style="background:' . $type_color . ' ">' . $row['type'] . '</td>
-                            <td id="dt-phone-no">
-                                <div class="">
-                                    <p> Referred by: ' . $row['referred_by'] . '  </p>
-                                    <p> Landline: ' . $row['landline_no'] . ' </p>
-                                    <p> Mobile: ' . $row['mobile_no'] . ' </p>
-                                </div>
-                            </td>
-                            <td id="dt-turnaround"> 
-                                <i class="accordion-btn fa-solid fa-plus"></i>
+                        <td id="dt-refer-no"> ' . $row['reference_num'] . ' - '.$index.' </td>
+                        <td id="dt-patname">' . $pat_full_name . ' 
+                            <span id="pat-address-span"> Address: '.$data_province['province_description'] .', '. $data_city['municipality_description'].' , '. $data_brgy['barangay_description'].' </span> 
+                            <span id="pat-age-span"> Age: '.$data_pat_municipality['pat_age'].' </span> 
+                        </td>
+                        <td id="dt-type" style="background:' . $type_color . ' ">' . $row['type'] . '</td>
+                        <td id="dt-phone-no">
+                            <div class="">
+                                <p> <b>Referred by:</b> ' . $row['referred_by'] . '  </p>
+                                <p> <b>Landline:</b> ' . $row['landline_no'] . ' </p>
+                                <p> <b>Mobile:</b> ' . $row['mobile_no'] . ' </p>
 
-                                <p class="referred-time-lbl"> Referred: ' . $row['date_time'] . ' </p>
-                                <p class="reception-time-lbl"> Reception: '. $row['reception_time'] .'</p>
-                                <p class="sdn-proc-time-lbl"> SDN Processed: '. $row['sent_interdept_time'] .'</p>
-                                
-                                <div class="breakdown-div">
-                                    <p> Approval: '.$row['approved_time'] .'  </p>  
-                                    <p> Deferral: 0000-00-00 00:00:00  </p>  
-                                    <p> Cancelled: 0000-00-00 00:00:00  </p>  
+                                <div class="contact-extra" style="display:none;">
+                                    <p> <b>Director:</b> ' . $row['hospital_director'] . '  </p>
+                                    <p> <b>Director No.:</b> ' . $row['hospital_director_mobile'] . '  </p>
+                                    <p> <b>Point Person:</b> ' . $row['hospital_point_person'] . ' </p>
+                                    <p> <b>Point Person No.:</b> ' . $row['hospital_point_person_mobile'] . ' </p>
                                 </div>
-                            </td>
-                            <td id="dt-stopwatch">
-                                <div id="stopwatch-sub-div">
-                                    Processing: <span class="stopwatch">'.$stopwatch.'</span>
-                                </div>
-                            </td>
+
+                            </div>
+                        </td>
+                        <td id="dt-turnaround"> 
+                            <p class="referred-time-lbl"> Referred: ' . $row['date_time'] . ' </p>
+                            <p class="reception-time-lbl"> Reception: '. $row['reception_time'] .'</p>
+                            <p class="sdn-proc-time-lbl"> SDN Processed: '. $row['sent_interdept_time'] .'</p>
                             
-                            <td id="dt-status">
-                                <div> 
-                                    <p class="pat-status-incoming">' . $row['status'] . '</p>';
-                                    if ($row['sensitive_case'] === 'true') {
-                                        echo '<i class="pencil-btn fa-solid fa-pencil" style="pointer-events:none; opacity:0.3; color:#cc9900;"></i>';
-                                    }else{
-                                        echo'<i class="pencil-btn fa-solid fa-pencil" style="color:#cc9900;"></i>';
-                                    }
-                                    
-                                    echo '<input class="hpercode" type="hidden" name="hpercode" value= ' . $row['hpercode'] . '>
-                                </div>
-                            </td>
-                        </tr>';
+                            <div class="contact-extra" style="display:none;">
+                                <p> Approval: '.$row['approved_time'] .'  </p>  
+                                <p> Deferral: 0000-00-00 00:00:00  </p>  
+                                <p> Cancelled: 0000-00-00 00:00:00  </p>  
+                            </div>
+                        </td>
+                        <td id="dt-stopwatch">
+                            <div id="stopwatch-sub-div">
+                                Processing: <span class="stopwatch">'.$stopwatch.'</span>
+                            </div>
+                        </td>
+                        
+                        <td id="dt-status">
+                            <div> 
+                                <p class="pat-status-incoming">' . $row['status'] . '</p>';
+                                if ($row['sensitive_case'] === 'true') {
+                                    echo '<i class="pencil-btn fa-solid fa-pencil" style="pointer-events:none; opacity:0.3; color:#cc9900;"></i>';
+                                }else{
+                                    echo'<i class="pencil-btn fa-solid fa-pencil" style="color:#cc9900;"></i>';
+                                }
+                                
+                                echo '<input class="hpercode" type="hidden" name="hpercode" value= ' . $row['hpercode'] . '>
+
+                            </div>
+                        </td>
+                        <td colspan="8" id="dt-action">
+                            <button type="button" class="btn btn-secondary toggle-contact-btn">More Details</button>
+                        </td>
+                    </tr>';
 
                     $previous = $row['reference_num'];
                     $loop += 1;

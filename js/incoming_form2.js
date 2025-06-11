@@ -2007,6 +2007,21 @@ $(document).ready(function(){
         form.remove();
     });
 
+    // Rebind event after table is redrawn
+    $(document).on('click', '.toggle-contact-btn', function () {
+        var $btn = $(this);
+        var $row = $btn.closest('tr');
+
+        $row.find('.contact-extra').slideToggle(200);
+
+        // Optionally change button text
+        if ($btn.text() === "More Details") {
+            $btn.text("Less Details");
+        } else {
+            $btn.text("More Details");
+        }
+    });
+
 
     // Attach a cleanup event to stop the timer when this content is replaced
     function cleanupContent() {
