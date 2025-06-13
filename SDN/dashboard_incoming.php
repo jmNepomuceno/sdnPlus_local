@@ -84,6 +84,8 @@
 
             array_push($recep_arr, $formattedDifference);
         }
+
+        // echo "<pre>"; print_r($recep_arr); echo "</pre>";
         
         // INTERDEPT REFERRAL AVERAGE
         $totalSeconds_interdept = 0;

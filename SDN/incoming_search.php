@@ -31,7 +31,7 @@
         $where_type = $_POST['where_type'];
         $hospital_name = $_SESSION['hospital_name'];
 
-        if (!empty($startDate) && !empty($endDate) && $startDate === $endDate) {
+        if (!empty($startDate) && !empty($endDate)) {
             $endDate = date('Y-m-d', strtotime($endDate . ' +1 day'));
         }
 
@@ -342,10 +342,14 @@
     
             
             foreach ($data as $row) {
-                if(isset($_POST['hpercode_arr'])){
-                    if(in_array($row['hpercode'], $_SESSION['fifo_hpercode']) && $row['status'] != 'Approved'){
-                        continue;
-                    }
+                // if(isset($_POST['hpercode_arr'])){
+                //     if(in_array($row['hpercode'], $_SESSION['fifo_hpercode']) && $row['status'] != 'Approved'){
+                //         continue;
+                //     }
+                // }
+
+                if($row['status'] === 'On-Process' ||  $row['status'] === 'Pending'){
+                    continue;
                 }
     
                 $type_color = $dynamic_classification[$row['type']];
@@ -475,9 +479,6 @@
                     }
                 }   
     
-                //
-    
-                
                 echo'<tr class="tr-incoming" style="'.$style_tr.'">
                         <td id="dt-refer-no"> ' . $row['reference_num'] . ' - '.$index.' </td>
                         <td id="dt-patname">' . $pat_full_name . ' 
@@ -502,7 +503,7 @@
                             </td>
                             <td id="dt-turnaround"> 
                                 <p class="referred-time-lbl"> Referred: ' . $row['date_time'] . ' </p>
-                                <p class="reception-time-lbl"> Reception: '. $row['reception_time'] .'</p>
+                                 <p class="reception-time-lbl"> Reception: '. $row['reception_time'] .' <span style="color:'.$reception_addition_style.'; font-size:0.65rem;"> +'. $reception_addition.' </span></p>
                                 <p class="sdn-proc-time-lbl"> SDN Processed: <span style="'. $total_time_style.'">'. $total_time .' </span> </p>
                                 
                                 <div class="contact-extra" style="display:none;">

@@ -436,7 +436,18 @@
     // update the date of the reception time or, when did the user click the pencil or open the referral form
     if(($incoming_referrals_data[0]['reception_time'] == null || $incoming_referrals_data[0]['reception_time'] == "") && $_POST['from'] === 'incoming'){
         $reception_time = date('Y-m-d H:i:s');
-        $sql = "UPDATE incoming_referrals SET reception_time=:reception_time WHERE hpercode=:hpercode ";
+        $sql = "UPDATE incoming_referrals SET reception_time = :reception_time 
+            WHERE id = (
+                SELECT id FROM (
+                    SELECT id 
+                    FROM incoming_referrals 
+                    WHERE hpercode = :hpercode 
+                    ORDER BY date_time DESC 
+                    LIMIT 1
+                ) AS latest_row
+            )
+        ";
+        
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':reception_time', $reception_time, PDO::PARAM_STR);
         $stmt->bindParam(':hpercode', $hpercode, PDO::PARAM_STR);

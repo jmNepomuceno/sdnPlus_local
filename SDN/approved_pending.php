@@ -105,7 +105,18 @@
         $stmt->execute();
     }
 
-    $timer = filter_input(INPUT_POST, 'timer');
+    // calculate the difference not the timer
+    $sql = "SELECT reception_time FROM incoming_referrals WHERE hpercode='". $global_single_hpercode ."'";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $reception_time_var = $stmt->fetch(PDO::FETCH_ASSOC);  
+
+    $start = new DateTime($reception_time_var['reception_time']);
+    $end = new DateTime($currentDateTime);
+
+    $interval = $start->diff($end);
+    $timer = $interval->format('%H:%I:%S');
+
     // 
     $sql_b = "UPDATE incoming_referrals SET final_progressed_timer=:timer WHERE hpercode=:hpercode AND refer_to = '" . $_SESSION["hospital_name"] . "' AND date_time=:date_time";
     $stmt_b = $pdo->prepare($sql_b);
@@ -113,6 +124,8 @@
     $stmt_b->bindParam(':hpercode', $global_single_hpercode, PDO::PARAM_STR);
     $stmt_b->bindParam(':date_time', $latest_referral['date_time'], PDO::PARAM_STR);
     $stmt_b->execute();
+
+
 
     // update the approved_details and set the time of approval on the database
     if($_POST['action'] === "Approve"){
