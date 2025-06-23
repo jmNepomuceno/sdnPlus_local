@@ -106,7 +106,7 @@
     }
 
     // calculate the difference not the timer
-    $sql = "SELECT reception_time FROM incoming_referrals WHERE hpercode='". $global_single_hpercode ."'";
+    $sql = "SELECT reception_time FROM incoming_referrals WHERE hpercode='". $global_single_hpercode ."' ORDER BY date_time DESC LIMIT 1";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $reception_time_var = $stmt->fetch(PDO::FETCH_ASSOC);  

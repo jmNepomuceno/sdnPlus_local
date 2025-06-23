@@ -14,6 +14,7 @@
                     <ul class="update-list">
                         <li><strong>[2025-06-09]</strong> Added filters for Turnaround Time, Start Date and End Date, and Sensitive Case in Incoming Referrals.</li>
                         <li><strong>[2025-06-09]</strong> Added a sub-module for MSS/WCPU to allow the creation of passwords for sensitive or confidential referral cases. (For later use.)</li>
+                        <li><strong>[2025-06-11]</strong> Viewing all contact information of RHUs and District Hospitals (Hospital No., Hospital Director No., Point Person No.).</li>
                     </ul>
                 </section>
 
@@ -23,12 +24,11 @@
                         <li>Management of feedback and concerns.</li>
                         <li>MSS and WCPU module.</li>
                         <li>Pending Concerns.</li>
-                        <li>Viewing all the contact information of the RHU's/District Hospitals. (Hospital No., Hospital Director No., Point Person No.)</li>
                     </ul>
                 </section>
 
                 <section class="update-section">
-                    <!-- Minor Concerns -->
+                    <!-- Minor Concerns --> 
                     <h6 class="update-section-title"><i class="fas fa-exclamation-circle"></i> Pending Concerns</h6>
                     <ul class="update-list">
                         <li> Easier viewing and copying of the Referral Form</li>

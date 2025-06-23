@@ -7,12 +7,12 @@
 
 
     if($what === 'save'){
-        for($i = 0; $i < count($_SESSION["running_timer"]); $i++){
-            $sql = "UPDATE incoming_referrals SET progress_timer = '". $_SESSION["running_timer"][$i] ."' , refer_to_code='". $_SESSION['hospital_code'] ."'  
-                    , logout_date='". $_POST['date'] ."' WHERE hpercode='". $_SESSION["running_hpercode"][$i] ."'";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute();
-        }
+        // for($i = 0; $i < count($_SESSION["running_timer"]); $i++){
+        //     $sql = "UPDATE incoming_referrals SET progress_timer = '". $_SESSION["running_timer"][$i] ."' , refer_to_code='". $_SESSION['hospital_code'] ."'  
+        //             , logout_date='". $_POST['date'] ."' WHERE hpercode='". $_SESSION["running_hpercode"][$i] ."'";
+        //     $stmt = $pdo->prepare($sql);
+        //     $stmt->execute();
+        // }
 
         
 
@@ -71,49 +71,49 @@
         // echo $_SESSION['user_name'] . " " . $_SESSION['user_password'];
     }
 
-    if($what === 'continue'){
-        $_SESSION['running_bool'] = "true";
+    // if($what === 'continue'){
+    //     $_SESSION['running_bool'] = "true";
 
-        $sql = "SELECT hpercode,status,progress_timer,logout_date FROM incoming_referrals WHERE progress_timer!='' AND refer_to = '" . $_SESSION["hospital_name"] . "'";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    //     $sql = "SELECT hpercode,status,progress_timer,logout_date FROM incoming_referrals WHERE progress_timer!='' AND refer_to = '" . $_SESSION["hospital_name"] . "'";
+    //     $stmt = $pdo->prepare($sql);
+    //     $stmt->execute();
+    //     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-        for($i = 0; $i < count($data); $i++){
-            $givenDate = $data[$i]['logout_date'];
+    //     for($i = 0; $i < count($data); $i++){
+    //         $givenDate = $data[$i]['logout_date'];
 
-            // Create DateTime objects for the given date and the current date
-            $givenDateTime = DateTime::createFromFormat('Y/m/d H:i:s', $givenDate);
-            $currentDateTime = new DateTime(); // This gets the current date and time
+    //         // Create DateTime objects for the given date and the current date
+    //         $givenDateTime = DateTime::createFromFormat('Y/m/d H:i:s', $givenDate);
+    //         $currentDateTime = new DateTime(); // This gets the current date and time
 
-            // Calculate the difference between the two DateTime objects
-            $interval = $currentDateTime->diff($givenDateTime);
+    //         // Calculate the difference between the two DateTime objects
+    //         $interval = $currentDateTime->diff($givenDateTime);
 
-            // Convert the difference to seconds
-            $differenceInSeconds = (
-                ($interval->days * 24 * 60 * 60) +      // Days to seconds
-                ($interval->h * 60 * 60) +              // Hours to seconds
-                ($interval->i * 60) +                   // Minutes to seconds
-                $interval->s                            // Seconds
-            );
+    //         // Convert the difference to seconds
+    //         $differenceInSeconds = (
+    //             ($interval->days * 24 * 60 * 60) +      // Days to seconds
+    //             ($interval->h * 60 * 60) +              // Hours to seconds
+    //             ($interval->i * 60) +                   // Minutes to seconds
+    //             $interval->s                            // Seconds
+    //         );
 
-            $data[$i]['progress_timer'] = (int)$data[$i]['progress_timer'] + $differenceInSeconds;
-        }
+    //         $data[$i]['progress_timer'] = (int)$data[$i]['progress_timer'] + $differenceInSeconds;
+    //     }
         
-        $jsonString = json_encode($data);
-        echo $jsonString;
+    //     $jsonString = json_encode($data);
+    //     echo $jsonString;
 
-        // delete the progress_timer after sending back the request
-        // dapat yung referralID kukunin mo hindi yung hpercode
+    //     // delete the progress_timer after sending back the request
+    //     // dapat yung referralID kukunin mo hindi yung hpercode
 
-        for($i = 0; $i < count($data); $i++){
-            $sql = "UPDATE incoming_referrals SET progress_timer = NULL WHERE hpercode = ?";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([$data[$i]['hpercode']]);
-        }
+    //     for($i = 0; $i < count($data); $i++){
+    //         $sql = "UPDATE incoming_referrals SET progress_timer = NULL WHERE hpercode = ?";
+    //         $stmt = $pdo->prepare($sql);
+    //         $stmt->execute([$data[$i]['hpercode']]);
+    //     }
         
-    }
+    // }
 
 ?>
