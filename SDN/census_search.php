@@ -1,0 +1,501 @@
+<?php 
+    session_start();
+    include("../database/connection2.php");
+
+    $from_where = $_POST['where'];
+
+    // get the classification names
+    $sql = "SELECT classifications FROM classifications";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $data_classifications = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $color = ["#d77707" , "#22c45e" , "#0368a1" , "#cf3136" , "#919122" , "#999966" , "#6666ff"];
+    $dynamic_classification = [];
+    for($i = 0; $i < count($data_classifications); $i++){
+        $dynamic_classification[$data_classifications[$i]['classifications']] = $color[$i];
+    }
+
+    if($from_where === "search"){
+        $ref_no = $_POST['ref_no'];
+        $last_name = $_POST['last_name'];
+        $first_name = $_POST['first_name'];
+        $middle_name = $_POST['middle_name'];
+        $case_type = $_POST['case_type'];
+        $agency = $_POST['agency'];
+        $sensitive = $_POST['sensitive'];
+        $startDate = $_POST['startDate'];
+        $endDate = $_POST['endDate'];
+        $tat = $_POST['tat'];
+        $status = $_POST['status'];
+        $where_type = $_POST['where_type'];
+        $hospital_name = $_SESSION['hospital_name'];
+
+        if (!empty($startDate) && !empty($endDate)) {
+            $endDate = date('Y-m-d', strtotime($endDate . ' +1 day'));
+        }
+
+        // Begin SQL
+        $sql = "SELECT 
+            ir.hpercode, ir.status, ir.type, ir.reference_num, ir.date_time, 
+            ir.reception_time, ir.sent_interdept_time, ir.approved_time, 
+            ir.deferred_time, ir.final_progressed_timer, ir.sensitive_case, 
+            ir.patlast, ir.patfirst, ir.patmiddle, ir.referred_by, 
+            ir.landline_no, ir.mobile_no,
+            
+            hp.pat_age,
+            prov.province_description,
+            city.municipality_description,
+            brgy.barangay_description,
+
+            sh.hospital_director, 
+            sh.hospital_director_mobile, 
+            sh.hospital_point_person, 
+            sh.hospital_point_person_mobile
+
+        FROM incoming_referrals AS ir
+        LEFT JOIN hperson AS hp ON ir.hpercode = hp.hpercode
+        LEFT JOIN provinces AS prov ON hp.pat_province = prov.province_code
+        LEFT JOIN city AS city ON hp.pat_municipality = city.municipality_code
+        LEFT JOIN barangay AS brgy ON hp.pat_barangay = brgy.barangay_code
+        LEFT JOIN sdn_hospital AS sh ON ir.referred_by = sh.hospital_name
+        WHERE ";
+
+        // Dynamic filters
+        $conditions = [];
+
+        if (!empty($ref_no)) {
+            $conditions[] = "ir.reference_num LIKE '%" . $ref_no . "%'";
+        }
+        if (!empty($last_name)) {
+            $conditions[] = "ir.patlast LIKE '%" . $last_name . "%'";
+        }
+        if (!empty($first_name)) {
+            $conditions[] = "ir.patfirst LIKE '%" . $first_name . "%'";
+        }
+        if (!empty($middle_name)) {
+            $conditions[] = "ir.patmiddle LIKE '%" . $middle_name . "%'";
+        }
+        if (!empty($case_type)) {
+            $conditions[] = "ir.type = '" . $case_type . "'";
+        }
+        if (!empty($agency)) {
+            $conditions[] = "ir.referred_by = '" . $agency . "'";
+        }
+        if (!empty($sensitive)) {
+            $conditions[] = "ir.sensitive_case = '" . ($sensitive === "true" ? "true" : "false") . "'";
+        }
+        if (!empty($startDate) && !empty($endDate)) {
+            $conditions[] = "ir.date_time BETWEEN '$startDate' AND '$endDate'";
+        }
+        if (!empty($tat)) {
+            if ($tat === "tat-green") {
+                $conditions[] = "ir.final_progressed_timer >= '00:15:00'";
+            } elseif ($tat === "tat-red") {
+                $conditions[] = "ir.final_progressed_timer < '00:15:00'";
+            }
+        }
+        if ($status !== "default" && $status !== "All") {
+            $conditions[] = "ir.status = '$status'";
+        }
+
+        // Add hospital context condition
+        if ($where_type === 'incoming') {
+            $conditions[] = "ir.refer_to = '$hospital_name'";
+        } else {
+            $conditions[] = "ir.referred_by = '$hospital_name'";
+        }
+
+        // Build final SQL
+        $sql .= implode(" AND ", $conditions);
+        $sql .= " ORDER BY ir.date_time DESC";
+
+        // Execute
+        try {
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo "SQL Error: " . $e->getMessage();
+            exit;
+        }
+
+        
+        // echo $sql;
+        // $jsonString = json_encode($data);
+        // echo $jsonString;
+
+        
+        $index = 0;
+        $previous = 0;
+        $loop = 0;
+        $accord_index = 0;
+        // Loop through the data and generate table rows`
+
+        if($_POST['where_type'] == 'incoming'){
+            foreach ($data as $row) {
+                // if(isset($_POST['hpercode_arr'])){
+                //     if(in_array($row['hpercode'], $_SESSION['fifo_hpercode']) && $row['status'] != 'Approved'){
+                //         continue;
+                //     }
+                // }
+
+                if($row['status'] === 'On-Process' ||  $row['status'] === 'Pending'){
+                    continue;
+                }
+    
+                $type_color = $dynamic_classification[$row['type']];
+    
+                if($previous == 0){
+                    $index += 1;
+                }else{
+                    if($row['reference_num'] == $previous){
+                        $index += 1;
+                    }else{
+                        $index = 1;
+                    }  
+                }
+                
+                // $style_tr = 'background:#33444d; color:white;';
+                $style_tr = '';
+                if($loop != 0 &&  $row['status'] === 'Pending'){
+                    $style_tr = 'opacity:0.5; pointer-events:none;';
+                }
+    
+                // $waiting_time = "--:--:--";
+                $date1 = new DateTime($row['date_time']);
+                $waiting_time_bd = "";
+                if($row['reception_time'] != null){
+                    $date2 = new DateTime($row['reception_time']);
+                    $waiting_time = $date1->diff($date2);
+    
+                    // if ($waiting_time->days > 0) {
+                    //     $differenceString .= $waiting_time->days . ' days ';
+                    // }
+    
+                    $waiting_time_bd .= sprintf('%02d:%02d:%02d', $waiting_time->h, $waiting_time->i, $waiting_time->s);
+    
+                }else{
+                    $waiting_time_bd = "00:00:00";
+                }
+    
+                if($row['reception_time'] == ""){
+                    $row['reception_time'] = "00:00:00";
+                }
+                
+                $sql = "SELECT final_progress_time FROM incoming_interdept WHERE hpercode=?";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute([$row['hpercode']]);
+                $interdept_time = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                
+                $total_time = "00:00:00";
+                                    
+                if(!$interdept_time){
+                    $interdept_time[0]['final_progress_time'] = "00:00:00";
+                    $row['sent_interdept_time'] = "00:00:00";
+                }
+    
+    
+                if($row['approved_time'] == ""){
+                    $row['approved_time'] = "0000-00-00 00:00:00";
+                }
+    
+                if($row['deferred_time'] === "" || $row['deferred_time'] === null){
+                    $row['deferred_time'] = "0000-00-00 00:00:00";
+                }
+    
+                if($interdept_time[0]['final_progress_time'] == ""){
+                    $interdept_time[0]['final_progress_time'] = "00:00:00";
+                }
+    
+                $sdn_processed_value = "";
+                if($row['sent_interdept_time'] == ""){
+                    $row['sent_interdept_time'] = "00:00:00";
+                    $sdn_processed_value = $row['final_progressed_timer'];
+                }else{
+                    $sdn_processed_value =  $row['sent_interdept_time'];
+                }
+    
+                $stopwatch = "00:00:00";
+                if($row['sent_interdept_time'] == "00:00:00"){
+                    if($_SESSION['running_timer'] != "" && $row['status'] == 'On-Process'){
+                        $stopwatch  = $_SESSION['running_timer'];
+                    }
+                }else{
+                    $stopwatch  = $row['sent_interdept_time'];
+                }
+    
+                // for sensitive case
+                $pat_full_name = ""; 
+                if($row['sensitive_case'] === 'true'){
+                    $pat_full_name = "
+                        <div class='pat-full-name-div'>
+                            <button class='sensitive-case-btn'> <i class='sensitive-lock-icon fa-solid fa-lock'></i> Sensitive Case </button>
+                            <input class='sensitive-hpercode' type='hidden' name='sensitive-hpercode' value= '" . $row['hpercode'] . "'>
+                        </div>
+                    ";
+                }else{
+                    $pat_full_name = $row['patlast'] . ", " . $row['patfirst'] . " " . $row['patmiddle'];
+                }
+    
+                
+                $interdept_section = "Interdept";
+                $interdept_referred_time = "0000:00:00 00:00:00";
+                $interdept_recept_time = "0000:00:00 00:00:00";
+                $total_time = $row['final_progressed_timer'];
+    
+                $date1 = new DateTime($row['date_time']);
+                $date2 = new DateTime($row['reception_time']);
+    
+                // Calculate the difference
+                $interval = $date2->getTimestamp() - $date1->getTimestamp();
+    
+                // Convert the difference to minutes and seconds
+                $totalMinutes = floor($interval / 60);
+                $seconds = $interval % 60;
+    
+                // Format the result to mm:ss or mmm:ss
+                $reception_addition = sprintf("%d:%02d", $totalMinutes, $seconds);
+                $reception_addition_style = "orange";
+                // $reception_addition_style = ($interval >= 900) ? "red" : "green";
+    
+    
+                $total_time_style = "";
+                if($total_time != "00:00:00"){
+                    list($hours, $minutes, $seconds) = array_map('intval', explode(':', $total_time));
+                    $total_time_in_seconds = ($hours * 3600) + ($minutes * 60) + $seconds;
+                    if($total_time_in_seconds >= 900){
+                        $total_time_style = "color:red; font-weight:bold;";
+                    }else{
+                        $total_time_style = "color:green; font-weight:bold;";
+                    }
+                }   
+    
+                echo'<tr class="tr-incoming" style="'.$style_tr.'">
+                        <td id="dt-refer-no"> ' . $row['reference_num'] . ' - '.$index.' </td>
+                        <td id="dt-patname">' . $pat_full_name . ' 
+                            <span id="pat-address-span"> Address: '.$row['province_description'] .', '. $row['municipality_description'].' , '. $row['barangay_description'].' </span> 
+                            <span id="pat-age-span"> Age: '.$row['pat_age'].' </span> 
+                        </td>
+                        <td id="dt-type" style="background:' . $type_color . ' ">' . $row['type'] . '</td>
+                            <td id="dt-phone-no">
+                                <div class="">
+                                    <p> <b>Referred by:</b> ' . $row['referred_by'] . '  </p>
+                                    <p> <b>Landline:</b> ' . $row['landline_no'] . ' </p>
+                                    <p> <b>Mobile:</b> ' . $row['mobile_no'] . ' </p>
+
+                                    <div class="contact-extra" style="display:none;">
+                                        <p> <b>Director:</b> ' . $row['hospital_director'] . '  </p>
+                                        <p> <b>Director No.:</b> ' . $row['hospital_director_mobile'] . '  </p>
+                                        <p> <b>Point Person:</b> ' . $row['hospital_point_person'] . ' </p>
+                                        <p> <b>Point Person No.:</b> ' . $row['hospital_point_person_mobile'] . ' </p>
+                                    </div>
+
+                                </div>
+                            </td>
+                            <td id="dt-turnaround"> 
+                                <p class="referred-time-lbl"> Referred: ' . $row['date_time'] . ' </p>
+                                 <p class="reception-time-lbl"> Reception: '. $row['reception_time'] .' <span style="color:'.$reception_addition_style.'; font-size:0.65rem;"> +'. $reception_addition.' </span></p>
+                                <p class="sdn-proc-time-lbl"> SDN Processed: <span style="'. $total_time_style.'">'. $total_time .' </span> </p>
+                                
+                                <div class="contact-extra" style="display:none;">
+                                    <p> Approval: '.$row['approved_time'] .'  </p>  
+                                    <p> Deferral: 0000-00-00 00:00:00  </p>  
+                                    <p> Cancelled: 0000-00-00 00:00:00  </p>  
+                                </div>
+                            </td>
+                            
+                            <td id="dt-stopwatch">
+                                <div id="stopwatch-sub-div">
+                                    Processing: <span class="stopwatch">'.$stopwatch.'</span>
+                                </div>
+                            </td>
+                            
+                            <td id="dt-status">
+                                <div> 
+                                    <p class="pat-status-incoming">' . $row['status'] . '</p>';
+                                    if ($row['sensitive_case'] === 'true') {
+                                        echo '<i class="pencil-btn fa-solid fa-pencil" style="pointer-events:none; opacity:0.3; color:#cc9900;"></i>';
+                                    }else{
+                                        echo'<i class="pencil-btn fa-solid fa-pencil" style="color:#cc9900;"></i>';
+                                    }
+                                    
+                                    echo '<input class="hpercode" type="hidden" name="hpercode" value= ' . $row['hpercode'] . '>
+    
+                                </div>
+                            </td>
+                            <td colspan="8" id="dt-action">
+                                <button type="button" class="btn btn-secondary toggle-contact-btn">More Details</button>
+                            </td>
+                        </tr>';
+    
+                
+                $previous = $row['reference_num'];
+                $loop += 1;
+                $accord_index += 1;
+            }
+        }
+        else{
+            foreach ($data as $row) {
+                $type_color = $dynamic_classification[$row['type']];
+                if($previous == 0){
+                    $index += 1;
+                }else{
+                    if($row['reference_num'] == $previous){
+                        $index += 1;
+                    }else{
+                        $index = 1;
+                    }  
+                }
+                
+                // $waiting_time = "--:--:--";
+                $date1 = new DateTime($row['date_time']);
+                $waiting_time_bd = "";
+                if($row['reception_time'] != null){
+                    $date2 = new DateTime($row['reception_time']);
+                    $waiting_time = $date1->diff($date2);
+
+                    // if ($waiting_time->days > 0) {
+                    //     $differenceString .= $waiting_time->days . ' days ';
+                    // }
+
+                    $waiting_time_bd .= sprintf('%02d:%02d:%02d', $waiting_time->h, $waiting_time->i, $waiting_time->s);
+
+                }else{
+                    $waiting_time_bd = "00:00:00";
+                }
+
+                if($row['reception_time'] == ""){
+                    $row['reception_time'] = "00:00:00";
+                }
+
+
+                // processed time = progress time ng admin + progress time ng dept
+                // maiiwan yung timer na naka print, once na send na sa interdept
+                
+                $sql = "SELECT final_progress_time FROM incoming_interdept WHERE hpercode=:hpercode";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':hpercode', $row['hpercode'], PDO::PARAM_STR);
+                $stmt->execute();
+                $interdept_time = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                $total_time = "00:00:00";
+                if($interdept_time){
+                    if($interdept_time[0]['final_progress_time'] != "" && $row['sent_interdept_time'] != ""){
+                        list($hours1, $minutes1, $seconds1) = array_map('intval', explode(':', $interdept_time[0]['final_progress_time']));
+                        list($hours2, $minutes2, $seconds2) = array_map('intval', explode(':', $row['sent_interdept_time']));
+
+                        // Create DateTime objects in UTC with the provided hours, minutes, and seconds
+                        $date1 = new DateTime('1970-01-01 ' . $hours1 . ':' . $minutes1 . ':' . $seconds1, new DateTimeZone('UTC'));
+                        $date2 = new DateTime('1970-01-01 ' . $hours2 . ':' . $minutes2 . ':' . $seconds2, new DateTimeZone('UTC'));
+
+                        // Calculate the total milliseconds
+                        $totalMilliseconds = $date1->getTimestamp() * 1000 + $date2->getTimestamp() * 1000;
+
+                        // Create a new DateTime object in UTC with the total milliseconds
+                        $newDate = new DateTime('@' . ($totalMilliseconds / 1000), new DateTimeZone('UTC'));
+
+                        // Format the result in UTC time "HH:mm:ss"
+                        $total_time = $newDate->format('H:i:s');
+                    }
+                }else{
+                    $interdept_time[0]['final_progress_time'] = "00:00:00";
+                    $row['sent_interdept_time'] = "00:00:00";
+                    // $total_time = $row['final_progressed_timer'];
+                }
+
+                // echo($total_time);
+
+                if($row['approved_time'] == ""){
+                    $row['approved_time'] = "0000-00-00 00:00:00";
+                }
+
+                if($interdept_time[0]['final_progress_time'] == ""){
+                    $interdept_time[0]['final_progress_time'] = "00:00:00";
+                }
+
+                if($row['sent_interdept_time'] == ""){
+                    $row['sent_interdept_time'] = "00:00:00";
+                }
+
+                $stopwatch = "00:00:00";
+                if($row['sent_interdept_time'] == "00:00:00"){
+                    if($_SESSION['running_timer'] != "" && $row['status'] == 'On-Process'){
+                        $stopwatch  = $_SESSION['running_timer'];
+
+                        $seconds = (int)$stopwatch;
+
+                            // // Calculate hours, minutes, and seconds
+                            $hours = floor($seconds / 3600);
+                            $minutes = floor((int)($seconds / 60) % 60);
+                            $seconds = $seconds % 60;
+
+                            // // Format the time as HH:MM:SS
+                            $stopwatch = sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
+                    }
+                }else{
+                    $stopwatch  = $row['sent_interdept_time'];
+                }
+
+                // for sensitive case
+                $pat_full_name = "
+                    <div class='pat-full-name-div'>
+                        <button class='sensitive-case-btn' style='display:none;'> <i class='sensitive-lock-icon fa-solid fa-lock'></i> Sensitive Case </button>
+                        <label> " . $row['patlast'] . " , " . $row['patfirst'] . "  " . $row['patmiddle'] . "</label>
+                        <input class='sensitive-hpercode' type='hidden' name='sensitive-hpercode' value= '" . $row['hpercode'] . "'>
+                    </div>
+                ";
+
+                echo '<tr class="tr-incoming">
+                        <td id="dt-refer-no"> ' . $row['reference_num'] . ' - '.$index.' </td>
+                        <td id="dt-patname">' . $pat_full_name . '</td>
+                        <td id="dt-type" style="background:' . $type_color . ' ">' . $row['type'] . '</td>
+                        <td id="dt-phone-no">
+                            <div class="">
+                                <p> Referred by: ' . $row['referred_by'] . '  </p>
+                                <p> Landline: ' . $row['landline_no'] . ' </p>
+                                <p> Mobile: ' . $row['mobile_no'] . ' </p>
+                            </div>
+                        </td>
+                        <td id="dt-turnaround"> 
+                            <i class="accordion-btn fa-solid fa-plus"></i>
+
+                            <p class="referred-time-lbl"> Referred: ' . $row['date_time'] . ' </p>
+                            <p class="reception-time-lbl"> Reception: '. $row['reception_time'] .'</p>
+                            <p class="sdn-proc-time-lbl"> SDN Processed: '. $row['sent_interdept_time'] .'</p>
+                            
+                            <div class="breakdown-div">
+                                <p> Approval: '.$row['approved_time'] .'  </p>  
+                                <p> Deferral: 0000-00-00 00:00:00  </p>  
+                                <p> Cancelled: 0000-00-00 00:00:00  </p>  
+                            </div>
+                        </td>
+
+                        <td id="dt-status">
+                            <div> 
+                                <p class="pat-status-incoming">' . $row['status'] . '</p>';
+                                echo'<i class="pencil-btn fa-solid fa-pencil" style="color:#cc9900;"></i>';
+                                
+                                echo '<input class="hpercode" type="hidden" name="hpercode" value= ' . $row['hpercode'] . '>
+                                <input class="date-referral" type="hidden" value="' . $row['date_time'] . '">
+
+                            </div>
+                        </td>
+
+                        <td id="dt-cancel">
+                            <button class="referral-cancel-btns" id="referral-cancel-btn"> Cancel </button>
+                        </td>
+                    </tr>';
+
+            
+                    $previous = $row['reference_num'];
+                $loop += 1;
+            }
+        }
+
+       
+    }
+  
+
+
+?>

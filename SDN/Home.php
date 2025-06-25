@@ -45,6 +45,8 @@
     //     echo "here";
     // }
 
+    // echo $permissions['census'];
+
 ?>
 
 <!DOCTYPE html>
@@ -252,6 +254,17 @@
                                     </div>
                                 ';
                             }
+
+                            if(isset($permissions['census'])){
+                                if($permissions['census'] == 1){
+                                    echo '<div id="census-sub-side-bar" class="side-bar-navs-class">
+                                            <i class="fa-solid fa-hospital-user"></i>  
+                                            <h3 id="pat-reg-form-h3">Census Table</h3>
+                                        </div>';
+                                }
+                            }
+
+                            
                         ?>
 
                         <!-- bucas referral -->
@@ -277,6 +290,8 @@
                             <h3>BUCAS (History)</h3>
                         </div>
                         <?php } ?>
+
+                       
                     </div>
                 </div>
             </aside>

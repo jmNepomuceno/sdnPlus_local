@@ -455,7 +455,8 @@ background: #555;
 #main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #outgoing-sub-div-id,
 #main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #incoming-sub-div-id,
 #main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #bucasPending-sub-div-id,
-#main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #bucasHistory-sub-div-id {
+#main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #bucasHistory-sub-div-id,
+#main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #census-sub-side-bar {
     width:100%;
     height: 40px;
     display:flex;
@@ -470,7 +471,8 @@ background: #555;
 #main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #outgoing-sub-div-id:hover,
 #main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #incoming-sub-div-id:hover,
 #main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #bucasPending-sub-div-id:hover,
-#main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #bucasHistory-sub-div-id:hover
+#main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #bucasHistory-sub-div-id:hover,
+#main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #census-sub-side-bar:hover
 {
     opacity: 1;
     transition-duration: 100ms;
@@ -480,7 +482,8 @@ background: #555;
 #main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #outgoing-sub-div-id i,
 #main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #incoming-sub-div-id i,
 #main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #bucasPending-sub-div-id i,
-#main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #bucasHistory-sub-div-id i{
+#main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #bucasHistory-sub-div-id i,
+#main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #census-sub-side-bar i{
     margin-left: 2rem;
     font-size: 1.125rem;
     line-height: 1.75rem;
@@ -492,7 +495,8 @@ background: #555;
 #main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #outgoing-sub-div-id h3,
 #main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #incoming-sub-div-id h3,
 #main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #bucasPending-sub-div-id h3,
-#main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #bucasHistory-sub-div-id h3
+#main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #bucasHistory-sub-div-id h3,
+#main-div .aside-main-div #side-bar-div #main-side-bar-2 #sub-side-bar-2 #census-sub-side-bar h3
 {
     font-size: 9pt;
     margin: 0.75rem;

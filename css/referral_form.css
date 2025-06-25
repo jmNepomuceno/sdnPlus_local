@@ -137,9 +137,10 @@
     font-size: 0.8rem;
 }
 
-.container .referral-body .first-part .first-sub-div-part .refer-to-div #refer-to-select{
-    pointer-events: none;
-}
+/* .container .referral-body .first-part .first-sub-div-part .refer-to-div #refer-to-select{
+    pointer-events: auto;
+    border:1px solid red;
+} */
 
 .container .referral-body .first-part .first-sub-div-part .sensitive-case-div{
     width:26%;

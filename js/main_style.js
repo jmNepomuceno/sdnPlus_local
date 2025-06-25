@@ -560,6 +560,11 @@ $(document).ready(function(){
         loadContent('../SDN/incoming_form2.php')
     })
 
+    // $('#census-sub-side-bar').on('click' , function(event){
+    //     event.preventDefault();
+    //     loadContent('../SDN/incoming_form2.php')
+    // })
+
     $('#patient-reg-form-sub-side-bar').on('click' , function(event){
         event.preventDefault();
         $(document).trigger('saveTimeSession');
