@@ -207,7 +207,7 @@
                         <label>Process Date/Time:</label><span id="refer-agency"> ' . $response[0]['reception_time'] . '</span> 
                     </div>
                     <div class="right-sub-div"> 
-                        <label>Processed By:</label><span id="processed-by-span">' . $_SESSION['last_name'] . ', ' . $_SESSION['first_name'] . '</span> 
+                        <label>Processed By:</label><span id="processed-by-span">' . ($response[0]['processed_by'] ? $response[0]['processed_by'] : $response[0]['whoLocked']) . '</span> 
                     </div>
                 </div>
             </div>

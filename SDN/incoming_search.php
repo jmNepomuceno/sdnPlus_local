@@ -23,10 +23,10 @@
         $middle_name = $_POST['middle_name'];
         $case_type = $_POST['case_type'];
         $agency = $_POST['agency'];
-        $sensitive = $_POST['sensitive'];
-        $startDate = $_POST['startDate'];
-        $endDate = $_POST['endDate'];
-        $tat = $_POST['tat'];
+        $sensitive = $_POST['sensitive'] ?? '';
+        $startDate = $_POST['startDate'] ?? '';;
+        $endDate = $_POST['endDate'] ?? '';;
+        $tat = $_POST['tat'] ?? '';;
         $status = $_POST['status'];
         $where_type = $_POST['where_type'];
         $hospital_name = $_SESSION['hospital_name'];

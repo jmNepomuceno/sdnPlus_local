@@ -72,7 +72,7 @@ $(document).ready(function(){
     if(running_bool === "true" || running_bool === true){
         loadContent('../SDN/incoming_form2.php')
     }else{
-        loadContent('../SDN/incoming_form2.php')
+        loadContent('../SDN/default_view2.php')
     }
 
     // Function to parse query parameters from URL  
@@ -560,10 +560,10 @@ $(document).ready(function(){
         loadContent('../SDN/incoming_form2.php')
     })
 
-    // $('#census-sub-side-bar').on('click' , function(event){
-    //     event.preventDefault();
-    //     loadContent('../SDN/incoming_form2.php')
-    // })
+    $('#census-sub-side-bar').on('click' , function(event){
+        event.preventDefault();
+        loadContent('../SDN/census.php')
+    })
 
     $('#patient-reg-form-sub-side-bar').on('click' , function(event){
         event.preventDefault();

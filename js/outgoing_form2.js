@@ -331,7 +331,7 @@ $(document).ready(function(){
                 data:data,
                 // dataType:'JSON',
                 success: function(response){
-
+                    // console.log(response)
                     dataTable.clear();
                     dataTable.rows.add($(response)).draw();
 

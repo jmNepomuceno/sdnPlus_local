@@ -306,42 +306,42 @@ $(document).ready(function(){
 
                 enabledNextReferral_normal()
 
-                $.ajax({
-                    url: '../SDN/fetch_try.php',
-                    method: "POST",
-                    dataType : 'JSON',
-                    success: function(response){
-                        // console.log(response)
+                // $.ajax({
+                //     url: '../SDN/fetch_try.php',
+                //     method: "POST",
+                //     dataType : 'JSON',
+                //     success: function(response){
+                //         // console.log(response)
                         
-                        if(response.prev_inc != response.curr_inc){
-                            // console.log('here')
-                            move()
-                        }
+                //         if(response.prev_inc != response.curr_inc){
+                //             // console.log('here')
+                //             move()
+                //         }
 
-                        if(response.running_index.length >= 1){
-                            running_bool_var = true;
-                        }
-                        // console.log(encapsule)
-                        for (let i = 0; i < encapsule.length; i++) {
-                            // encapsule[response.running_index[i]].stop();
-                            if (encapsule[i] && typeof encapsule[i].stop === 'function') {
-                                encapsule[i].stop();
-                            }
-                        }
+                //         if(response.running_index.length >= 1){
+                //             running_bool_var = true;
+                //         }
+                //         // console.log(encapsule)
+                //         for (let i = 0; i < encapsule.length; i++) {
+                //             // encapsule[response.running_index[i]].stop();
+                //             if (encapsule[i] && typeof encapsule[i].stop === 'function') {
+                //                 encapsule[i].stop();
+                //             }
+                //         }
 
-                        encapsule = []
+                //         encapsule = []
 
-                        for (let i = 0; i < response.data.length; i++) {
-                            encapsule[response.data[i]] = runTimer(parseInt(response.data[i]))
-                        }
+                //         for (let i = 0; i < response.data.length; i++) {
+                //             encapsule[response.data[i]] = runTimer(parseInt(response.data[i]))
+                //         }
 
-                        for (let i = 0; i < response.data.length; i++) {
-                            elapsedTime = (parseFloat(response.running_timer[i]) || 0) * 1000;
-                            // requestAnimationFrame(() => encapsule[i].start(elapsedTime));
-                            encapsule[response.data[i]].start(elapsedTime)
-                        }
-                    }
-                })
+                //         for (let i = 0; i < response.data.length; i++) {
+                //             elapsedTime = (parseFloat(response.running_timer[i]) || 0) * 1000;
+                //             // requestAnimationFrame(() => encapsule[i].start(elapsedTime));
+                //             encapsule[response.data[i]].start(elapsedTime)
+                //         }
+                //     }
+                // })
             },
             error: function(xhr, status, error) {
                 console.error("Error: " + error);

@@ -99,35 +99,32 @@
                 </div>
             </div>
             <div class="account-header-div">
-                <i class="fas fa-rotate" id="update-div" title="Updates"></i>
-                <div class="notif-main-div">
-
+                
+                <?php 
+                if (!isset($permissions['census']) || $permissions['census'] === false): ?>
+                    <i class="fas fa-rotate" id="update-div" title="Updates"></i>
+                    <div class="notif-main-div">
                         <div id="notif-div">
                             <?php 
-                                if($incoming_num['COUNT(*)'] > 0){
-                                    echo '<h1 id="notif-circle" style="display:block;"><span id="notif-span"></span></h1>';
-                                }else{
-                                    echo '<h1 id="notif-circle" style="display:none;"><span id="notif-span"></span></h1>';
-                                }
+                            if ($incoming_num['COUNT(*)'] > 0) {
+                                echo '<h1 id="notif-circle" style="display:block;"><span id="notif-span"></span></h1>';
+                            } else {
+                                echo '<h1 id="notif-circle" style="display:none;"><span id="notif-span"></span></h1>';
+                            }
                             ?>
                             <i class="fa-solid fa-bell"></i> 
-                            <audio id="notif-sound" preload='auto' muted loop>
+                            <audio id="notif-sound" preload="auto" muted loop>
                                 <source src="../assets/sound/incoming_message.mp3" type="audio/mpeg">
                             </audio>
 
                             <div id="notif-sub-div">
-                                <!-- <div class="h-[30px] w-full border border-black flex flex-row justify-evenly items-center">
-                                    <h4 class="font-bold text-lg">3</h4>
-                                    <h4 class="font-bold text-lg">OB</h4>
-                                </div> -->
-                                <!-- b3b3b3 -->
+                                <!-- Notification details -->
                             </div>
                         </div>
+                    </div>
+                <?php endif; ?>
 
-                        <!-- <div class="w-[20px] h-full flex flex-col justify-center items-center">
-                            <i class="fa-solid fa-caret-down text-white text-xs mt-2"></i>
-                        </div> -->
-                </div>
+                
 
                 <div id="nav-account-div" class="header-username-div">
                     <div class="user-icon-div">
