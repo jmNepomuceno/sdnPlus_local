@@ -439,6 +439,7 @@
 
     <script src="../js/main_style.js?v=<?php echo time(); ?>"></script>
     <script src="../js/location.js?v=<?php echo time(); ?>"></script>
+    <script src="../js/modal_js/update_modal.js?v=<?php echo time(); ?>"></script>
 
     <script>
         var running_bool = <?php echo ($_SESSION['running_bool']) === "true" ? "true" : "false"; ?>;

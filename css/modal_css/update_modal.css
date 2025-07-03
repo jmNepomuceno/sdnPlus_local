@@ -57,3 +57,8 @@
     font-size: 0.9rem;
     padding: 6px 16px;
 }
+
+#feedback-success-message{
+    font-weight: 600;
+    color: #00b300;
+}

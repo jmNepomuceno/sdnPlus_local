@@ -91,7 +91,8 @@ body {
     margin-right: 1rem;
     color:white;
     cursor: pointer;
-    opacity: 0.5;
+    /* opacity: 0.5; */
+    color:#cccc00;
 }
 
 #main-div .header-div .account-header-div #update-div i{

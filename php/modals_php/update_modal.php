@@ -47,14 +47,14 @@
                     <h6 class="update-section-title"><i class="fas fa-comment-dots"></i> Feedback / Concerns</h6>
                     <form id="update-feedback-form">
                         <div class="form-group">
-                            <textarea class="form-control" rows="4" placeholder="Let us know what you think... (Not Available Yet)" style="pointer-events:none;"></textarea>
+                            <textarea class="form-control" id="feedback-textarea" rows="4" placeholder="Let us know what you think..."></textarea>
                         </div>
                         <div class="text-end">
-                            <button id="feedback-btn" type="submit" class="btn btn-primary mt-2">Not Available Yet</button>
+                            <button id="feedback-btn" type="submit" class="btn btn-primary mt-2">Submit Concern</button>
                         </div>
                     </form>
+                    <!-- <span id="feedback-success-message">Successfully Submitted!</span> -->
                 </section>
-
             </div>
 
         </div>
