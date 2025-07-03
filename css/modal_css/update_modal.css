@@ -47,6 +47,22 @@
     list-style-type: disc;
     margin-left: 20px;
     color: #333;
+    height: 100px;
+    overflow-y: auto; /* use 'auto' instead of 'scroll' */
+    overflow-x: hidden;
+}
+
+.update-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.update-list::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+}
+
+.update-list::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
 }
 
 #updateModal .modal-content .modal-body #update-feedback-form textarea {

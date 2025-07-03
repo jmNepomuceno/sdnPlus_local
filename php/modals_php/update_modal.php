@@ -12,9 +12,11 @@
                 <section class="update-section">
                     <h6 class="update-section-title"><i class="fas fa-bullhorn"></i> Latest Updates</h6>
                     <ul class="update-list">
-                        <li><strong>[2025-06-09]</strong> Added filters for Turnaround Time, Start Date and End Date, and Sensitive Case in Incoming Referrals.</li>
-                        <li><strong>[2025-06-09]</strong> Added a sub-module for MSS/WCPU to allow the creation of passwords for sensitive or confidential referral cases. (For later use.)</li>
+                        <li><strong>[2025-07-02]</strong> Updated some code for real time accuracy of the processing time while processing a referral. (Still under monitor, kindly submit a request if inaccuracy of the processing time is still not fix.)</li>
                         <li><strong>[2025-06-11]</strong> Viewing all contact information of RHUs and District Hospitals (Hospital No., Hospital Director No., Point Person No.).</li>
+                        <li><strong>[2025-06-09]</strong> Added a sub-module for MSS/WCPU to allow the creation of passwords for sensitive or confidential referral cases. (For later use.)</li>
+                        <li><strong>[2025-06-09]</strong> Added filters for Turnaround Time, Start Date and End Date, and Sensitive Case in Incoming Referrals.</li>
+
                     </ul>
                 </section>
 
@@ -29,8 +31,24 @@
 
                 <section class="update-section">
                     <!-- Minor Concerns --> 
+                     <?php 
+                        $sql = "SELECT concern_txt, concern_requestDate, concern_requestor 
+                        FROM concerns
+                        ORDER BY concern_requestDate DESC";
+                        $stmt = $pdo->prepare($sql);
+                        $stmt->execute();
+                        $userConcerns = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                     ?>
                     <h6 class="update-section-title"><i class="fas fa-exclamation-circle"></i> Pending Concerns</h6>
-                    <ul class="update-list">
+                    <ul class="update-list" id="pending-concerns-list">
+                        <!-- dynamic rendering -->
+                        <?php foreach ($userConcerns as $concern): ?>
+                            <li>
+                                <strong>[<?= date('Y-m-d', strtotime($concern['concern_requestDate'])) ?>]</strong> 
+                                <?= htmlspecialchars($concern['concern_txt']) ?> 
+                                (<span style="color:#007bff;font-weight:600;">Requested by:</span> <?= htmlspecialchars($concern['concern_requestor']) ?>)
+                            </li>
+                        <?php endforeach; ?>
                         <li> Easier viewing and copying of the Referral Form</li>
                         <li> Unstable or delayed updates for new incoming referrals</li>
                         <li> Ability to cancel referrals even after they have been approved</li>
