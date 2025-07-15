@@ -1,7 +1,7 @@
 <?php
     session_start();
     include('../database/connection2.php');
-    
+
     //if cache is cleared redirect to index page
     if (!isset($_SESSION['user_name']) || empty($_SESSION['user_name'])) {
         header("Location: ../index.php");
@@ -46,7 +46,7 @@
     // }
 
     // echo $permissions['census'];
-
+    
 ?>
 
 <!DOCTYPE html>
@@ -87,6 +87,7 @@
 
 </head>
 <body>
+   
     <input id="current-page-input" type="hidden" name="current-page-input" value="" />
     <input id="clicked-logout-input" type="hidden" name="clicked-logout-input" value="" />    
 
@@ -99,7 +100,6 @@
                 </div>
             </div>
             <div class="account-header-div">
-                
                 <?php 
                 if (!isset($permissions['census']) || $permissions['census'] === false): ?>
                     <i class="fas fa-rotate" id="update-div" title="Updates"></i>
@@ -429,6 +429,28 @@
         </div>
     </div>
 
+    <div class="modal fade" id="reauthModal" tabindex="-1" role="dialog" aria-labelledby="reauthModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title-div">
+                        <h5 id="reauthModalLabel" class="modal-title">Session Expired</h5>
+                    </div>
+                </div>
+                <div id="modal-body" class="modal-body">
+                    <p>Your session has expired due to inactivity. Please re-enter your password to continue.</p>
+                    
+                    <input type="password" id="reauth-password" class="form-control mb-2" placeholder="Enter your password">
+                    <div id="reauth-error" class="text-danger mt-1" style="display:none;">Incorrect password. Please try again.</div>
+
+                    <div id="reauth-btns">
+                        <button class="btn btn-primary" id="reauth-submit">Continue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
     <!-- <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script> -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -480,7 +502,6 @@
 
     <script>
         var running_val = <?php echo json_encode(floatval($_SESSION['running_timer'])); ?>;
-        
     </script>
 </body>
 </html>

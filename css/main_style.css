@@ -762,6 +762,80 @@ background: #555;
     margin-top:-5px;
 }
 
+/* **** */
+#reauthModal .modal-content{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    /* width: 100%;
+    height: 100%; */
+}
+
+#reauthModal .modal-header, #reauthModal .modal-title-div{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#reauthModal .modal-header{
+    height: 40px;
+    width: 100%;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background: #1f292e;
+}
+
+#reauthModal .modal-header .modal-title-div{
+    color:white;
+    width: 100%;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#reauthModal .modal-header .modal-title-div h5{
+    margin:0;
+    padding:0;
+    margin-left:10px;   
+}
+
+#reauthModal .modal-header .modal-title-div #modal-icon{
+    color:yellow;
+}
+
+#reauthModal .modal-header button{
+    font-size: 1.875rem; 
+    line-height: 2.25rem;
+    border:none;
+    background: transparent;
+}
+
+#reauthModal .modal-content #modal-body{
+    width: 100%;
+    /* height:750px; */
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    /* border:2px solid blue; */
+    margin-left:0;
+}
+
+#reauthModal .modal-content #modal-body #reauth-btns{
+    width: 95%;
+    height: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
 
 @media only screen and (max-height: 750px){
     #main-div .aside-main-div #side-bar-div{

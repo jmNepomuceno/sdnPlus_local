@@ -672,6 +672,7 @@ $(document).ready(function(){
                 //     index -= 1
                 //     went_here = true
                 // }
+                
 
                 if (global_paging === 1) {
                     document.querySelectorAll('.stopwatch')[index].textContent = formatTime(elapsedTime);
@@ -700,6 +701,8 @@ $(document).ready(function(){
                     // }
 
                     // console.log("check_ref_length - ", index , " - " , document.querySelectorAll('.pat-status-incoming').length, encapsule)
+
+                    resetIdleTime()
 
                     // Perform AJAX request
                     $.ajax({

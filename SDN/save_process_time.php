@@ -7,15 +7,6 @@
 
 
     if($what === 'save'){
-        // for($i = 0; $i < count($_SESSION["running_timer"]); $i++){
-        //     $sql = "UPDATE incoming_referrals SET progress_timer = '". $_SESSION["running_timer"][$i] ."' , refer_to_code='". $_SESSION['hospital_code'] ."'  
-        //             , logout_date='". $_POST['date'] ."' WHERE hpercode='". $_SESSION["running_hpercode"][$i] ."'";
-        //     $stmt = $pdo->prepare($sql);
-        //     $stmt->execute();
-        // }
-
-        
-
         $currentDate = date("Y-m-d H:i:s"); // Current date and time
 
         $sql = "UPDATE sdn_users SET user_lastLoggedIn=:curr_date, user_isActive='0' WHERE username=:username AND password=:password";

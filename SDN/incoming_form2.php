@@ -137,9 +137,9 @@
     // $stmt = $pdo->prepare($sql);
     // $stmt->execute();
 
-    // $sql = "UPDATE incoming_referrals SET status='Pending', reception_time=null, final_progressed_timer=null, approved_time=null, approval_details=null, status_interdept=null, sent_interdept_time=null, last_update=null, pat_class=null WHERE hpercode='PAT000048'";
-    // $stmt = $pdo->prepare($sql);
-    // $stmt->execute();
+    $sql = "UPDATE incoming_referrals SET status='Pending', reception_time=null, final_progressed_timer=null, approved_time=null, approval_details=null, status_interdept=null, sent_interdept_time=null, last_update=null, pat_class=null WHERE hpercode='PAT000040'";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
 
     // $sql = "DELETE FROM incoming_referrals WHERE hpercode='PAT000048'";
     // $stmt = $pdo->prepare($sql);
@@ -363,7 +363,6 @@
                         // SQL query to fetch data from your table
                         $indexing = 0;
                         try{
-
                             $sql = "";
                             // if($_SESSION['user_name'] === 'mss'){
                             //     $sql = "SELECT * FROM incoming_referrals WHERE (status='Pending' OR status='On-Process') AND refer_to=? AND sensitive_case='true' ORDER BY date_time ASC";

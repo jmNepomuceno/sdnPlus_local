@@ -188,6 +188,13 @@
             <div id="right-sub-div-a-2">
     ';
 
+    $processed_by_span_val = "";
+    if(!$response[0]['processed_by'] && !$response[0]['whoLocked']){
+        $processed_by_span_val = $_SESSION['first_name'] . ' ' . $_SESSION['last_name'];
+    }else{
+        $processed_by_span_val = $response[0]['processed_by'] ? $response[0]['processed_by'] : $response[0]['whoLocked'];
+    }
+
     // Here you add the conditional PHP logic outside of the HTML string
     if ($_POST['from'] === 'incoming') {
         $right_html .= '
@@ -207,7 +214,7 @@
                         <label>Process Date/Time:</label><span id="refer-agency"> ' . $response[0]['reception_time'] . '</span> 
                     </div>
                     <div class="right-sub-div"> 
-                        <label>Processed By:</label><span id="processed-by-span">' . ($response[0]['processed_by'] ? $response[0]['processed_by'] : $response[0]['whoLocked']) . '</span> 
+                        <label>Processed By:</label><span id="processed-by-span">' . $processed_by_span_val . '</span> 
                     </div>
                 </div>
             </div>

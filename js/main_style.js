@@ -8,9 +8,64 @@ if (window.matchMedia("(max-width: 480px)").matches) {
     mobile_responsive = true; 
 }
 
+let idleTime = 0;
+let timeoutSeconds = 0;
+let idleInterval = null;
+let modalShown = false;
+
+function resetIdleTime() {
+    idleTime = 0;
+    console.log("Idle time reset");
+}
+
+function startIdleTimer() {
+    if (idleInterval !== null) {
+        clearInterval(idleInterval); // in case already running
+    }
+
+    idleInterval = setInterval(() => {
+        idleTime++;
+        console.log(idleTime);
+
+        if (idleTime >= timeoutSeconds && !modalShown) {
+            const reauthModal = new bootstrap.Modal(document.getElementById('reauthModal'));
+            reauthModal.show();
+            modalShown = true;
+        }
+        
+    }, 1000);
+
+    console.log("Idle timer started");
+}
+
+function stopIdleTimer() {
+    if (idleInterval !== null) {
+        clearInterval(idleInterval);
+        idleInterval = null;
+        console.log("Idle timer stopped");
+    }
+}
+
+$(document).ready(function() {
+    let user_role = window.user_role || ''; // Example: get from global or set default
+    console.log("User role:", user_role);
+
+    if (user_role === 'rhu_account') {
+        timeoutSeconds = 1800; // 30 minutes
+    } else if (user_role === 'doctor_admin') {
+        timeoutSeconds = 3600; // 1 hour
+    } else if (user_role === 'admin') {
+        timeoutSeconds = 3600; // 1 hour
+    } 
+
+    // Attach activity listeners to reset idle timer
+    document.addEventListener('mousemove', resetIdleTime);
+    document.addEventListener('keypress', resetIdleTime);
+
+    // Start the idle timer
+    startIdleTimer();
 
 
-$(document).ready(function(){
     if(user_role === "rhu_account"){
         document.getElementById('nav-drop-account-div').style.height = "300px"
     }
@@ -325,24 +380,8 @@ $(document).ready(function(){
 
         let final_date = year + "/" + month + "/" + day + " " + hours + ":" + minutes + ":" + seconds;
         
-        $.ajax({
-            url: '../SDN/save_process_time.php',
-            data : {
-                what: 'save',
-                date : final_date,
-                sub_what: 'logout'
-            },                        
-            method: "POST",
-            success: function(response) {
-                // response = JSON.parse(response);
-                // window.location.href = "http://192.168.42.222:8035/index.php" 
-                // window.location.href = "http://10.10.90.14:8079/index.php" 
-                window.location.href = "https://sdnplus.bataanghmc.net/" 
-            }
-        });
-        
         // $.ajax({
-        //     url: '../SDN/logout.php',
+        //     url: '../SDN/save_process_time.php',
         //     data : {
         //         what: 'save',
         //         date : final_date,
@@ -356,6 +395,22 @@ $(document).ready(function(){
         //         window.location.href = "https://sdnplus.bataanghmc.net/" 
         //     }
         // });
+        
+        $.ajax({
+            url: '../SDN/logout.php',
+            data : {
+                what: 'save',
+                date : final_date,
+                sub_what: 'logout'
+            },                        
+            method: "POST",
+            success: function(response) {
+                // response = JSON.parse(response);
+                window.location.href = "http://192.168.42.222:8032/index.php" 
+                // window.location.href = "http://10.10.90.14:8079/index.php" 
+                // window.location.href = "https://sdnplus.bataanghmc.net/" 
+            }
+        });
     })
 
     $('#ok-modal-btn-main').on('click' , function(event){
@@ -700,6 +755,21 @@ $(document).ready(function(){
         event.preventDefault();
         
     })
+
+    $('#reauth-submit').on('click', function() {
+        const password = $('#reauth-password').val();
+        $.post('../reauth.php', { password }, function(response) {
+            console.log(response);
+            if (response.status === 'success') {
+                idleTime = 0;
+                modalShown = false; // allow modal to show again next time
+                location.reload();
+            } else {
+                alert('Invalid password');
+            }
+        }, 'json');
+    });
+
 })
 
 /*

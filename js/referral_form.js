@@ -1,4 +1,6 @@
 $(document).ready(function(){
+    stopIdleTimer()
+    
     let guide_modal = new bootstrap.Modal(document.getElementById('guide-referral'));
 
     if(case_type === "OB"){
