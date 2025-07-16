@@ -15,7 +15,7 @@ let modalShown = false;
 
 function resetIdleTime() {
     idleTime = 0;
-    console.log("Idle time reset");
+    // console.log("Idle time reset");
 }
 
 function startIdleTimer() {
@@ -63,7 +63,7 @@ $(document).ready(function() {
     document.addEventListener('keypress', resetIdleTime);
 
     // Start the idle timer
-    startIdleTimer();
+    // startIdleTimer();
 
 
     if(user_role === "rhu_account"){
@@ -119,7 +119,8 @@ $(document).ready(function() {
     const tutorialModal = new bootstrap.Modal(document.getElementById('tutorialModal'));
     const traverseModal = new bootstrap.Modal(document.getElementById('myModal-traverse'));
     const creditModal = new bootstrap.Modal(document.getElementById('creditModal'));
-    const updateModal = new bootstrap.Modal(document.getElementById('updateModal'));
+    const updateModal = new bootstrap.Modal(document.getElementById('updateModal')); // concernModal
+    const concernModal = new bootstrap.Modal(document.getElementById('concernModal'));
     const mssSettingModal = new bootstrap.Modal(document.getElementById('mss-setting-modal'));
 
     const carousel = document.getElementById('tutorial-carousel');
@@ -556,7 +557,13 @@ $(document).ready(function() {
         updateModal.show()
     })
 
-     $('#setting-mss-btn').on('click' , function(event){
+    // concernModal
+    $('#concern-icon-div').on('click' , function(event){
+        concernModal.show()
+    })
+    concernModal.show()
+
+    $('#setting-mss-btn').on('click' , function(event){
         mssSettingModal.show()
     })
 

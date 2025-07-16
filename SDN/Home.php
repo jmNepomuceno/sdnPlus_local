@@ -103,6 +103,7 @@
                 <?php 
                 if (!isset($permissions['census']) || $permissions['census'] === false): ?>
                     <i class="fas fa-rotate" id="update-div" title="Updates"></i>
+                    <i class="fa-solid fa-comment-dots" id="concern-icon-div" ></i>
                     <div class="notif-main-div">
                         <div id="notif-div">
                             <?php 
@@ -375,6 +376,7 @@
 
     <?php 
         require "../php/modals_php/update_modal.php";
+        require "../php/modals_php/concerns_modal.php";
         require "../php/modals_php/mss_setting.php";
     ?>
 
@@ -462,6 +464,7 @@
     <script src="../js/main_style.js?v=<?php echo time(); ?>"></script>
     <script src="../js/location.js?v=<?php echo time(); ?>"></script>
     <script src="../js/modal_js/update_modal.js?v=<?php echo time(); ?>"></script>
+    <script src="../js/modal_js/concern_modal.js?v=<?php echo time(); ?>"></script>
 
     <script>
         var running_bool = <?php echo ($_SESSION['running_bool']) === "true" ? "true" : "false"; ?>;

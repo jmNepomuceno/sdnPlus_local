@@ -28,5 +28,6 @@
 <link rel="stylesheet" href="../css/modal_css/mss_setting.css">
 
 <link rel="stylesheet" href="../css/modal_css/update_modal.css">
+<link rel="stylesheet" href="../css/modal_css/concern_modal.css">
 
 <link rel="stylesheet" href="../css/footer_css/footer.css">

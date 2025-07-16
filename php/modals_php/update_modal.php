@@ -31,24 +31,8 @@
 
                 <section class="update-section">
                     <!-- Minor Concerns --> 
-                     <?php 
-                        $sql = "SELECT concern_txt, concern_requestDate, concern_requestor 
-                        FROM concerns
-                        ORDER BY concern_requestDate DESC";
-                        $stmt = $pdo->prepare($sql);
-                        $stmt->execute();
-                        $userConcerns = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                     ?>
                     <h6 class="update-section-title"><i class="fas fa-exclamation-circle"></i> Pending Concerns</h6>
                     <ul class="update-list" id="pending-concerns-list">
-                        <!-- dynamic rendering -->
-                        <?php foreach ($userConcerns as $concern): ?>
-                            <li>
-                                <strong>[<?= date('Y-m-d', strtotime($concern['concern_requestDate'])) ?>]</strong> 
-                                <?= htmlspecialchars($concern['concern_txt']) ?> 
-                                (<span style="color:#007bff;font-weight:600;">Requested by:</span> <?= htmlspecialchars($concern['concern_requestor']) ?>)
-                            </li>
-                        <?php endforeach; ?>
                         <li> Easier viewing and copying of the Referral Form</li>
                         <li> Unstable or delayed updates for new incoming referrals</li>
                         <li> Ability to cancel referrals even after they have been approved</li>
@@ -59,19 +43,6 @@
                     <ul class="update-list">
                         <li> MSS and WCPU Collaboration Module for Sensitive/Confidential Cases</li>
                     </ul>
-                </section>
-
-                <section class="update-section">
-                    <h6 class="update-section-title"><i class="fas fa-comment-dots"></i> Feedback / Concerns</h6>
-                    <form id="update-feedback-form">
-                        <div class="form-group">
-                            <textarea class="form-control" id="feedback-textarea" rows="4" placeholder="Let us know what you think..."></textarea>
-                        </div>
-                        <div class="text-end">
-                            <button id="feedback-btn" type="submit" class="btn btn-primary mt-2">Submit Concern</button>
-                        </div>
-                    </form>
-                    <!-- <span id="feedback-success-message">Successfully Submitted!</span> -->
                 </section>
             </div>
 
