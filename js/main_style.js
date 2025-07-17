@@ -121,6 +121,7 @@ $(document).ready(function() {
     const creditModal = new bootstrap.Modal(document.getElementById('creditModal'));
     const updateModal = new bootstrap.Modal(document.getElementById('updateModal')); // concernModal
     const concernModal = new bootstrap.Modal(document.getElementById('concernModal'));
+    const surveyModal = new bootstrap.Modal(document.getElementById('surveyModal'));
     const mssSettingModal = new bootstrap.Modal(document.getElementById('mss-setting-modal'));
 
     const carousel = document.getElementById('tutorial-carousel');
@@ -561,7 +562,10 @@ $(document).ready(function() {
     $('#concern-icon-div').on('click' , function(event){
         concernModal.show()
     })
-    concernModal.show()
+
+    $('#survey-icon-div').on('click' , function(event){
+        surveyModal.show()
+    })
 
     $('#setting-mss-btn').on('click' , function(event){
         mssSettingModal.show()
