@@ -4,6 +4,11 @@ if (typeof fetchIntervalId === 'undefined') {
 
 $(document).ready(function(){
     let global_ajax_response = null;
+    
+    setTimeout(() => {
+        $('#incoming-middle-name-search').val("");
+    }, 500); // 100ms delay is usually enough
+
     // let last_modified_arr = []
     // for(let elem of jsonData){
     //     last_modified_arr.push({last_modified : elem.last_modified})
@@ -56,7 +61,7 @@ $(document).ready(function(){
     $('#incoming-sub-div-id').css('border-bottom' , '2px solid #3e515b')
 
     // try and error
-    let inactivityInterval = 10000;
+    let inactivityInterval = 30000;
 
     const myModal = new bootstrap.Modal(document.getElementById('pendingModal'));
     const defaultMyModal = new bootstrap.Modal(document.getElementById('myModal-incoming'));
@@ -672,7 +677,6 @@ $(document).ready(function(){
                 //     index -= 1
                 //     went_here = true
                 // }
-                
 
                 if (global_paging === 1) {
                     document.querySelectorAll('.stopwatch')[index].textContent = formatTime(elapsedTime);
@@ -701,8 +705,6 @@ $(document).ready(function(){
                     // }
 
                     // console.log("check_ref_length - ", index , " - " , document.querySelectorAll('.pat-status-incoming').length, encapsule)
-
-                    resetIdleTime()
 
                     // Perform AJAX request
                     $.ajax({
@@ -914,7 +916,6 @@ $(document).ready(function(){
                 break; // No need to continue looping if any field is valid
             }
         }
-
         if(valid_search){
             $('.loader').show(); 
             $('#incoming-clear-search-btn').css('opacity' , '1')
@@ -961,7 +962,7 @@ $(document).ready(function(){
                 where : 'search',
                 where_type : 'incoming'
             }
-
+            
             console.log(data)
 
             $.ajax({

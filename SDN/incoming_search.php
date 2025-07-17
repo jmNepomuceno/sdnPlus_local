@@ -23,10 +23,10 @@
         $middle_name = $_POST['middle_name'];
         $case_type = $_POST['case_type'];
         $agency = $_POST['agency'];
-        $sensitive = $_POST['sensitive'] ?? '';
-        $startDate = $_POST['startDate'] ?? '';;
-        $endDate = $_POST['endDate'] ?? '';;
-        $tat = $_POST['tat'] ?? '';;
+        $sensitive = $_POST['sensitive'];
+        $startDate = $_POST['startDate'];
+        $endDate = $_POST['endDate'];
+        $tat = $_POST['tat'];
         $status = $_POST['status'];
         $where_type = $_POST['where_type'];
         $hospital_name = $_SESSION['hospital_name'];
@@ -479,6 +479,9 @@
                     }
                 }   
     
+                //
+    
+                
                 echo'<tr class="tr-incoming" style="'.$style_tr.'">
                         <td id="dt-refer-no"> ' . $row['reference_num'] . ' - '.$index.' </td>
                         <td id="dt-patname">' . $pat_full_name . ' 
@@ -503,12 +506,12 @@
                             </td>
                             <td id="dt-turnaround"> 
                                 <p class="referred-time-lbl"> Referred: ' . $row['date_time'] . ' </p>
-                                 <p class="reception-time-lbl"> Reception: '. $row['reception_time'] .' <span style="color:'.$reception_addition_style.'; font-size:0.65rem;"> +'. $reception_addition.' </span></p>
+                                <p class="reception-time-lbl"> Reception: '. $row['reception_time'] .' <span style="color:'.$reception_addition_style.'; font-size:0.65rem;"> +'. $reception_addition.' </span></p>
                                 <p class="sdn-proc-time-lbl"> SDN Processed: <span style="'. $total_time_style.'">'. $total_time .' </span> </p>
                                 
                                 <div class="contact-extra" style="display:none;">
                                     <p> Approval: '.$row['approved_time'] .'  </p>  
-                                    <p> Deferral: 0000-00-00 00:00:00  </p>  
+                                    <p> Deferral: ' . $row['deferred_time'] . '   </p>  
                                     <p> Cancelled: 0000-00-00 00:00:00  </p>  
                                 </div>
                             </td>

@@ -65,6 +65,10 @@
     background-color: #f1f1f1;
 }
 
+#updateModal .modal-content .modal-body #pending-concerns-list li{
+    font-size: 0.8rem;
+}
+
 #updateModal .modal-content .modal-body #update-feedback-form textarea {
     resize: vertical;
 }

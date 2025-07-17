@@ -20,7 +20,7 @@ $(document).ready(function () {
         const response = $(this).data('response'); // approve/disapprove
         const user = window.user_name || ''; // from session
 
-        console.log(response, user)
+        // console.log(response, user)
 
         $.ajax({
             url: '../../SDN/submit_survey_response.php',
@@ -29,9 +29,7 @@ $(document).ready(function () {
             success: function (res) {
                 alert('Your feedback has been recorded. Thank you!');
 
-                if (response.status === 'success') {
-                    updateSurveyCounts(); // refresh counts
-                }
+               updateSurveyCounts()
             },
             error: function () {
                 alert('Error saving your response. Please try again.');

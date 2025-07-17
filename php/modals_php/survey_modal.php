@@ -22,8 +22,11 @@
                     <br><br>
                     <strong>Important:</strong> As long as you keep moving your mouse, clicking, or typing, the timer resets — so you won’t be locked while you’re working.  
                     <br><br>
-                    <strong>Who will be affected?</strong>  
-                    All users who leave the system inactive for longer than the allowed time (4 hours for RHU users, 2 hours for Doctor Admins).  
+                    <p id="survey-affected">
+                        <strong>Who will be affected?</strong><br>
+                        All users who leave the system inactive for longer than the allowed time — currently proposed as <strong>4 hours for RHU users</strong> and <strong>2 hours for Doctor Admins</strong>.<br>
+                        <em>Please note: These time limits are still subject to change, depending on the feedback and final approval of the SDN doctors.</em>
+                    </p>
                     <br><br>
                     We value everyone’s experience and opinion — so before we fully implement this feature, we’d like to know:  
                     👉 Do you think this update is helpful and worth being implemented?  

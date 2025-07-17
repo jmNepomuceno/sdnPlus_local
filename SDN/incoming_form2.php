@@ -101,25 +101,25 @@
     // $stmt = $pdo->prepare($sql);
     // $stmt->execute();
 
-    // $sql = "UPDATE incoming_referrals SET status='Pending', reception_time=null, final_progressed_timer=null, approved_time=null, approval_details=null, status_interdept=null, sent_interdept_time=null, last_update=null, pat_class=null, isLocked=null, dateLocked=null, whoLocked=null, processed_by=null WHERE hpercode='PAT000044'";
+    // $sql = "UPDATE incoming_referrals SET status='Pending', reception_time=null, final_progressed_timer=null, approved_time=null, approval_details=null, status_interdept=null, sent_interdept_time=null, last_update=null, pat_class=null, isLocked=null, dateLocked=null, whoLocked=null, processed_by=null WHERE hpercode='PAT000058'";
     // $stmt = $pdo->prepare($sql);
     // $stmt->execute();
 
-    // $sql = "UPDATE incoming_referrals SET status='Pending', reception_time=null, final_progressed_timer=null, approved_time=null, approval_details=null, status_interdept=null, sent_interdept_time=null, last_update=null, pat_class=null, isLocked=null, dateLocked=null, whoLocked=null, processed_by=null WHERE referral_id='REF000041'";
+    // $sql = "UPDATE incoming_referrals SET status='Pending', reception_time=null, final_progressed_timer=null, approved_time=null, approval_details=null, status_interdept=null, sent_interdept_time=null, last_update=null, pat_class=null, isLocked=null, dateLocked=null, whoLocked=null, processed_by=null WHERE hpercode='PAT000059'";
     // $stmt = $pdo->prepare($sql);
     // $stmt->execute();
 
-    // $sql = "UPDATE hperson SET status='Pending' WHERE hpercode='PAT000044'"; 
+    // $sql = "UPDATE hperson SET status='Pending' WHERE hpercode='PAT000058'"; 
     // $stmt = $pdo->prepare($sql);
     // $stmt->execute();
  
-    // $sql = "UPDATE hperson SET status='Pending' WHERE hpercode='PAT000045'";
+    // $sql = "UPDATE hperson SET status='Pending' WHERE hpercode='PAT000059'";
     // $stmt = $pdo->prepare($sql);
     // $stmt->execute();
 
-    // $sql = "UPDATE incoming_referrals SET status='Pending', reception_time=null, final_progressed_timer=null, approved_time=null, approval_details=null, status_interdept=null, sent_interdept_time=null, last_update=null, pat_class=null, isLocked=null, dateLocked=null, whoLocked=null, processed_by=null WHERE hpercode='PAT000015'";
-    // $stmt = $pdo->prepare($sql);
-    // $stmt->execute();
+    $sql = "UPDATE incoming_referrals SET status='Pending', reception_time=null, final_progressed_timer=null, approved_time=null, approval_details=null, status_interdept=null, sent_interdept_time=null, last_update=null, pat_class=null, isLocked=null, dateLocked=null, whoLocked=null, processed_by=null WHERE hpercode='PAT000050'";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
 
     // $sql = "UPDATE hperson SET status='Pending' WHERE hpercode='PAT000015'"; 
     // $stmt = $pdo->prepare($sql);
@@ -133,19 +133,15 @@
     // $stmt = $pdo->prepare($sql);
     // $stmt->execute();
 
-    // $sql = "UPDATE incoming_referrals SET status='Pending', reception_time=null, final_progressed_timer=null, approved_time=null, approval_details=null, status_interdept=null, sent_interdept_time=null, last_update=null, pat_class=null WHERE hpercode='PAT000047'";
+    // $sql = "UPDATE incoming_referrals SET status='Pending', reception_time=null, final_progressed_timer=null, approved_time=null, approval_details=null, status_interdept=null, sent_interdept_time=null, last_update=null, pat_class=null WHERE hpercode='PAT000034'";
     // $stmt = $pdo->prepare($sql);
     // $stmt->execute();
 
-    $sql = "UPDATE incoming_referrals SET status='Pending', reception_time=null, final_progressed_timer=null, approved_time=null, approval_details=null, status_interdept=null, sent_interdept_time=null, last_update=null, pat_class=null WHERE hpercode='PAT000040'";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute();
-
-    // $sql = "DELETE FROM incoming_referrals WHERE hpercode='PAT000048'";
+    // $sql = "DELETE FROM incoming_referrals WHERE hpercode='PAT000031'";
     // $stmt = $pdo->prepare($sql);
     // $stmt->execute();
 
-    // $sql = "UPDATE hperson SET status=null, referral_id=null, type=null WHERE hpercode='PAT000048'";
+    // $sql = "UPDATE hperson SET status=null, referral_id=null, type=null WHERE hpercode='PAT000031'";
     // $stmt = $pdo->prepare($sql);
     // $stmt->execute();
 
@@ -154,18 +150,6 @@
     // echo $_SESSION['running_hpercode'] . "----";
     // echo $_SESSION['running_index'] . "----";
     // echo $_SESSION['datatable_index'] . "----"; 
-
-    // $sql = "UPDATE incoming_referrals SET status='Pending' WHERE hpercode='PAT000043'";
-    // $stmt = $pdo->prepare($sql);
-    // $stmt->execute();
-
-    // $sql = "UPDATE incoming_referrals SET status='Pending' WHERE hpercode='PAT000044'";
-    // $stmt = $pdo->prepare($sql);
-    // $stmt->execute();
-
-    // $sql = "UPDATE incoming_referrals SET status='Pending' WHERE hpercode='PAT000045'";
-    // $stmt = $pdo->prepare($sql);
-    // $stmt->execute();
 
     $sql = "SELECT status_interdept FROM incoming_referrals WHERE (status='Pending' OR status='On-Process') AND refer_to=? ORDER BY date_time ASC";
     $stmt = $pdo->prepare($sql);
@@ -363,6 +347,7 @@
                         // SQL query to fetch data from your table
                         $indexing = 0;
                         try{
+
                             $sql = "";
                             // if($_SESSION['user_name'] === 'mss'){
                             //     $sql = "SELECT * FROM incoming_referrals WHERE (status='Pending' OR status='On-Process') AND refer_to=? AND sensitive_case='true' ORDER BY date_time ASC";
@@ -370,16 +355,13 @@
                             //     $sql = "SELECT * FROM incoming_referrals WHERE (status='Pending' OR status='On-Process') AND refer_to=? AND sensitive_case='false' ORDER BY date_time ASC";
                             // }
 
+                            // $sql = "SELECT * FROM incoming_referrals WHERE (status='Pending' OR status='On-Process') AND refer_to=? ORDER BY date_time ASC";
                             $sql = "SELECT ir.*, sh.hospital_director, sh.hospital_director_mobile, sh.hospital_point_person, sh.hospital_point_person_mobile
                                     FROM incoming_referrals ir
                                     LEFT JOIN sdn_hospital sh ON ir.referred_by = sh.hospital_name
                                     WHERE (ir.status = 'Pending' OR ir.status = 'On-Process') 
                                     AND ir.refer_to = ?
                                     ORDER BY ir.date_time ASC";
-
-                            $stmt = $pdo->prepare($sql);
-                            $stmt->execute([$_SESSION["hospital_name"]]);
-                            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
                             $stmt = $pdo->prepare($sql);

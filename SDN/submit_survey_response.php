@@ -14,4 +14,4 @@
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Invalid response']);
     }
-    ?>
+?>

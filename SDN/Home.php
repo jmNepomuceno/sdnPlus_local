@@ -1,7 +1,7 @@
 <?php
     session_start();
     include('../database/connection2.php');
-
+    
     //if cache is cleared redirect to index page
     if (!isset($_SESSION['user_name']) || empty($_SESSION['user_name'])) {
         header("Location: ../index.php");
@@ -45,8 +45,6 @@
     //     echo "here";
     // }
 
-    // echo $permissions['census'];
-    
 ?>
 
 <!DOCTYPE html>
@@ -87,7 +85,6 @@
 
 </head>
 <body>
-   
     <input id="current-page-input" type="hidden" name="current-page-input" value="" />
     <input id="clicked-logout-input" type="hidden" name="clicked-logout-input" value="" />    
 
@@ -102,9 +99,14 @@
             <div class="account-header-div">
                 <?php 
                 if (!isset($permissions['census']) || $permissions['census'] === false): ?>
-                    <i class="fas fa-rotate" id="update-div" title="Updates"></i>
+
+                    <?php if ($_SESSION['user_role'] === 'admin' || $_SESSION['user_role'] === 'doctor_admin'): ?>
+                        <i class="fas fa-rotate" id="update-div" title="Updates"></i>
+                    <?php endif; ?>
+                    
                     <i class="fa-solid fa-comment-dots" id="concern-icon-div" ></i>
                     <i class="fa-solid fa-bullhorn" id="survey-icon-div" ></i>
+
                     <div class="notif-main-div">
                         <div id="notif-div">
                             <?php 
@@ -183,15 +185,15 @@
                     </div>
                 <?php } ?>
 
-                <div class="nav-drop-btns" id="help-btn">
-                    <h2 class="nav-drop-btns-txt">Help</h2>
-                </div>
-
                 <?php if($_SESSION['user_name'] == 'mss' && $_SESSION['user_password'] == 'mss'){?>
                     <div class="nav-drop-btns" id="setting-mss-btn">
                         <h2 class="nav-drop-btns-txt">MSS Settings</h2>
                     </div>
                 <?php } ?>
+
+                <div class="nav-drop-btns" id="help-btn">
+                    <h2 class="nav-drop-btns-txt">Help</h2>
+                </div>
 
                 <div class="nav-drop-btns" id="credit-btn">
                     <h2 class="nav-drop-btns-txt">Acknowledgments</h2>
@@ -262,8 +264,6 @@
                                         </div>';
                                 }
                             }
-
-                            
                         ?>
 
                         <!-- bucas referral -->
@@ -289,8 +289,6 @@
                             <h3>BUCAS (History)</h3>
                         </div>
                         <?php } ?>
-
-                       
                     </div>
                 </div>
             </aside>
@@ -313,20 +311,20 @@
         <!-- <div class="modal-dialog" role="document"> -->
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <div class="modal-title-div">
-                        <i id="modal-icon" class="fa-solid fa-triangle-exclamation"></i>
-                        <h5 id="modal-title-main" class="modal-title-main" id="exampleModalLabel">Warning</h5>
-                    </div>
+            <div class="modal-header">
+                <div class="modal-title-div">
+                    <i id="modal-icon" class="fa-solid fa-triangle-exclamation"></i>
+                    <h5 id="modal-title-main" class="modal-title-main" id="exampleModalLabel">Warning</h5>
                 </div>
-                <!-- <div id="modal-body-main" class="modal-body-main"> -->
-                <div id="modal-body" class="logout-modal">
-                        Are you sure you want to logout?
-                </div>
-                <div class="modal-footer">
-                    <button id="ok-modal-btn-main" type="button" data-bs-dismiss="modal">OK</button>
-                    <button id="yes-modal-btn-main" type="button" data-bs-dismiss="modal">Yes</button>
-                </div>
+            </div>
+            <!-- <div id="modal-body-main" class="modal-body-main"> -->
+            <div id="modal-body" class="logout-modal">
+                    Are you sure you want to logout?
+            </div>
+            <div class="modal-footer">
+                <button id="ok-modal-btn-main" type="button" data-bs-dismiss="modal">OK</button>
+                <button id="yes-modal-btn-main" type="button" data-bs-dismiss="modal">Yes</button>
+            </div>
             </div>
         </div>
     </div>
@@ -373,9 +371,6 @@
 
     <?php 
         require "../php/modals_php/credit_modal.php";
-    ?>
-
-    <?php 
         require "../php/modals_php/update_modal.php";
         require "../php/modals_php/concerns_modal.php";
         require "../php/modals_php/survey_modal.php";
@@ -508,6 +503,7 @@
 
     <script>
         var running_val = <?php echo json_encode(floatval($_SESSION['running_timer'])); ?>;
+        
     </script>
 </body>
 </html>

@@ -1,6 +1,10 @@
 $(document).ready(function(){
     let global_ajax_response = null;
 
+    setTimeout(() => {
+        $('#incoming-middle-name-search').val("");
+    }, 100); // 100ms delay is usually enough
+    
     $('#myDataTable').DataTable({
         "bSort": false,
         "paging": true, 
@@ -331,7 +335,7 @@ $(document).ready(function(){
                 data:data,
                 // dataType:'JSON',
                 success: function(response){
-                    // console.log(response)
+
                     dataTable.clear();
                     dataTable.rows.add($(response)).draw();
 

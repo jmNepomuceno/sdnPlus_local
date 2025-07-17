@@ -7,7 +7,7 @@ const dataTable_concerns_modal = () =>{
             success: function(response) {
                 fetch_concernsData = response.concerns;  
 
-                console.log(fetch_concernsData)
+                // console.log(fetch_concernsData)
                 try {
                     let dataSet = [];
                     for(let i = 0; i < response.concerns.length; i++){
@@ -27,7 +27,7 @@ const dataTable_concerns_modal = () =>{
 
                         const formattedDate = dateObj.toLocaleString('en-US', options);
 
-                        console.log(formattedDate);
+                        // console.log(formattedDate);
 
                         dataSet.push([
                             `<div><span>${response.concerns[i].concernID}</span></div>`,
@@ -62,9 +62,9 @@ const dataTable_concerns_modal = () =>{
                         "autoWidth": false, // Prevents auto column sizing
                         // "paging": false,
                         // "info": false,
-                        // "ordering": false,
+                        "ordering": false,
                         // "stripeClasses": [],
-                        // "searching": false,
+                        "searching": false,
                         
                     });
 
@@ -102,7 +102,7 @@ $(document).ready(function(){
 
             // 🔷 Find full concern data
             const concernData = fetch_concernsData.find(item => item.concernID == concernID);
-            console.log(concernData)
+            // console.log(concernData)
 
             const concernText = concernData.concern_txt || '(No concern text)';
             const existingResponse = concernData.concern_response; // can be null or empty
@@ -150,7 +150,7 @@ $(document).ready(function(){
         const textarea = $(this).siblings('.response-textarea');
         const responseText = textarea.val().trim();
 
-        console.log(concernID, responseText)
+        // console.log(concernID, responseText)
 
         if (!responseText) {
             alert("Please enter a response.");
@@ -194,7 +194,7 @@ $(document).ready(function(){
                 feedback: $('#feedback-textarea').val()
             },
             success: function(response) {
-                console.log(response)
+                // console.log(response)
                 // Handle success response
                 $('#feedback-textarea').val(''); // Clear the textarea
                 $('#feedback-btn').text('Feedback Sent!').prop('disabled', true);

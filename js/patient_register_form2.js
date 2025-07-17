@@ -1,6 +1,5 @@
 
 $(document).ready(function(){
-    startIdleTimer()
     const loadContent = (url) => {
         $.ajax({
             url:url,
@@ -25,8 +24,8 @@ $(document).ready(function(){
     let patRegModal = new bootstrap.Modal(document.getElementById('myModal_pat_reg'));
     let prompt_modal = new bootstrap.Modal(document.getElementById('myModal_prompt'));
     
-    // loadContent('../../SDN/opd_referral_form.php?type=' + $('#tertiary-case').val() + "&code=" + $('#hpercode-input').val())
-    // loadContent('../../SDN/referral_form.php?type="OR"&code="PAT000040"')
+    // loadContent('php/opd_referral_form.php?type=' + $('#tertiary-case').val() + "&code=" + $('#hpercode-input').val())
+    // loadContent('../SDN/referral_form.php?type="OR"&code="BGHMC-0058"')
 
     $('#check-if-registered-btn').on('click', function(event) {
         event.stopPropagation();  // Prevent the click event from propagating to the document

@@ -36,6 +36,8 @@
     $averageTime_interdept = "00:00:00";
 
     if($data['COUNT(*)'] > 0){
+
+        // 531, 947
         
         // echo $currentDateTime;
         $sql = "SELECT hpercode, reception_time, date_time, final_progressed_timer, sent_interdept_time FROM incoming_referrals WHERE status='Approved' AND refer_to = :hospital_name AND reception_time LIKE :current_date";
@@ -84,8 +86,6 @@
 
             array_push($recep_arr, $formattedDifference);
         }
-
-        // echo "<pre>"; print_r($recep_arr); echo "</pre>";
         
         // INTERDEPT REFERRAL AVERAGE
         $totalSeconds_interdept = 0;

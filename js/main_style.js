@@ -8,6 +8,8 @@ if (window.matchMedia("(max-width: 480px)").matches) {
     mobile_responsive = true; 
 }
 
+
+
 let idleTime = 0;
 let timeoutSeconds = 0;
 let idleInterval = null;
@@ -32,31 +34,32 @@ function startIdleTimer() {
             reauthModal.show();
             modalShown = true;
         }
-        
     }, 1000);
 
-    console.log("Idle timer started");
+    // console.log("Idle timer started");
 }
 
 function stopIdleTimer() {
     if (idleInterval !== null) {
         clearInterval(idleInterval);
         idleInterval = null;
-        console.log("Idle timer stopped");
+        // console.log("Idle timer stopped");
     }
 }
 
 $(document).ready(function() {
     let user_role = window.user_role || ''; // Example: get from global or set default
-    console.log("User role:", user_role);
+    // console.log("User role:", user_role);
 
     if (user_role === 'rhu_account') {
         timeoutSeconds = 1800; // 30 minutes
     } else if (user_role === 'doctor_admin') {
         timeoutSeconds = 3600; // 1 hour
     } else if (user_role === 'admin') {
-        timeoutSeconds = 3600; // 1 hour
+        timeoutSeconds = 2; // 1 hour
     } 
+
+    
 
     // Attach activity listeners to reset idle timer
     document.addEventListener('mousemove', resetIdleTime);
@@ -64,8 +67,6 @@ $(document).ready(function() {
 
     // Start the idle timer
     // startIdleTimer();
-
-
     if(user_role === "rhu_account"){
         document.getElementById('nav-drop-account-div').style.height = "300px"
     }
@@ -119,11 +120,11 @@ $(document).ready(function() {
     const tutorialModal = new bootstrap.Modal(document.getElementById('tutorialModal'));
     const traverseModal = new bootstrap.Modal(document.getElementById('myModal-traverse'));
     const creditModal = new bootstrap.Modal(document.getElementById('creditModal'));
-    const updateModal = new bootstrap.Modal(document.getElementById('updateModal')); // concernModal
+    const updateModal = new bootstrap.Modal(document.getElementById('updateModal'));
     const concernModal = new bootstrap.Modal(document.getElementById('concernModal'));
     const surveyModal = new bootstrap.Modal(document.getElementById('surveyModal'));
     const mssSettingModal = new bootstrap.Modal(document.getElementById('mss-setting-modal'));
-
+    
     const carousel = document.getElementById('tutorial-carousel');
 
     if(running_bool === "true" || running_bool === true){
@@ -408,9 +409,9 @@ $(document).ready(function() {
             method: "POST",
             success: function(response) {
                 // response = JSON.parse(response);
-                window.location.href = "http://192.168.42.222:8032/index.php" 
+                // window.location.href = "http://192.168.42.222:8035/index.php" 
                 // window.location.href = "http://10.10.90.14:8079/index.php" 
-                // window.location.href = "https://sdnplus.bataanghmc.net/" 
+                window.location.href = "https://sdnplus.bataanghmc.net/" 
             }
         });
     })
@@ -558,17 +559,20 @@ $(document).ready(function() {
         updateModal.show()
     })
 
-    // concernModal
-    $('#concern-icon-div').on('click' , function(event){
+     $('#concern-icon-div').on('click' , function(event){
         concernModal.show()
+    })
+
+    $('#setting-mss-btn').on('click' , function(event){
+        mssSettingModal.show()
     })
 
     $('#survey-icon-div').on('click' , function(event){
         surveyModal.show()
     })
 
-    $('#setting-mss-btn').on('click' , function(event){
-        mssSettingModal.show()
+    $('#feedback-btn').click(function(event) {
+        event.preventDefault();
     })
 
     let notif_sub_div_open = true
@@ -626,7 +630,7 @@ $(document).ready(function() {
         loadContent('../SDN/incoming_form2.php')
     })
 
-    $('#census-sub-side-bar').on('click' , function(event){
+     $('#census-sub-side-bar').on('click' , function(event){
         event.preventDefault();
         loadContent('../SDN/census.php')
     })
@@ -762,11 +766,6 @@ $(document).ready(function() {
         }
     });
 
-    $('#feedback-btn').click(function(event) {
-        event.preventDefault();
-        
-    })
-
     $('#reauth-submit').on('click', function() {
         const password = $('#reauth-password').val();
         $.post('../reauth.php', { password }, function(response) {
@@ -780,7 +779,6 @@ $(document).ready(function() {
             }
         }, 'json');
     });
-
 })
 
 /*

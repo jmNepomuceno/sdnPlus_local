@@ -14,7 +14,5 @@
     } else {
         echo json_encode(['status' => 'error']);
     }
-
     // Test RHU
-
 ?>

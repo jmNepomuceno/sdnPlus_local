@@ -89,13 +89,6 @@ try {
     die("Database error: " . $e->getMessage());
 }
 
-
-    $sql = "SELECT permission FROM sdn_users WHERE role='rhu_account'";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute();
-    $perm = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    echo "<pre>"; print_r($perm); echo "</pre>";
 ?>
 
 <!DOCTYPE html>

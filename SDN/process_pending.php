@@ -6,6 +6,8 @@
     $hpercode = $_POST['hpercode'];
     $incoming_referrals_data = [];
     $sql = "SELECT * FROM incoming_referrals WHERE hpercode='". $hpercode ."' ORDER BY date_time DESC LIMIT 1";
+    
+    $dr_full_name = $_SESSION['first_name'] . ' ' . $_SESSION['last_name'];
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
@@ -136,6 +138,7 @@
         $select_style = "pointer-events:none; background: #a5d6a7;";
     }   
 
+    $selected_response = $pat_status;
 
     // Left-side content
     $left_html .= '<div class="left-sub-div"> <label>Patient ID:</label><span id="pat-id"> '. $response[1]['hpercode'].'</span> </div>';
@@ -194,6 +197,7 @@
     }else{
         $processed_by_span_val = $response[0]['processed_by'] ? $response[0]['processed_by'] : $response[0]['whoLocked'];
     }
+
 
     // Here you add the conditional PHP logic outside of the HTML string
     if ($_POST['from'] === 'incoming') {
@@ -454,7 +458,6 @@
                 ) AS latest_row
             )
         ";
-        
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':reception_time', $reception_time, PDO::PARAM_STR);
         $stmt->bindParam(':hpercode', $hpercode, PDO::PARAM_STR);

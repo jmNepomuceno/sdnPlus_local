@@ -93,6 +93,7 @@
             //     $sql = "SELECT * FROM incoming_referrals WHERE (status='Pending' OR status='On-Process') AND refer_to=? ORDER BY date_time ASC";
             // }
 
+            // $sql = "SELECT * FROM incoming_referrals WHERE (status='Pending' OR status='On-Process') AND refer_to=? ORDER BY date_time ASC";
             $sql = "SELECT ir.*, sh.hospital_director, sh.hospital_director_mobile, sh.hospital_point_person, sh.hospital_point_person_mobile
                     FROM incoming_referrals ir
                     LEFT JOIN sdn_hospital sh ON ir.referred_by = sh.hospital_name
@@ -103,10 +104,7 @@
             $stmt = $pdo->prepare($sql);
             $stmt->execute([$_SESSION["hospital_name"]]);
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([$_SESSION["hospital_name"]]);
-            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
 
             // echo count($data);
             $jsonData = json_encode($data);
@@ -288,7 +286,7 @@
                 $stmt->execute([$data_pat_municipality['pat_province']]);
                 $data_province = $stmt->fetch(PDO::FETCH_ASSOC);
     
-                echo '<tr class="tr-incoming" style="'.$style_tr.'">
+               echo '<tr class="tr-incoming" style="'.$style_tr.'">
                         <td id="dt-refer-no"> ' . $row['reference_num'] . ' - '.$index.' </td>
                         <td id="dt-patname">' . $pat_full_name . ' 
                             <span id="pat-address-span"> Address: '.$data_province['province_description'] .', '. $data_city['municipality_description'].' , '. $data_brgy['barangay_description'].' </span> 

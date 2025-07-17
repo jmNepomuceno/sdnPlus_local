@@ -25,12 +25,6 @@
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$_SESSION['hospital_code']]);
     $doctors_list = $stmt->fetch(PDO::FETCH_ASSOC);
-
-
-    $sql = "UPDATE sdn_local.sdn_users SET permission='{\"setting\": true, \"history_log\": false, \"admin_function\": false, \"bucas_referral\": false, \"incoming_referral\": true, \"outgoing_referral\": true, \"patient_registration\": true}' WHERE role='rhu_account'";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute();
-
 ?>
 
 <!DOCTYPE html>

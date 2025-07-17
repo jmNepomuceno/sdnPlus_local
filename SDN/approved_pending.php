@@ -105,11 +105,13 @@
         $stmt->execute();
     }
 
+    // $timer = filter_input(INPUT_POST, 'timer');
     // calculate the difference not the timer
     $sql = "SELECT reception_time FROM incoming_referrals WHERE hpercode='". $global_single_hpercode ."' ORDER BY date_time DESC LIMIT 1";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $reception_time_var = $stmt->fetch(PDO::FETCH_ASSOC);  
+
 
     $start = new DateTime($reception_time_var['reception_time']);
     $end = new DateTime($currentDateTime);
@@ -124,8 +126,6 @@
     $stmt_b->bindParam(':hpercode', $global_single_hpercode, PDO::PARAM_STR);
     $stmt_b->bindParam(':date_time', $latest_referral['date_time'], PDO::PARAM_STR);
     $stmt_b->execute();
-
-
 
     // update the approved_details and set the time of approval on the database
     if($_POST['action'] === "Approve"){
@@ -224,13 +224,14 @@
     // SQL query to fetch data from your table
     $indexing = 0;
     try{
+        // $sql = "SELECT * FROM incoming_referrals WHERE (status='Pending' OR status='On-Process') AND refer_to=? ORDER BY date_time ASC";
         $sql = "SELECT ir.*, sh.hospital_director, sh.hospital_director_mobile, sh.hospital_point_person, sh.hospital_point_person_mobile
                 FROM incoming_referrals ir
                 LEFT JOIN sdn_hospital sh ON ir.referred_by = sh.hospital_name
                 WHERE (ir.status = 'Pending' OR ir.status = 'On-Process') 
                 AND ir.refer_to = ?
                 ORDER BY ir.date_time ASC";
-                
+
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$_SESSION["hospital_name"]]);
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);

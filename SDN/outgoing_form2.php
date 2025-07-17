@@ -21,22 +21,22 @@
         <div class="search-main-div">
             <div class="refer-no-div">
                 <label>Referral No.</label>
-                <input id="incoming-referral-no-search" type="textbox">
+                <input id="incoming-referral-no-search" type="text" autocomplete="off">
             </div>
         
             <div class="lname-search-div">
                 <label>Last Name</label>
-                <input id="incoming-last-name-search" type="textbox">
+                <input id="incoming-last-name-search" type="text" autocomplete="off">
             </div>
 
             <div class="fname-search-div">
                 <label>First Name</label>
-                <input id="incoming-first-name-search" type="textbox">
+                <input id="incoming-first-name-search" type="text" autocomplete="off">
             </div>
 
             <div class="mname-search-div">
                 <label>Middle Name</label>
-                <input id="incoming-middle-name-search" type="textbox">
+                <input id="incoming-middle-name-search" type="text" autocomplete="off"/>
             </div>
 
             <div class="caseType-search-div">
