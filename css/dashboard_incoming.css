@@ -6,7 +6,7 @@
 
 body{
     width: 100%;
-    height: 120vh;
+    height: 100%;
 }
 
 .header-div{
@@ -288,11 +288,25 @@ header .header-username-div .username-caret-div i{
 .main-div{
     display:flex;
     flex-direction: column;
-    justify-content: start;
-    align-items: start;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100%;
     background: #eceff1;
+}
+
+.main-div .main-div-container{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: auto;
+    background: #e1e6ea;
+    padding:20px;
+    margin-top:20px;
+    border-radius: 10px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
 .main-div .main-title-div{
@@ -330,43 +344,113 @@ header .header-username-div .username-caret-div i{
 }
 
 .main-div .main-filter-div{
-    width: 500px;
+    width: 100%;
     height: 5%;
-    margin-left: 3%;
     margin-top: 2%;
+
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap:50px;
+}
+
+.main-div .main-filter-div .filter-date-div{
+    width: 500px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+
+    /* border:1px solid red; */
+}
+
+.main-div .main-filter-div .filter-type-div{
+    width: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    padding:5px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.main-div .main-filter-div .filter-rhu-div{
+    width: 500px;
+    height: 100%;
     display: flex;
     flex-direction: row;
     justify-content: start;
     align-items: center;
     padding: 5px;
     border-radius: 5px;
-
-    /* background: #1f292e; */
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-
 }
 
-.main-div .main-filter-div label{
-    font-size: 1.25rem;
+.main-div .main-filter-div .filter-type-div .filter-type-btn{
+    border-radius: 5px;
+    height: 80%;
+    margin: 5px;
+    background: none;
+    width: 80px;
+    font-weight: 600;
+    border:2px solid darkslategray;
+    opacity: 0.5;
+}
+
+.main-div .main-filter-div .filter-type-div .filter-type-btn:hover{
+    opacity: 1;
+}
+
+.main-div .main-filter-div .filter-type-div .filter-type-btn.active {
+    background: #1f292e;
+    font-weight: bold;
+    opacity:1;
+    color:white;
+}
+
+.main-div .main-filter-div .filter-type-div #filter-type-button,
+.main-div .main-filter-div .filter-rhu-div #filter-rhu-button{
+    width: 170px;
+    border:none;
+    outline:none;
+    background: #198754;
+    border-radius: 5px;
+    color:white;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    padding:2px;
+    margin: 5px;
+    /* margin-left:2%; */
+}
+
+.main-div .main-filter-div .filter-date-div label{
+    font-size: 1rem;
     margin-left:2%;
     color:#1f292e;
     font-weight: 600;
 }
 
-.main-div .main-filter-div div{
+.main-div .main-filter-div .filter-date-div div{
     display:flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width:90%;
-
+    width:80%;
 }
 
-.main-div .main-filter-div div label input{
-    width: 150px;
+.main-div .main-filter-div .filter-date-div div label input{
+    width: 120px;
     outline: none;
     background: white;
-    font-size: 1.2rem;
+    font-size: 1rem;
     text-align: center;
     border:none;
     background: transparent;
@@ -377,7 +461,7 @@ header .header-username-div .username-caret-div i{
 }
 
 
-.main-div .main-filter-div #filter-date-btn{
+.main-div .main-filter-div .filter-date-div #filter-date-btn{
     width: 70px;
     height: 30px;
     border:none;
@@ -390,135 +474,27 @@ header .header-username-div .username-caret-div i{
     margin-left:2%;
 }
 
-.main-div .main-filter-div #filter-date-btn:hover{
+.main-div .main-filter-div .filter-date-div #filter-date-btn:hover{
     background: #146c43;
 }
 
-.main-div .icd-main-div{
-    width: 95%;
-    height: 50%;
-    margin-left: 3%;
-    margin-top: 2%;
-    display:flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-.main-div .icd-main-div .icd-sub-main-div{
-    display:flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-
-    width: 50%;
+.main-div .icd-dashboard{
+    width: 100%;
     height: 100%;
-    border: 1px solid #c4cfd4;
-    border-radius: 10px;
-}
-
-.main-div .icd-main-div .icd-sub-main-div span{
-    width: 100%;
-    text-align: center;
-    font-weight: bold;
-    margin-left:10px;
-    font-size: 0.8rem;
-}
-
-.main-div .icd-main-div .icd-sub-main-div .icd-input-main-div{
-    width: 100%;
-    height: auto;
-    display: flex; 
-    flex-wrap: wrap;
-    /* gap:5px; */
+    display:flex;
     flex-direction: row;
     justify-content: space-evenly;
-    align-items: center;
-
+    align-items: start;
 }
 
-.main-div .icd-main-div .icd-sub-main-div .icd-input-main-div div{
+.main-div .icd-dashboard .icd-chart-container{
     width: 45%;
-    height: 30px;
-    display:flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+    border:1px solid red;
 }
 
-.main-div .icd-main-div .icd-sub-main-div .icd-input-main-div div label{
-    height: 100%;
-    width: 20%;
-    background: #b0bec5;
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-}
-
-.main-div .icd-main-div .icd-sub-main-div .icd-input-main-div div label i {
-    font-size: 1rem;
-    color:white;
-}
-
-.main-div .icd-main-div .icd-sub-main-div .icd-input-main-div div input{
-    outline: none;
-    border: 1px solid #c4cfd4;
-    width: 80%;
-    height: 100%;
-    text-align: center;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    font-size: 0.8rem;
-}
-
-.main-div .icd-main-div .icd-sub-main-div .icd-input-main-div .icd-11{
-    display:none;
-}
-
-.main-div .icd-main-div .icd-sub-main-div select{
-    width: 95%;
-    height: 80px;
-    border-radius: 5px;
-    outline: none;
-    border: 1px solid #c4cfd4;
-    cursor: pointer;
-    display:none;
-    margin-top:5px;
-
-    font-size: 0.8rem;
-}
-
-.main-div .icd-main-div #total-icd-div{
-    width: 12%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-left: 2%;
-    background: #1f292e;
-    color:#1f292e;
-    border-radius: 15px;
-
-    margin: 10px;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.main-div .icd-main-div #total-icd-div label{
-    font-size: 1.2rem;
-    font-weight:600;
-}
-
-.main-div .icd-main-div #total-icd-div #total-icd-label{
-    font-size: 2.5rem;
+.main-div .icd-dashboard .icd-table-container{
+    width: 45%;
+    height: 100% !important;
 }
 
 .main-div .main-turnaround-div{
@@ -556,9 +532,6 @@ header .header-username-div .username-caret-div i{
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.main-div .main-turnaround-div div #average-interdept-approve-lbl{
-    text-align: center;
-}
 
 .main-div .main-turnaround-div div label:nth-child(1){
     font-weight: 600;
@@ -579,9 +552,10 @@ header .header-username-div .username-caret-div i{
     height: 30%;
     margin-left: 3%;
     margin-top: 2%;
+    
 }
 
-.main-div .main-graph-div div{
+.main-div .main-graph-div .main-graph-sub-div{
     width: 30%;
     height: 100%;
     display:flex;
@@ -596,10 +570,9 @@ header .header-username-div .username-caret-div i{
     border-radius: 8px;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-
 }
 
-.main-div .main-graph-div div label{
+.main-div .main-graph-div .main-graph-sub-div label{
     font-weight: 600;
     width:200px;
     text-align: center;
@@ -610,16 +583,16 @@ header .header-username-div .username-caret-div i{
     border-radius: 10px;
 }
 
-.main-div .main-graph-div div canvas{
+.main-div .main-graph-div .main-graph-sub-div .canva-class{
     width:100% !important;
-    height:80% !important;
+    height:100% !important;
     margin-top:10px;
     /* height: 210px !important; */
     /* margin-bottom:3px; */
 }
 
 .main-div .main-data-div{
-    width: 100%;
+    width: 90%;
     height: auto !important;
     margin-top: 2%;
     display:flex;
@@ -631,18 +604,29 @@ header .header-username-div .username-caret-div i{
 
 .main-div .main-data-div table{
     border: 2px solid #1f292e;
-    width: 95%;
     height: 100%;
     border-collapse: collapse;
     text-align: center;
+    width: 90%;
+    /* table-layout: fixed; */
 }
 
 .main-div .main-data-div table thead{
     width: 100%;
 }
 
+.main-div .main-data-div table thead .thead-tr-main{
+    background: #1f292e;
+    color:white;
+}
+
 .main-div .main-data-div table thead tr th{
     border: 2px solid #0a0e0f;
+    text-align: center;
+}
+
+.main-div .main-data-div table thead tr:nth-child(2) th{
+    font-size: 0.8rem;
 }
 
 .main-div .main-data-div table thead tr .pat-class{
@@ -654,6 +638,15 @@ header .header-username-div .username-caret-div i{
     font-weight: bold;
     font-size: 10pt;
 } 
+
+.main-div .main-data-div table tbody tr td{
+    border:1px solid #1f292e;
+}
+
+.main-div .main-data-div table tbody tr td:nth-child(1){
+    max-width: 50px;
+    text-wrap: wrap;
+}
 
 .modal-content,
 #myModal-prompt .modal-content{

@@ -1,8 +1,4 @@
 <?php
-    // ini_set('session.save_path', 'C:/Web/eSDN/session_path');
-    // echo __DIR__ . "/session_path"; 
-
-    
     ini_set('session.gc_probability', 0);
     session_start();
     include('../database/connection2.php');
@@ -117,9 +113,9 @@
     // $stmt = $pdo->prepare($sql);
     // $stmt->execute();
 
-    $sql = "UPDATE incoming_referrals SET status='Pending', reception_time=null, final_progressed_timer=null, approved_time=null, approval_details=null, status_interdept=null, sent_interdept_time=null, last_update=null, pat_class=null, isLocked=null, dateLocked=null, whoLocked=null, processed_by=null WHERE hpercode='PAT000050'";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute();
+    // $sql = "UPDATE incoming_referrals SET status='Pending', reception_time=null, final_progressed_timer=null, approved_time=null, approval_details=null, status_interdept=null, sent_interdept_time=null, last_update=null, pat_class=null, isLocked=null, dateLocked=null, whoLocked=null, processed_by=null WHERE hpercode='PAT000050'";
+    // $stmt = $pdo->prepare($sql);
+    // $stmt->execute();
 
     // $sql = "UPDATE hperson SET status='Pending' WHERE hpercode='PAT000015'"; 
     // $stmt = $pdo->prepare($sql);
@@ -133,7 +129,7 @@
     // $stmt = $pdo->prepare($sql);
     // $stmt->execute();
 
-    // $sql = "UPDATE incoming_referrals SET status='Pending', reception_time=null, final_progressed_timer=null, approved_time=null, approval_details=null, status_interdept=null, sent_interdept_time=null, last_update=null, pat_class=null WHERE hpercode='PAT000034'";
+    // $sql = "UPDATE incoming_referrals SET status='Pending', reception_time=null, final_progressed_timer=null, approved_time=null, approval_details=null, status_interdept=null, sent_interdept_time=null, last_update=null, pat_class=null WHERE hpercode='PAT000041'";
     // $stmt = $pdo->prepare($sql);
     // $stmt->execute();
 
