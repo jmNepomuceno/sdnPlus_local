@@ -8,7 +8,7 @@ $(document).ready(function(){
     setTimeout(() => {
         $('#incoming-middle-name-search').val("");
     }, 500); // 100ms delay is usually enough
-
+    console.log(jsonData)
     // let last_modified_arr = []
     // for(let elem of jsonData){
     //     last_modified_arr.push({last_modified : elem.last_modified})
@@ -383,6 +383,7 @@ $(document).ready(function(){
     const ajax_method = (index, event) => {
         // console.log(341, index)
         // console.log("ajax_method...")
+
         global_index = index
 
         if(global_paging > 1 && global_paging <= 2){
@@ -405,7 +406,6 @@ $(document).ready(function(){
             data:data,
             dataType:'JSON',
             success: function(response){
-
                 $.ajax({
                     url: '../SDN/check_record_lock.php',
                     method: "POST", 
@@ -415,7 +415,7 @@ $(document).ready(function(){
                     },
                     dataType: "JSON",
                     success: function(response_data){
-                        // console.log(response_data)
+                        console.log(response_data)
                         // if(response_data.whoLocked){
                         if(response_data.whoLocked && document.querySelectorAll('.pat-status-incoming')[index].textContent == 'Pending'){
                             $('#modal-title-incoming').text('Warning')
@@ -2024,6 +2024,24 @@ $(document).ready(function(){
         } else {
             $btn.text("More Details");
         }
+    });
+
+    $(document).on('click', '.delete-duplicate-btn', function () {
+        let referralId = $(this).data('referral_id');
+        console.log(referralId);
+
+        $.ajax({
+            url: '../SDN/delete_duplicate.php',
+            method: "POST", 
+            data:{
+                referralId
+            },
+            // dataType : 'json',
+            success: function(response){
+                dataTable.clear();
+                dataTable.rows.add($(response)).draw();
+            }
+        })
     });
 
 

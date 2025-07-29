@@ -129,15 +129,19 @@
     // $stmt = $pdo->prepare($sql);
     // $stmt->execute();
 
-    // $sql = "UPDATE incoming_referrals SET status='Pending', reception_time=null, final_progressed_timer=null, approved_time=null, approval_details=null, status_interdept=null, sent_interdept_time=null, last_update=null, pat_class=null WHERE hpercode='PAT000041'";
+    // $sql = "UPDATE incoming_referrals SET status='Pending', reception_time=null, final_progressed_timer=null, approved_time=null, approval_details=null, status_interdept=null, sent_interdept_time=null, last_update=null, pat_class=null WHERE hpercode='PAT000052'";
     // $stmt = $pdo->prepare($sql);
     // $stmt->execute();
 
-    // $sql = "DELETE FROM incoming_referrals WHERE hpercode='PAT000031'";
+    // $sql = "UPDATE incoming_referrals SET status='Pending', reception_time=null, final_progressed_timer=null, approved_time=null, approval_details=null, status_interdept=null, sent_interdept_time=null, last_update=null, pat_class=null WHERE hpercode='PAT000053'";
     // $stmt = $pdo->prepare($sql);
     // $stmt->execute();
 
-    // $sql = "UPDATE hperson SET status=null, referral_id=null, type=null WHERE hpercode='PAT000031'";
+    // $sql = "DELETE FROM incoming_referrals WHERE hpercode='PAT000054'";
+    // $stmt = $pdo->prepare($sql);
+    // $stmt->execute();
+
+    // $sql = "UPDATE hperson SET status=null, referral_id=null, type=null WHERE hpercode='PAT000052'";
     // $stmt = $pdo->prepare($sql);
     // $stmt->execute();
 
@@ -372,6 +376,7 @@
                             $previous = 0;
                             $loop = 0;
                             // Loop through the data and generate table rows
+                            $hpercodeCounts = array_count_values(array_column($data, 'hpercode'));
                             foreach ($data as $row) {
                                 $type_color = $dynamic_classification[$row['type']];
                                 if($previous == 0){
@@ -593,8 +598,13 @@
                                             </div>
                                         </td>
                                         <td colspan="8" id="dt-action">
-                                            <button type="button" class="btn btn-secondary toggle-contact-btn">More Details</button>
-                                        </td>
+                                                <button type="button" class="btn btn-secondary toggle-contact-btn">More Details</button>';
+
+                                                if ($hpercodeCounts[$row['hpercode']] > 1) {
+                                                    echo '<button type="button" class="btn btn-danger delete-duplicate-btn" data-referral_id="' . $row['referral_id'] . '">Delete Duplicate</button>';
+                                                }
+
+                                        echo '</td>
                                     </tr>';
 
                                 $previous = $row['reference_num'];

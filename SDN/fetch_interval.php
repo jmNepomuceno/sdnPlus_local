@@ -113,6 +113,7 @@
             $previous = 0;
             $loop = 0;
             // Loop through the data and generate table rows
+            $hpercodeCounts = array_count_values(array_column($data, 'hpercode'));
             foreach ($data as $row) {
                 $type_color = $dynamic_classification[$row['type']];
                 if($previous == 0){
@@ -339,8 +340,13 @@
                             </div>
                         </td>
                         <td colspan="8" id="dt-action">
-                            <button type="button" class="btn btn-secondary toggle-contact-btn">More Details</button>
-                        </td>
+                                <button type="button" class="btn btn-secondary toggle-contact-btn">More Details</button>';
+
+                                if ($hpercodeCounts[$row['hpercode']] > 1) {
+                                    echo '<button type="button" class="btn btn-danger delete-duplicate-btn" data-referral_id="' . $row['referral_id'] . '">Delete Duplicate</button>';
+                                }
+
+                        echo '</td>
                     </tr>';
 
             

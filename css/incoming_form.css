@@ -448,6 +448,15 @@
     max-width: 800px
 } */
 
+
+.incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-action{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap:10px;
+
+}
 .incoming-container .incoming-table #incoming-tbody .tr-incoming #dt-action button{
     font-size: 0.7rem;
 }

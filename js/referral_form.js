@@ -136,29 +136,48 @@ $(document).ready(function(){
 
 
             if (areAllValuesFilled(data)) {
+            // if (true) {
                 data['parent_guardian'] = $('#parent-guard-input').val() ? $('#parent-guard-input').val() : "N/A"
                 $.ajax({
                     url: '../SDN/add_referral_form.php',
                     method: "POST",
                     data:data,
                     success: function(response){
-                        // response = JSON.parse(response); 
-
-                        $('#modal-title').text('Successed')
-                        $('#modal-icon').removeClass('fa-triangle-exclamation')
-                        $('#modal-icon').addClass('fa-circle-check')
-                        $('#modal-body').text('Successfully Referred')
-    
-                        $('#yes-modal-btn').css('display' , 'none')
-                        $('#ok-modal-btn').text('OK')
-                        // $('#myModal').modal('show');
+                        console.log(response)
+                        if(response === 'valid'){
+                            $('#modal-title').text('Successed')
+                            $('#modal-icon').removeClass('fa-triangle-exclamation')
+                            $('#modal-icon').addClass('fa-circle-check')
+                            $('#modal-body').text('Successfully Referred')
+        
+                            $('#yes-modal-btn').css('display' , 'none')
+                            $('#ok-modal-btn').text('OK')
+                            // $('#myModal').modal('show');
+                            
+                            
+                            $('#ok-modal-btn').on('click' , function(event){
+                                if($('#ok-modal-btn').text() == 'OK'){
+                                    loadContent('../SDN/default_view2.php')
+                                }
+                            })
+                        }else{
+                            $('#modal-title').text('Error')
+                            $('#modal-icon').removeClass('fa-triangle-exclamation')
+                            $('#modal-icon').addClass('fa-circle-warning')
+                            $('#modal-body').text('Patient is already referred.')
+        
+                            $('#yes-modal-btn').css('display' , 'none')
+                            $('#ok-modal-btn').text('OK')
+                            // $('#myModal').modal('show');
+                            
+                            
+                            $('#ok-modal-btn').on('click' , function(event){
+                                if($('#ok-modal-btn').text() == 'OK'){
+                                    loadContent('../SDN/default_view2.php')
+                                }
+                            })
+                        }
                         
-                        
-                        $('#ok-modal-btn').on('click' , function(event){
-                            if($('#ok-modal-btn').text() == 'OK'){
-                                loadContent('../SDN/default_view2.php')
-                            }
-                        })
                     }
                 })
             } else {
