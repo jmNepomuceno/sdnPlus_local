@@ -375,8 +375,9 @@ header .header-username-div .username-caret-div i{
     height: 100%;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+    align-items: space-between;
     border-radius: 5px;
     padding:5px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
@@ -489,7 +490,6 @@ header .header-username-div .username-caret-div i{
 
 .main-div .icd-dashboard .icd-chart-container{
     width: 45%;
-    border:1px solid red;
 }
 
 .main-div .icd-dashboard .icd-table-container{
@@ -623,10 +623,11 @@ header .header-username-div .username-caret-div i{
 .main-div .main-data-div table thead tr th{
     border: 2px solid #0a0e0f;
     text-align: center;
+    font-size: 0.7rem;
 }
 
 .main-div .main-data-div table thead tr:nth-child(2) th{
-    font-size: 0.8rem;
+    font-size: 0.7rem;
 }
 
 .main-div .main-data-div table thead tr .pat-class{
@@ -637,11 +638,13 @@ header .header-username-div .username-caret-div i{
 .main-div .main-data-div table thead tr label{
     font-weight: bold;
     font-size: 10pt;
+
 } 
 
 .main-div .main-data-div table tbody tr td{
     border:1px solid #1f292e;
 }
+
 
 .main-div .main-data-div table tbody tr td:nth-child(1){
     max-width: 50px;
@@ -795,6 +798,80 @@ header .header-username-div .username-caret-div i{
         height:70% !important;
         margin-top:10px;
     }
+
+    .main-div .main-filter-div .filter-date-div label{
+        font-size: 0.8rem;
+    }
+
+    .main-div .main-filter-div .filter-date-div div label input{
+        width: 100px;
+        font-size: 0.8rem;
+    }
+
+    .main-div .main-filter-div .filter-date-div #filter-date-btn{
+        width: auto;
+        height: auto;
+        padding:2px 5px 2px 5px;
+    }
+
+    .main-div .main-filter-div .filter-date-div #filter-date-btn:hover{
+        background: #146c43;
+    }
+
+    .main-div .main-filter-div .filter-date-div{
+        width: 32%;
+    }
+
+    .main-div .main-filter-div .filter-rhu-div{
+        width: 32%;
+    }
+
+    .main-div .main-filter-div .filter-type-div{
+        width: 40%;
+    }
+
+    .main-div .main-filter-div .filter-type-div #filter-type-button{
+        font-size: 0.9rem;
+        padding:2px 5px 2px 5px;
+    }
+
+    
+    .main-div .main-filter-div .filter-type-div .filter-type-btn{
+        font-size: 0.7rem;
+    }
+
+
+
+    .main-div .main-filter-div .filter-rhu-div #filter-rhu-button{
+        width: 120px;
+        font-size: 0.9rem;
+    }
+
+    .main-div .main-filter-div .filter-rhu-div #refer-to-select{
+        font-size: 0.8rem;
+    }
+
+    
+    /* .main-div .main-data-div{
+        width: 70%;
+        height: auto !important;
+        margin-top: 2%;
+        display:flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: top;
+        margin-bottom: 50px !important;
+
+        border:1px solid red;
+    } */
+
+    .main-div .main-data-div table thead tr th{
+        font-size: 0.8rem;
+    }
+
+    .main-div .main-data-div table thead tr:nth-child(2) th{
+        font-size: 0.5rem;
+    }
 }
 
 @media only screen and (max-width: 480px){  
@@ -924,6 +1001,7 @@ header .header-username-div .username-caret-div i{
         overflow: auto;
         margin-bottom: 20px;
         font-size: 0.7rem;
+
     }
 
     .main-div .icd-main-div{

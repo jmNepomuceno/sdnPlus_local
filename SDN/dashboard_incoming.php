@@ -125,6 +125,7 @@
                     <button class="filter-type-btn" id="toxicology-filter-type-btn" data-type="Toxicology">TOX</button>
                     <button class="filter-type-btn" id="pcr-filter-type-btn" data-type="PCR">PCR</button>
                     <button class="filter-type-btn" id="cancer-filter-type-btn" data-type="CANCER">CANCER</button>
+                    <button class="filter-type-btn" id="nbscc-filter-type-btn" data-type="NBSCC">NBSCC</button>
                 </div>
 
                 <div class="filter-rhu-div">
@@ -217,9 +218,11 @@
                             <th colspan="3">Toxicology</th>
                             <th colspan="3">Cancer</th>
                             <th colspan="3">OPD</th>
+                            <th colspan="3">NBSCC</th>
                             <th rowspan="2">Total</th>
                         </tr>
                         <tr>
+                            <th>Primary</th><th>Secondary</th><th>Tertiary</th>
                             <th>Primary</th><th>Secondary</th><th>Tertiary</th>
                             <th>Primary</th><th>Secondary</th><th>Tertiary</th>
                             <th>Primary</th><th>Secondary</th><th>Tertiary</th>

@@ -3,12 +3,10 @@ let allData = []
 function populateDashboard(data) {
     const { fromDate, toDate, caseType, referredBy } = getFilters();
 
-    console.log(fromDate, toDate)
-    
     const processed = data.filter(d => {
         if (d.status !== 'Approved') return false;
 
-        const referralDate = d.date_time.substring(0, 10); // extract YYYY-MM-DD
+        const referralDate = d.date_time.substring(0, 10);
         if (fromDate && referralDate < fromDate) return false;
         if (toDate && referralDate > toDate) return false;
         if (caseType && d.type !== caseType) return false;
@@ -17,7 +15,7 @@ function populateDashboard(data) {
         return true;
     });
 
-    console.log(processed)
+    console.log(processed);
 
     const totalProcessed = processed.length;
 
@@ -28,27 +26,25 @@ function populateDashboard(data) {
         return (e - s) / 1000; // seconds
     };
 
-    const receptionTimes = [];
-    const sdnApprovalTimes = [];
-    const approvalTimes = [];
+    const receptionTimes = [];     // date_time → reception_time
+    const approvalTimes = [];      // reception_time → approved_time
 
     processed.forEach(d => {
         const recTime = toSeconds(d.date_time, d.reception_time);
-        const sdnTime = toSeconds(d.reception_time, d.approved_time);
-        const appTime = toSeconds(d.date_time, d.approved_time);
+        const approvalTime = toSeconds(d.reception_time, d.approved_time);
 
-        if (recTime) receptionTimes.push(recTime);
-        if (sdnTime) sdnApprovalTimes.push(sdnTime);
-        if (appTime) approvalTimes.push(appTime);
+        if (recTime != null) receptionTimes.push(recTime);
+        if (approvalTime != null) approvalTimes.push(approvalTime);
     });
+
+    console.log(approvalTimes);
 
     const avg = arr => arr.length ? (arr.reduce((a, b) => a + b, 0) / arr.length) : 0;
     const min = arr => arr.length ? Math.min(...arr) : 0;
     const max = arr => arr.length ? Math.max(...arr) : 0;
-
+    console.log(approvalTimes)
     $('#total-processed-refer').text(totalProcessed);
     $('#average-reception-id').text(formatTimeToMMSS(avg(receptionTimes)));
-    $('#average-sdn-approve-id').text(formatTimeToMMSS(avg(sdnApprovalTimes)));
     $('#average-approve-id').text(formatTimeToMMSS(avg(approvalTimes)));
     $('#fastest-id').text(formatTimeToMMSS(min(approvalTimes)));
     $('#slowest-id').text(formatTimeToMMSS(max(approvalTimes)));
@@ -58,15 +54,16 @@ function populateDashboard(data) {
     render3DPieChart(aggregate(processed, 'referred_by'), 'myChart-3');
 
     const aggregated = buildRHUStats(processed);
-    console.log(aggregated)
+    console.log(aggregated);
     const dataSet = buildDataSet(aggregated);
-    console.log(dataSet)
+    console.log(dataSet);
     renderRHUSummaryTable(dataSet);
 
     const icdArray = buildICDAggregate(processed);
     renderICDTable(icdArray);
     renderICDChart(icdArray);
 }
+
 
 function dashboard_data_onLoad() {
     const fromDate = $('#from-date-inp').val();  // may be empty
@@ -244,7 +241,7 @@ function buildDataSet(aggregated) {
         let total = 0;
         const row = [`<span>${facility}</span>`];
 
-        const sections = ['ER', 'OB', 'PCR', 'Toxicology', 'Cancer', 'OPD'];
+        const sections = ['ER', 'OB', 'PCR', 'Toxicology', 'Cancer', 'OPD', 'NBSCC'];
         const classes = ['Primary', 'Secondary', 'Tertiary'];
 
         sections.forEach(section => {
@@ -280,6 +277,7 @@ function renderRHUSummaryTable(dataSet) {
         data: dataSet,
         columns: [
             { title: "Referring Health Facility" },
+            { title: "Primary" }, { title: "Secondary" }, { title: "Tertiary" },
             { title: "Primary" }, { title: "Secondary" }, { title: "Tertiary" },
             { title: "Primary" }, { title: "Secondary" }, { title: "Tertiary" },
             { title: "Primary" }, { title: "Secondary" }, { title: "Tertiary" },
@@ -409,11 +407,6 @@ $(document).ready(function(){
 
         $.ajax({
             url: '../SDN/logout.php',
-            data : {
-                what: 'save',
-                date : final_date,
-                sub_what: 'logout'
-            },                        
             method: "POST",
             success: function(response) {
                 // response = JSON.parse(response);

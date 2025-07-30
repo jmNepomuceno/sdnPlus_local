@@ -124,7 +124,6 @@ $(document).ready(function() {
     const concernModal = new bootstrap.Modal(document.getElementById('concernModal'));
     const surveyModal = new bootstrap.Modal(document.getElementById('surveyModal'));
     const mssSettingModal = new bootstrap.Modal(document.getElementById('mss-setting-modal'));
-    
     const carousel = document.getElementById('tutorial-carousel');
 
     if(running_bool === "true" || running_bool === true){

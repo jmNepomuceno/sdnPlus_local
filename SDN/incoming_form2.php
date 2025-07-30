@@ -141,7 +141,7 @@
     // $stmt = $pdo->prepare($sql);
     // $stmt->execute();
 
-    // $sql = "UPDATE hperson SET status=null, referral_id=null, type=null WHERE hpercode='PAT000052'";
+    // $sql = "UPDATE hperson SET status=null, referral_id=null, type=null WHERE hpercode='PAT000054'";
     // $stmt = $pdo->prepare($sql);
     // $stmt->execute();
 

@@ -6,36 +6,36 @@
 
     $code = $_POST['code'];
 
-    // $sql = "SELECT referral_id FROM hperson WHERE hpercode = ?";
-    // $stmt = $pdo->prepare($sql);
-    // $stmt->execute([$code]);
-    // $rowsJson = $stmt->fetch(PDO::FETCH_COLUMN);
+    $sql = "SELECT referral_id FROM hperson WHERE hpercode = ?";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$code]);
+    $rowsJson = $stmt->fetch(PDO::FETCH_COLUMN);
 
-    // // Safe fallback for new patients
-    // $lastReferral = null;
+    // Safe fallback for new patients
+    $lastReferral = null;
 
-    // // Proceed only if $rowsJson is a valid JSON array string
-    // if (!empty($rowsJson)) {
-    //     $rows = json_decode($rowsJson, true);
+    // Proceed only if $rowsJson is a valid JSON array string
+    if (!empty($rowsJson)) {
+        $rows = json_decode($rowsJson, true);
         
-    //     // Make sure it decoded to a proper array
-    //     if (is_array($rows) && !empty($rows)) {
-    //         $lastReferral = end($rows);
-    //     }
-    // }
+        // Make sure it decoded to a proper array
+        if (is_array($rows) && !empty($rows)) {
+            $lastReferral = end($rows);
+        }
+    }
 
-    // // If there's a last referral, check its status
-    // if ($lastReferral !== null) {
-    //     $sql = "SELECT status FROM incoming_referrals WHERE referral_id = ?";
-    //     $stmt = $pdo->prepare($sql);
-    //     $stmt->execute([$lastReferral]);
-    //     $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    // If there's a last referral, check its status
+    if ($lastReferral !== null) {
+        $sql = "SELECT status FROM incoming_referrals WHERE referral_id = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$lastReferral]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    //     if ($result && ($result['status'] === 'Pending' || $result['status'] === 'On-Process')) {
-    //         echo "not valid"; // duplicate not allowed
-    //         exit;
-    //     }
-    // }
+        if ($result && ($result['status'] === 'Pending' || $result['status'] === 'On-Process')) {
+            echo "not valid"; // duplicate not allowed
+            exit;
+        }
+    }
 
 
 
